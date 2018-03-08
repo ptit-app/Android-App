@@ -1,0 +1,15 @@
+﻿Hướng dẫn tham gia và làm việc trên github:
+- THAM GIA:
+1. Các bạn nên download một ứng dụng để làm việc với repository (vd như Android-App này) như SourceTree(https://www.sourcetreeapp.com/), 
+GithubDesktop(https://desktop.github.com/), Gitkraken(https://www.gitkraken.com/), TortoiseGit(https://tortoisegit.org/), 
+Abstract(https://app.goabstract.com/download hình như cho Mac),...
+2. Sau khi download và setup các bạn lên trang git cần clone ở đây là https://github.com/jakenguyen1206/Android-App để clone project
+về (Click clone or download copy đường link đó vào app của các bạn).
+
+
+- LÀM VIỆC:
+1. Mỗi khi làm việc gì đó nên từ nhánh master tạo 1 branch mới đặt tên theo cấu trúc và thứ tự folder định sẵn bởi quản lý;
+Theo như tạm thống nhất các bạn đặt tên nhánh theo cú pháp: "tênbạn"/"tên_công_việc"
+(với tên bạn là tên ngắn của bạn và tên công việc là chuyện bạn sẽ làm) VD: Tam/Create_layout_for_user_login
+2. Sau khi làm xong trên nhánh (vì ít người nên có thể chỉ 1 người làm trên 1 nhánh) thì tạo pull request để quản lý duyệt và merge code
+vào nhánh chính master add nhóm trưởng làm reviewer (nếu có gì thắc mắc thì add mình cũng được-emilioanh)
