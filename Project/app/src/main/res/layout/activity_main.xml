@@ -31,7 +31,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
-                android:text="PTIT APP"
+                android:text="@string/app_name"
                 android:gravity="center"
                 android:textSize="20dp"/>
 
@@ -96,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:text="Thông tin cá nhân"
+                    android:text="@string/user_info"
                     android:gravity="center"
                     android:textSize="20dp"
                     />

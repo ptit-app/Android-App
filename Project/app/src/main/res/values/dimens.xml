@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin_left"></dimen>
+    <dimen name="activity_horizontal_margin_right"></dimen>
+    <dimen name="activity_horizontal_margin_top"></dimen>
+    <dimen name="activity_horizontal_margin_bottom"></dimen>
+
+    <dimen name="activity_horizontal_padding_left"></dimen>
+    <dimen name="activity_horizontal_padding_right"></dimen>
+    <dimen name="activity_horizontal_padding_top"></dimen>
+    <dimen name="activity_horizontal_padding_bottom"></dimen>
+
+    <dimen name="activity_vertical_margin_left"></dimen>
+    <dimen name="activity_vertical_margin_right"></dimen>
+    <dimen name="activity_vertical_margin_top"></dimen>
+    <dimen name="activity_vertical_margin_bottom"></dimen>
+
+    <dimen name="activity_vertical_padding_left"></dimen>
+    <dimen name="activity_vertical_padding_right"></dimen>
+    <dimen name="activity_vertical_padding_top"></dimen>
+    <dimen name="activity_vertical_padding_bottom"></dimen>
+</resources>
+
