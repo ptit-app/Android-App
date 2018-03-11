@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">PTIT App</string>
-    <string name="user_info">Thông tin cá nhân</string>
+    <string name="user_info">Đăng nhập</string>
 </resources>
