@@ -24,6 +24,8 @@ public class News {
         this.title = title;
         this.content = content;
         this.featureImageId = R.drawable.user_avatar;
+        this.createdAt = new Date();
+        this.modifiedAt = new Date();
     }
 
     public News(String title, String content, User author, int featureImageId, Date createdAt, Date modifiedAt) {
