@@ -16,15 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- <activity android:name=".CalendarView"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-        <!-- </intent-filter> -->
-        <!-- </activity> -->
-        <activity android:name=".NewsActivity"></activity>
+        <activity android:name=".CalendarView">
+        </activity>
+        <activity android:name=".NewsActivity">
+        </activity>
     </application>
 
 </manifest>
