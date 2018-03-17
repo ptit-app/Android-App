@@ -19,5 +19,12 @@
     <dimen name="activity_vertical_padding_right"></dimen>
     <dimen name="activity_vertical_padding_top"></dimen>
     <dimen name="activity_vertical_padding_bottom"></dimen>
+
+    <dimen name="default_paragraph_title_space">5dp</dimen>
+    <dimen name="default_items_listview_padding">10dp</dimen>
+
+    <dimen name="default_news_items_listview_height">120dp</dimen>
+
+    <dimen name="default_title_font_size">20dp</dimen>
 </resources>
 
