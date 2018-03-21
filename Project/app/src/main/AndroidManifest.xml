@@ -18,8 +18,18 @@
             </intent-filter>
         </activity>
         <activity android:name=".CalendarView">
+            <intent-filter>
+                    <action android:name="android.intent.action.CALENDAR" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".NewsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.NEWS" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
