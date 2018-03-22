@@ -7,12 +7,12 @@ package ptit.ntnt.ptitapp.Models;
 public class UserGroup {
     private String name;
     private String shortDescription;
-    private String permission[];
+    private String permission;
 
     public UserGroup() {
     }
 
-    public UserGroup(String name, String shortDescription, String[] permission) {
+    public UserGroup(String name, String shortDescription, String permission) {
         this.name = name;
         this.shortDescription = shortDescription;
         this.permission = permission;
@@ -22,11 +22,26 @@ public class UserGroup {
         return name;
     }
 
+    public UserGroup setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     public String getShortDescription() {
         return shortDescription;
     }
 
-    public String[] getPermission() {
+    public UserGroup setShortDescription(String shortDescription) {
+        this.shortDescription = shortDescription;
+        return this;
+    }
+
+    public String getPermission() {
         return permission;
+    }
+
+    public UserGroup setPermission(String permission) {
+        this.permission = permission;
+        return this;
     }
 }

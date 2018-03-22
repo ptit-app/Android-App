@@ -9,9 +9,10 @@ import ptit.ntnt.ptitapp.R;
  */
 
 public class News {
+    private String id;
     private String title;
     private String content;
-    private User author;
+    private String authorId;
     private int featureImageId;
     private Date createdAt;
     private Date modifiedAt;
@@ -20,52 +21,28 @@ public class News {
     public News() {
     }
 
-    public News(String title, String content) {
-        this.title = title;
-        this.content = content;
-        this.featureImageId = R.drawable.user_avatar;
-        this.createdAt = new Date();
-        this.modifiedAt = new Date();
-    }
-
-    public News(String title, String content, User author, int featureImageId, Date createdAt, Date modifiedAt) {
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.featureImageId = featureImageId;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
-    }
-
-    public News(String title, String content, User author, int featureImageId) {
-        this.title = title;
-        this.content = content;
-        this.author = author;
-        this.featureImageId = featureImageId;
-        this.createdAt = new Date();
-        this.modifiedAt = new Date();
-    }
-
     void UpdateModifyTime(){
         this.modifiedAt = new Date();
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-        UpdateModifyTime();
-    }
-
     public String getContent() {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-        UpdateModifyTime();
+    public String getAuthor() {
+        return authorId;
+    }
+
+    public int getFeatureImageId() {
+        return featureImageId;
     }
 
     public Date getCreatedAt() {
@@ -76,21 +53,45 @@ public class News {
         return modifiedAt;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
+    public News setId(String id) {
+        this.id = id;
         UpdateModifyTime();
+        return this;
     }
 
-    public int getFeatureImageId() {
-        return featureImageId;
+    public News setTitle(String title) {
+        this.title = title;
+        UpdateModifyTime();
+        return this;
     }
 
-    public void setFeatureImageId(int featureImageId) {
+    public News setContent(String content) {
+        this.content = content;
+        UpdateModifyTime();
+        return this;
+    }
+
+    public News setAuthor(String author) {
+        this.authorId = author;
+        UpdateModifyTime();
+        return this;
+    }
+
+    public News setFeatureImageId(int featureImageId) {
         this.featureImageId = featureImageId;
         UpdateModifyTime();
+        return this;
+    }
+
+    public News setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+        UpdateModifyTime();
+        return this;
+    }
+
+    public News setModifiedAt(Date modifiedAt) {
+        this.modifiedAt = modifiedAt;
+        UpdateModifyTime();
+        return this;
     }
 }
