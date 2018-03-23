@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.DrawerLayout android:layout_width="match_parent"
+<android.support.v4.widget.DrawerLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main_page">
@@ -29,6 +30,7 @@
                 />
 
             <TextView
+                android:id="@+id/main_page_title"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="4"
@@ -48,6 +50,7 @@
                 android:layout_marginBottom="5dp"
                 android:gravity="right">
                 <TextView
+                    android:id="@+id/bt_notify"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     android:textColor="#fff"
@@ -60,7 +63,19 @@
             </LinearLayout>
 
 
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:background="@drawable/border_bottom_1px_solid">
+
+            <android.support.design.widget.TabLayout
+                android:id="@+id/sliding_tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
         </LinearLayout>
 
@@ -71,6 +86,14 @@
             android:layout_weight="9"
             android:orientation="vertical">
 
+            <android.support.v4.view.ViewPager
+                android:id="@+id/main_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="5"
+                >
+
+            </android.support.v4.view.ViewPager>
 
         </LinearLayout>
 
@@ -157,7 +180,8 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:src="@drawable/setting_icon"/>
+                        android:src="@drawable/setting_icon"
+                        android:padding="4dp"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -166,7 +190,8 @@
                         android:textSize="20dp"
                         android:textAlignment="textStart"
                         android:gravity="center"
-                        android:paddingLeft="10dp"/>
+                        android:paddingLeft="10dp"
+                        tools:ignore="RtlCompat" />
 
                 </LinearLayout>
 
@@ -180,16 +205,18 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="3"
-                        android:src="@drawable/logout_icon"/>
+                        android:src="@drawable/logout_icon"
+                        android:padding="4dp"/>
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="7"
-                        android:text="Đăng Xuất"
+                        android:text="Thoát"
                         android:textSize="20dp"
                         android:textAlignment="textStart"
                         android:gravity="center"
-                        android:paddingLeft="10dp"/>
+                        android:paddingLeft="10dp"
+                        tools:ignore="RtlCompat" />
 
                 </LinearLayout>
 
