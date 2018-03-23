@@ -20,7 +20,7 @@ public class DBConst {
     }
 
     public static class TB_SUBJECT {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_SUBJECT (SUBJECT_ID TEXT NOT NULL, NAME TEXT NOT NULL, SO_TC INTEGER NOT NULL);";
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_SUBJECT (SUBJECT_ID TEXT PRIMARY KEY, NAME TEXT NOT NULL, SO_TC INTEGER NOT NULL);";
         public static final String DROP = "DROP TABLE IF EXISTS TB_SUBJECT ;";
 
         public static final String TB_NAME = "TB_SUBJECT";
@@ -29,8 +29,23 @@ public class DBConst {
         public static final String COL_SO_TC = "SO_TC";
     }
 
+    public static class TB_SCHEDULE {
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_SCHEDULE (SCHEDULE_ID TEXT PRIMARY KEY, COURSE_ID TEXT NOT NULL, TIET_BD INTEGER NOT NULL, ROOM TEXT NOT NULL, IS_THEORY TEXT NOT NULL, STUDY_DATE NUMERIC NOT NULL, NOTE TEXT NOT NULL" +
+                "FOREIGN KEY (COURSE_ID) REFERENCES " + TB_COURSE.TB_NAME+" (COURSE_ID);";
+        public static final String DROP = "DROP TABLE IF EXISTS TB_SCHEDULE ;";
+
+        public static final String TB_NAME = "TB_SCHEDULE";
+        public static final String COL_SCHEDULE_ID = "SCHEDULE_ID";
+        public static final String COL_COURSE_ID = "COURSE_ID";
+        public static final String COL_TIET_BD = "TIET_BD";
+        public static final String COL_ROOM = "ROOM";
+        public static final String COL_IS_THEORY = "IS_THEORY";
+        public static final String COL_STUDY_DATE = "STUDY_DATE";
+        public static final String COL_NOTE = "NOTE";
+    }
+
     public static class TB_STUDENT {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_STUDENT (STUDENT_ID TEXT NOT NULL,FULL_NAME TEXT NOT NULL, CLASS_CODE TEXT NOT NULL, PHONE TEXT NULL,EMAIL TEXT NOT NULL,NOTE NCHAR NULL,BIRTHDAY NUMERIC NOT NULL, CREATED_AT NUMERIC NOT NULL, MODIFIED_AT NUMERIC NOT NULL,USER_GROUP TEXT NOT NULL, FACULTY TEXT,"+
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_STUDENT (STUDENT_ID TEXT PRIMARY KEY,FULL_NAME TEXT NOT NULL, EMAIL TEXT NOT NULL, PHONE TEXT NULL, CLASS_CODE TEXT NOT NULL, BIRTHDAY NUMERIC NOT NULL, FACULTY TEXT NOT NULL,  CREATED_AT NUMERIC NOT NULL, MODIFIED_AT NUMERIC NOT NULL, LIST_COURSE TEXT NOT NULL, USER_GROUP TEXT NOT NULL,"+
                 "FOREIGN KEY (CLASS_CODE) REFERENCES " + TB_PTIT_CLASS.TB_NAME + "(CLASS_CODE)," +
                 "FOREIGN KEY (USER_GROUP) REFERENCES " + TB_USER_GROUP.TB_NAME + "(NAME));";
         public static final String DROP = "DROP TABLE IF EXISTS TB_STUDENT ;";
@@ -45,10 +60,11 @@ public class DBConst {
         public static final String COL_MODIFIED_AT = "MODIFIED_AT";
         public static final String COL_FK_USER_GROUP = "USER_GROUP";
         public static final String COL_FACULTY = "FACULTY";
+        public static final String COL_PHONE = "PHONE";
     }
 
     public static class TB_COURSE {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_COURSE (COURSE_ID TEXT PRIMARY KEY, SUBJECT_ID TEXT NOT NULL, CLASS_CODE TEXT NOT NULL, STUDY_GROUP TEXT NOT NULL, TTH INTEGER NULL, DAY_OF_WEEK TEXT NULL, TIET_BD INTEGER NOT NULL, SO_TIET INTEGER NOT NULL, ROOM TEXT NULL, STUDY_TIME TEXT NULL, NOTE TEXT NULL,"+
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_COURSE (COURSE_ID TEXT PRIMARY KEY, SUBJECT_ID TEXT NOT NULL, CLASS_CODE TEXT NOT NULL, STUDY_GROUP TEXT NOT NULL, TTH INTEGER NULL, DAY_OF_WEEK TEXT NULL, TIET_BD INTEGER NOT NULL, SO_TIET INTEGER NOT NULL, ROOM TEXT NULL, STUDY_TIME TEXT NULL, START_DATE NUMERIC NOT NULL, END_DATE NUMERIC, NOTE TEXT NULL,"+
                 "FOREIGN KEY (CLASS_CODE) REFERENCES " + TB_PTIT_CLASS.TB_NAME + "(CLASS_CODE)," +
                 "FOREIGN KEY (SUBJECT_ID) REFERENCES " + TB_SUBJECT.TB_NAME + "(SUBJECT_ID));";
         public static final String DROP = "DROP TABLE IF EXISTS TB_COURSE ;";
@@ -65,6 +81,9 @@ public class DBConst {
         public static final String COL_ROOM = "ROOM";
         public static final String COL_STUDY_TIME = "STUDY_TIME";
         public static final String COL_NOTE = "NOTE";
+        public static final String COL_START_DATE = "START_DATE";
+        public static final String COL_END_DATE= "END_DATE";
+
     }
 
     public static class TB_MARK {
@@ -88,7 +107,7 @@ public class DBConst {
     }
 
     public static class TB_LECTURER {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_LECTURER (LECTURER_ID TEXT NOT NULL,FACULTY TEXT NOT NULL,RATING INTEGER NOT NULL,NAME TEXT NOT NULL,EMAIL TEXT NOT NULL,PHONE TEXT NULL,BIRTHDAY NUMERIC NOT NULL, CREATED_AT NUMERIC NULL, MODIFIED_AT NUMERIC NULL,USER_GROUP TEXT NULL,"+
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_LECTURER (LECTURER_ID TEXT NOT NULL, NAME TEXT NOT NULL,EMAIL TEXT NOT NULL,PHONE TEXT NULL,BIRTHDAY NUMERIC NOT NULL, FACULTY TEXT NOT NULL,RATING INTEGER NOT NULL, CREATED_AT NUMERIC NULL, MODIFIED_AT NUMERIC NULL,USER_GROUP TEXT NULL,"+
                 "FOREIGN KEY (USER_GROUP) REFERENCES " + TB_USER_GROUP.TB_NAME + "(USER_GROUP));";
         public static final String DROP = "DROP TABLE IF EXISTS TB_LECTURER ;";
 
@@ -126,6 +145,17 @@ public class DBConst {
         public static final String COL_FEATURE_IMAGE_ID = "FEATURE_IMAGE_ID";
         public static final String COL_CREATED_AT = "CREATED_AT";
         public static final String COL_MODIFIED_AT = "MODIFIED_AT";
+    }
+
+    public static class TB_ATTENDANCE {
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_ATTENDANCE (_ID TEXT PRIMARY KEY, ATTENDER_ID TEXT NOT NULL, COURSE_ID TEXT NOT NULL," +
+                "FOREIGN KEY (COURSE_ID) REFERENCES " + TB_COURSE.TB_NAME + "(STUDENT_ID));";
+        public static final String DROP = "DROP TABLE IF EXISTS TB_ATTENDANCE ;";
+
+        public static final String TB_NAME = "TB_ATTENDANCE";
+        public static final String COL_ID = "_ID";
+        public static final String COL_ATTENDER_ID = "ATTENDER_ID";
+        public static final String COL_FK_COURSE_ID = "COURSE_ID";
     }
 
 }

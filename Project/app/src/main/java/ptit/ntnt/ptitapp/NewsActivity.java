@@ -28,15 +28,14 @@ public class NewsActivity extends AppCompatActivity {
 
         final ArrayList<News> listNews;
         listNews = new ArrayList<News>();
-        listNews.add(new News("Thông báo đóng học phí","Hạn chót đóng học phí là cuối tháng này rồi, mấy mẹ tranh thủ gom tiền, gom hụi, đưa đây nhanh lên nào!"));
-        listNews.add(new News("Thông báo đóng học phí","Hạn chót đóng học phí là cuối tháng này rồi, mấy mẹ tranh thủ gom tiền, gom hụi, đưa đây nhanh lên nào!"));
+
 
 //        Log.d(TAG, listNews);
         final NewsAdapter newsAdapter = new NewsAdapter(this, R.layout.listview_news, listNews);
         lvNews.setAdapter(newsAdapter);
 
         try{
-            SQLiteOpenHelper ptitDBHelper = new DBHelper(this);
+            DBHelper ptitDBHelper = new DBHelper(this);
             SQLiteDatabase db = ptitDBHelper.getReadableDatabase();
             PTITClass ptitClass = getPTITClass(db, "1");
         }catch (SQLException e){

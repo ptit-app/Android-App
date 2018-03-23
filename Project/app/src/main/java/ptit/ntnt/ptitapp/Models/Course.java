@@ -1,5 +1,7 @@
 package ptit.ntnt.ptitapp.Models;
 
+import java.util.Date;
+
 /**
  * Created by datshiro on 11/03/2018.
  */
@@ -8,16 +10,36 @@ public class Course {
     private String courseID;
     private String subjectID;
     private String classCode;
-    private String soTiet;
-    private String dayOfWeek;
-    private String room;
     private String studyGroup;
     private String TTH;
-    private String studyTime;
+    private String dayOfWeek;
     private String tietBD;
+    private String soTiet;
+    private String room;
+    private String studyTime;
+    private Date startDate;
+    private Date endDate;
     private String note;
 
     public Course() {
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public Course setStartDate(Date startDate) {
+        this.startDate = startDate;
+        return this;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public Course setEndDate(Date endDate) {
+        this.endDate = endDate;
+        return this;
     }
 
     public String getCourseID() {

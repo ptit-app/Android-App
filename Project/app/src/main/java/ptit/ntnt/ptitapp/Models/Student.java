@@ -13,10 +13,9 @@ public class Student {
     private String phone;
     private String classCode;
     private Date birthday;
+    private String faculty;
     private Date createdAt;
     private Date modifiedAt;
-    private String faculty;
-    private Course listCourse[];
     private String groupName;
 
     public Student() {
@@ -103,14 +102,6 @@ public class Student {
         return this;
     }
 
-    public Course[] getListCourse() {
-        return listCourse;
-    }
-
-    public Student setListCourse(Course[] listCourse) {
-        this.listCourse = listCourse;
-        return this;
-    }
 
     public String getGroupName() {
         return groupName;

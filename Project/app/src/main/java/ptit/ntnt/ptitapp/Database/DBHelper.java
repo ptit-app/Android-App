@@ -14,11 +14,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Date;
+import java.util.ArrayList;
 
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Lecturer;
 import ptit.ntnt.ptitapp.Models.Mark;
 import ptit.ntnt.ptitapp.Models.News;
+import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.Models.Student;
 import ptit.ntnt.ptitapp.Models.Subject;
 import ptit.ntnt.ptitapp.Models.UserGroup;
@@ -50,7 +52,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
     private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion == 1) {
+        if (oldVersion <= 1) {
             db.execSQL(DBConst.TB_SUBJECT.CREATE);
             db.execSQL(DBConst.TB_PTIT_CLASS.CREATE);
             db.execSQL(DBConst.TB_COURSE.CREATE);
@@ -59,6 +61,8 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(DBConst.TB_LECTURER.CREATE);
             db.execSQL(DBConst.TB_MARK.CREATE);
             db.execSQL(DBConst.TB_NEWS.CREATE);
+            db.execSQL(DBConst.TB_ATTENDANCE.CREATE);
+
         }
         if (oldVersion < 2) {
 //Code to add the extra column
@@ -125,7 +129,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(DBConst.TB_STUDENT.TB_NAME, // a. table
-                        new String[] {DBConst.TB_STUDENT.COL_FULL_NAME,DBConst.TB_STUDENT.COL_BIRTHDAY,DBConst.TB_STUDENT.COL_EMAIL, DBConst.TB_STUDENT.COL_FK_CLASS_CODE, DBConst.TB_STUDENT.COL_FK_USER_GROUP, DBConst.TB_STUDENT.COL_CREATED_AT, DBConst.TB_STUDENT.COL_MODIFIED_AT}, // b. column names
+                        new String[] {DBConst.TB_STUDENT.COL_FULL_NAME,DBConst.TB_STUDENT.COL_BIRTHDAY,DBConst.TB_STUDENT.COL_EMAIL, DBConst.TB_STUDENT.COL_FK_CLASS_CODE, DBConst.TB_STUDENT.COL_FK_USER_GROUP, DBConst.TB_STUDENT.COL_CREATED_AT, DBConst.TB_STUDENT.COL_MODIFIED_AT, DBConst.TB_STUDENT.COL_PHONE, DBConst.TB_STUDENT.COL_FACULTY}, // b. column names
                         DBConst.TB_STUDENT.COL_STUDENT_ID+"=?", // c. selections
                         new String[] { studentID }, // d. selections args
                         null, // e. group by
@@ -141,12 +145,14 @@ public class DBHelper extends SQLiteOpenHelper {
         Student student = new Student();
         student.setId(studentID);
         student.setFullName(cursor.getString(0));
-        student.setBirthday(Date.valueOf(cursor.getString(1)));
+        student.setBirthday(new Date(cursor.getLong(1)));
         student.setMail(cursor.getString(2));
         student.setClassCode(cursor.getString(3));
         student.setGroupName(cursor.getString(4));
-        student.setCreatedAt(Date.valueOf(cursor.getString(5)));
-        student.setModifiedAt(Date.valueOf(cursor.getString(6)));
+        student.setCreatedAt(new Date(cursor.getLong(5)));
+        student.setModifiedAt(new Date(cursor.getLong(6)));
+        student.setPhone(cursor.getString(7));
+        student.setFaculty(cursor.getString(8));
 
         Log.i("getStudent("+studentID+")", student.toString());
 
@@ -179,12 +185,12 @@ public class DBHelper extends SQLiteOpenHelper {
         Lecturer lecturer = new Lecturer();
         lecturer.setId(lecturerID);
         lecturer.setName(cursor.getString(0));
-        lecturer.setBirthday(Date.valueOf(cursor.getString(1)));
+        lecturer.setBirthday(new Date(cursor.getLong(1)));
         lecturer.setMail(cursor.getString(2));
         lecturer.setRating(cursor.getInt(3));
         lecturer.setGroupName(cursor.getString(4));
-        lecturer.setCreatedAt(Date.valueOf(cursor.getString(5)));
-        lecturer.setModifiedAt(Date.valueOf(cursor.getString(6)));
+        lecturer.setCreatedAt(new Date(cursor.getLong(5)));
+        lecturer.setModifiedAt(new Date(cursor.getLong(6)));
 
         Log.i("getLecturer("+lecturerID+")", lecturer.toString());
 
@@ -249,6 +255,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 4. build area object
         Subject subject = new Subject();
         subject.setName(cursor.getString(0));
+        subject.setSoTC(cursor.getInt(1));
         subject.setId(subjectID);
 
         Log.i("getSubject("+subjectID+")", subject.toString());
@@ -284,12 +291,12 @@ public class DBHelper extends SQLiteOpenHelper {
         news.setContent(cursor.getString(1));
         news.setFeatureImageId(cursor.getInt(2));
         news.setAuthor(cursor.getString(3));
-        news.setCreatedAt(Date.valueOf(cursor.getString(4)));
-        news.setModifiedAt(Date.valueOf(cursor.getString(5)));
+        news.setCreatedAt(new Date(cursor.getLong(4)));
+        news.setModifiedAt(new Date(cursor.getLong(5)));
 
         Log.i("getNews("+newsID+")", news.toString());
 
-        // 5. return subject
+        // 5. return news
         return news;
     }
 
@@ -327,9 +334,9 @@ public class DBHelper extends SQLiteOpenHelper {
         mark.setTK(cursor.getFloat(8));
         mark.setXepLoai(cursor.getString(9));
 
-        Log.i("getMark("+markID+")", mark.toString());
+        Log.i("getMark("+studentID+" - " + subjectID + ")", mark.toString());
 
-        // 5. return subject
+        // 5. return mark
         return mark;
     }
 
@@ -342,7 +349,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(DBConst.TB_COURSE.TB_NAME, // a. table
-                        new String[]{DBConst.TB_COURSE.COL_COURSE_ID, DBConst.TB_COURSE.COL_FK_SUBJECT_ID, DBConst.TB_COURSE.COL_FK_CLASS_CODE, DBConst.TB_COURSE.COL_SO_TIET, DBConst.TB_COURSE.COL_DAY_OF_WEEK, DBConst.TB_COURSE.COL_ROOM, DBConst.TB_COURSE.COL_STUDY_GROUP,  DBConst.TB_COURSE.COL_TTH, DBConst.TB_COURSE.COL_STUDY_TIME, DBConst.TB_COURSE.COL_TIET_BD, DBConst.TB_COURSE.COL_NOTE}, // b. column names
+                        new String[]{DBConst.TB_COURSE.COL_COURSE_ID, DBConst.TB_COURSE.COL_FK_SUBJECT_ID, DBConst.TB_COURSE.COL_FK_CLASS_CODE, DBConst.TB_COURSE.COL_SO_TIET, DBConst.TB_COURSE.COL_DAY_OF_WEEK, DBConst.TB_COURSE.COL_ROOM, DBConst.TB_COURSE.COL_STUDY_GROUP,  DBConst.TB_COURSE.COL_TTH, DBConst.TB_COURSE.COL_STUDY_TIME, DBConst.TB_COURSE.COL_TIET_BD, DBConst.TB_COURSE.COL_NOTE, DBConst.TB_COURSE.COL_START_DATE, DBConst.TB_COURSE.COL_END_DATE}, // b. column names
                         DBConst.TB_COURSE.COL_COURSE_ID+"=?", // c. selections
                         new String[] { courseID }, // d. selections args
                         null, // e. group by
@@ -367,10 +374,75 @@ public class DBHelper extends SQLiteOpenHelper {
         course.setStudyTime(cursor.getString(8));
         course.setTietBD(cursor.getString(9));
         course.setNote(cursor.getString(10));
+        course.setStartDate(new Date(cursor.getLong(11)));
+        course.setEndDate(new Date(cursor.getLong(12)));
 
         Log.i("getCourse("+courseID+")", course.toString());
 
         // 5. return subject
         return course;
     }
+    public ArrayList<Course> getListCourseByUserID(String attenderID){
+        ArrayList<Course> listCourse = new ArrayList<>();
+
+        // 1. build the query
+        String query = "SELECT  * FROM " + DBConst.TB_ATTENDANCE.TB_NAME + " WHERE " + DBConst.TB_ATTENDANCE.COL_ATTENDER_ID + " = " + attenderID;
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null );
+
+        // 3. go over each row, build book and add it to list
+        Course course = null;
+        if (cursor.moveToFirst()) {
+            do {
+                course = new Course();
+                course = getCourse(cursor.getString(2));
+
+                // Add book to books
+                listCourse.add(course);
+            } while (cursor.moveToNext());
+        }
+
+        Log.i("getListCourseByUserID()", listCourse.toString());
+
+        // return courses
+        return listCourse;
+    }
+
+    // Get Schedule
+    public Schedule getSchedule(String courseID, Date studyDate){
+        // 1. get reference to readable DB
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        // 2. build query
+        Cursor cursor =
+                db.query(DBConst.TB_SCHEDULE.TB_NAME, // a. table
+                        new String[]{DBConst.TB_SCHEDULE.COL_SCHEDULE_ID, DBConst.TB_SCHEDULE.COL_ROOM, DBConst.TB_SCHEDULE.COL_STUDY_DATE, DBConst.TB_SCHEDULE.COL_TIET_BD, DBConst.TB_SCHEDULE.COL_IS_THEORY, DBConst.TB_SCHEDULE.COL_NOTE}, // b. column names
+                        DBConst.TB_SCHEDULE.COL_COURSE_ID+"=? AND " + DBConst.TB_SCHEDULE.COL_STUDY_DATE + "=?", // c. selections
+                        new String[] { courseID , String.valueOf(studyDate)}, // d. selections args
+                        null, // e. group by
+                        null, // f. having
+                        null, // g. order by
+                        null); // h. limit
+
+        // 3. if we got results get the first one
+        if (cursor != null)
+            cursor.moveToFirst();
+
+        // 4. build area object
+        Schedule schedule = new Schedule();
+        schedule.setScheduleID(cursor.getString(0));
+        schedule.setRoom(cursor.getString(1));
+        schedule.setStudyDate(new Date(cursor.getLong(2)));
+        schedule.setTietBD(cursor.getInt(3));
+        schedule.setIsTheory(cursor.getString(4));
+        schedule.setNote(cursor.getString(5));
+
+        Log.i("getSchedule("+courseID + " - " + studyDate + ")", schedule.toString());
+
+        // 5. return schedule
+        return schedule;
+    }
+
 }
