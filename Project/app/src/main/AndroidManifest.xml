@@ -21,13 +21,13 @@
         </activity>
         <activity android:name=".NewsActivity">
         </activity>
-        <activity android:name=".TimeTable.TimeTableAdapter">
+        <!--<activity android:name="">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+        </activity>-->
     </application>
 
 </manifest>
