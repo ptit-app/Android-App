@@ -20,12 +20,12 @@ public class DBConst {
     }
 
     public static class TB_SUBJECT {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_SUBJECT (SUBJECT_ID TEXT PRIMARY KEY, NAME TEXT NOT NULL, SO_TC INTEGER NOT NULL);";
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_SUBJECT (SUBJECT_ID TEXT PRIMARY KEY, SUBJECT_NAME TEXT NOT NULL, SO_TC INTEGER NOT NULL);";
         public static final String DROP = "DROP TABLE IF EXISTS TB_SUBJECT ;";
 
         public static final String TB_NAME = "TB_SUBJECT";
         public static final String COL_SUBJECT_ID = "SUBJECT_ID";
-        public static final String COL_NAME = "NAME";
+        public static final String COL_SUBJECT_NAME = "SUBJECT_NAME";
         public static final String COL_SO_TC = "SO_TC";
     }
 
@@ -64,7 +64,7 @@ public class DBConst {
     }
 
     public static class TB_COURSE {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_COURSE (COURSE_ID TEXT PRIMARY KEY, SUBJECT_ID TEXT NOT NULL, CLASS_CODE TEXT NOT NULL, STUDY_GROUP TEXT NOT NULL, TTH INTEGER NULL, DAY_OF_WEEK TEXT NULL, TIET_BD INTEGER NOT NULL, SO_TIET INTEGER NOT NULL, ROOM TEXT NULL, STUDY_TIME TEXT NULL, START_DATE NUMERIC NOT NULL, END_DATE NUMERIC, NOTE TEXT NULL,"+
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_COURSE (COURSE_ID TEXT PRIMARY KEY, SUBJECT_ID TEXT NOT NULL, CLASS_CODE TEXT NOT NULL, STUDY_GROUP TEXT NOT NULL, TTH INTEGER NULL, DAY_OF_WEEK TEXT NULL, TIET_BD INTEGER NOT NULL, SO_TIET INTEGER NOT NULL, STUDY_TIME TEXT NULL, START_DATE NUMERIC NOT NULL, END_DATE NUMERIC, NOTE TEXT NULL,"+
                 "FOREIGN KEY (CLASS_CODE) REFERENCES " + TB_PTIT_CLASS.TB_NAME + "(CLASS_CODE)," +
                 "FOREIGN KEY (SUBJECT_ID) REFERENCES " + TB_SUBJECT.TB_NAME + "(SUBJECT_ID));";
         public static final String DROP = "DROP TABLE IF EXISTS TB_COURSE ;";
@@ -78,7 +78,6 @@ public class DBConst {
         public static final String COL_DAY_OF_WEEK = "DAY_OF_WEEK";
         public static final String COL_TIET_BD = "TIET_BD";
         public static final String COL_SO_TIET = "SO_TIET";
-        public static final String COL_ROOM = "ROOM";
         public static final String COL_STUDY_TIME = "STUDY_TIME";
         public static final String COL_NOTE = "NOTE";
         public static final String COL_START_DATE = "START_DATE";

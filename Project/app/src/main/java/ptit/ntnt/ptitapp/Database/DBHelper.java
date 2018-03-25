@@ -240,7 +240,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(DBConst.TB_SUBJECT.TB_NAME, // a. table
-                        new String[]{DBConst.TB_SUBJECT.COL_NAME, DBConst.TB_SUBJECT.COL_SO_TC}, // b. column names
+                        new String[]{DBConst.TB_SUBJECT.COL_SUBJECT_NAME, DBConst.TB_SUBJECT.COL_SO_TC}, // b. column names
                         DBConst.TB_SUBJECT.COL_SUBJECT_ID+"=?", // c. selections
                         new String[] { subjectID }, // d. selections args
                         null, // e. group by
@@ -349,7 +349,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(DBConst.TB_COURSE.TB_NAME, // a. table
-                        new String[]{DBConst.TB_COURSE.COL_COURSE_ID, DBConst.TB_COURSE.COL_FK_SUBJECT_ID, DBConst.TB_COURSE.COL_FK_CLASS_CODE, DBConst.TB_COURSE.COL_SO_TIET, DBConst.TB_COURSE.COL_DAY_OF_WEEK, DBConst.TB_COURSE.COL_ROOM, DBConst.TB_COURSE.COL_STUDY_GROUP,  DBConst.TB_COURSE.COL_TTH, DBConst.TB_COURSE.COL_STUDY_TIME, DBConst.TB_COURSE.COL_TIET_BD, DBConst.TB_COURSE.COL_NOTE, DBConst.TB_COURSE.COL_START_DATE, DBConst.TB_COURSE.COL_END_DATE}, // b. column names
+                        new String[]{DBConst.TB_COURSE.COL_COURSE_ID, DBConst.TB_COURSE.COL_FK_SUBJECT_ID, DBConst.TB_COURSE.COL_FK_CLASS_CODE, DBConst.TB_COURSE.COL_SO_TIET, DBConst.TB_COURSE.COL_DAY_OF_WEEK, DBConst.TB_COURSE.COL_STUDY_GROUP,  DBConst.TB_COURSE.COL_TTH, DBConst.TB_COURSE.COL_STUDY_TIME, DBConst.TB_COURSE.COL_TIET_BD, DBConst.TB_COURSE.COL_NOTE, DBConst.TB_COURSE.COL_START_DATE, DBConst.TB_COURSE.COL_END_DATE}, // b. column names
                         DBConst.TB_COURSE.COL_COURSE_ID+"=?", // c. selections
                         new String[] { courseID }, // d. selections args
                         null, // e. group by
@@ -368,14 +368,14 @@ public class DBHelper extends SQLiteOpenHelper {
         course.setClassCode(cursor.getString(2));
         course.setSoTiet(cursor.getString(3));
         course.setDayOfWeek(cursor.getString(4));
-        course.setRoom(cursor.getString(5));
-        course.setStudyGroup(cursor.getString(6));
-        course.setTTH(cursor.getString(7));
-        course.setStudyTime(cursor.getString(8));
-        course.setTietBD(cursor.getString(9));
-        course.setNote(cursor.getString(10));
-        course.setStartDate(new Date(cursor.getLong(11)));
-        course.setEndDate(new Date(cursor.getLong(12)));
+
+        course.setStudyGroup(cursor.getString(5));
+        course.setTTH(cursor.getString(6));
+        course.setStudyTime(cursor.getString(7));
+        course.setTietBD(cursor.getString(8));
+        course.setNote(cursor.getString(9));
+        course.setStartDate(new Date(cursor.getLong(10)));
+        course.setEndDate(new Date(cursor.getLong(11)));
 
         Log.i("getCourse("+courseID+")", course.toString());
 

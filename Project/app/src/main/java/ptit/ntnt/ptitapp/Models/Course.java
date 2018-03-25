@@ -15,7 +15,6 @@ public class Course {
     private String dayOfWeek;
     private String tietBD;
     private String soTiet;
-    private String room;
     private String studyTime;
     private Date startDate;
     private Date endDate;
@@ -87,14 +86,6 @@ public class Course {
         return this;
     }
 
-    public String getRoom() {
-        return room;
-    }
-
-    public Course setRoom(String room) {
-        this.room = room;
-        return this;
-    }
 
     public String getStudyGroup() {
         return studyGroup;
