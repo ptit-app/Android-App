@@ -6,17 +6,18 @@ import java.util.Date;
  * Created by datshiro on 11/03/2018.
  */
 
-public class Student {
+public class Student{
     private String id;
     private String fullName;
     private String mail;
     private String phone;
-    private String classCode;
+    private String classID;
     private Date birthday;
-    private String faculty;
+    private String facultyID;
     private Date createdAt;
     private Date modifiedAt;
     private String groupName;
+    private String note;
 
     public Student() {
     }
@@ -58,11 +59,11 @@ public class Student {
     }
 
     public String getClassCode() {
-        return classCode;
+        return classID;
     }
 
-    public Student setClassCode(String classCode) {
-        this.classCode = classCode;
+    public Student setClassCode(String classID) {
+        this.classID = classID;
         return this;
     }
 
@@ -93,15 +94,14 @@ public class Student {
         return this;
     }
 
-    public String getFaculty() {
-        return faculty;
+    public String getFacultyID() {
+        return facultyID;
     }
 
-    public Student setFaculty(String faculty) {
-        this.faculty = faculty;
+    public Student setFacultyID(String facultyID) {
+        this.facultyID = facultyID;
         return this;
     }
-
 
     public String getGroupName() {
         return groupName;
@@ -110,5 +110,23 @@ public class Student {
     public Student setGroupName(String groupName) {
         this.groupName = groupName;
         return this;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public Student setNote(String note) {
+        this.note = note;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", groupName='" + groupName + '\'' +
+                '}';
     }
 }

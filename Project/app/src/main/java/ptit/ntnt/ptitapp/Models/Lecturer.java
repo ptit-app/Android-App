@@ -12,7 +12,7 @@ public class Lecturer{
     private String mail;
     private String phone;
     private Date birthday;
-    private String faculty;         // Khoa
+    private String facultyID;         // Khoa
     private int rating;
     private Date createdAt;
     private Date modifiedAt;
@@ -66,12 +66,12 @@ public class Lecturer{
         return this;
     }
 
-    public String getFaculty() {
-        return faculty;
+    public String getFacultyID() {
+        return facultyID;
     }
 
-    public Lecturer setFaculty(String faculty) {
-        this.faculty = faculty;
+    public Lecturer setFacultyID(String facultyID) {
+        this.facultyID = facultyID;
         return this;
     }
 

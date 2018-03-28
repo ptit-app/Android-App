@@ -112,9 +112,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.endTransaction();
     }
 
-    public long insertClass(SQLiteDatabase db, String classCode, String className){
+    public long insertClass(SQLiteDatabase db, String classID, String className){
         ContentValues classValues = new ContentValues();
-        classValues.put("CLASS_CODE", classCode);
+        classValues.put("CLASS_ID", classID);
         classValues.put("CLASS_NAME", className);
         return  db.insert("CLASS",null,classValues);
 
@@ -129,7 +129,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(DBConst.TB_STUDENT.TB_NAME, // a. table
-                        new String[] {DBConst.TB_STUDENT.COL_FULL_NAME,DBConst.TB_STUDENT.COL_BIRTHDAY,DBConst.TB_STUDENT.COL_EMAIL, DBConst.TB_STUDENT.COL_FK_CLASS_CODE, DBConst.TB_STUDENT.COL_FK_USER_GROUP, DBConst.TB_STUDENT.COL_CREATED_AT, DBConst.TB_STUDENT.COL_MODIFIED_AT, DBConst.TB_STUDENT.COL_PHONE, DBConst.TB_STUDENT.COL_FACULTY}, // b. column names
+                        new String[] {DBConst.TB_STUDENT.COL_FULL_NAME,DBConst.TB_STUDENT.COL_BIRTHDAY,DBConst.TB_STUDENT.COL_EMAIL, DBConst.TB_STUDENT.COL_FK_CLASS_ID, DBConst.TB_STUDENT.COL_FK_USER_GROUP, DBConst.TB_STUDENT.COL_CREATED_AT, DBConst.TB_STUDENT.COL_MODIFIED_AT, DBConst.TB_STUDENT.COL_PHONE, DBConst.TB_STUDENT.COL_FACULTY_ID}, // b. column names
                         DBConst.TB_STUDENT.COL_STUDENT_ID+"=?", // c. selections
                         new String[] { studentID }, // d. selections args
                         null, // e. group by
@@ -152,7 +152,7 @@ public class DBHelper extends SQLiteOpenHelper {
         student.setCreatedAt(new Date(cursor.getLong(5)));
         student.setModifiedAt(new Date(cursor.getLong(6)));
         student.setPhone(cursor.getString(7));
-        student.setFaculty(cursor.getString(8));
+        student.setFacultyID(cursor.getString(8));
 
         Log.i("getStudent("+studentID+")", student.toString());
 
@@ -169,7 +169,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(DBConst.TB_LECTURER.TB_NAME, // a. table
-                        new String[] {DBConst.TB_LECTURER.COL_NAME,DBConst.TB_LECTURER.COL_BIRTHDAY,DBConst.TB_LECTURER.COL_EMAIL, DBConst.TB_LECTURER.COL_RATING, DBConst.TB_LECTURER.COL_FK_USER_GROUP, DBConst.TB_LECTURER.COL_CREATED_AT, DBConst.TB_LECTURER.COL_MODIFIED_AT}, // b. column names
+                        new String[] {DBConst.TB_LECTURER.COL_NAME,DBConst.TB_LECTURER.COL_BIRTHDAY,DBConst.TB_LECTURER.COL_EMAIL, DBConst.TB_LECTURER.COL_RATING, DBConst.TB_LECTURER.COL_FK_USER_GROUP, DBConst.TB_LECTURER.COL_CREATED_AT, DBConst.TB_LECTURER.COL_MODIFIED_AT, DBConst.TB_LECTURER.COL_FACULTY_ID}, // b. column names
                         DBConst.TB_LECTURER.COL_LECTURER_ID+"=?", // c. selections
                         new String[] { lecturerID }, // d. selections args
                         null, // e. group by
@@ -191,6 +191,7 @@ public class DBHelper extends SQLiteOpenHelper {
         lecturer.setGroupName(cursor.getString(4));
         lecturer.setCreatedAt(new Date(cursor.getLong(5)));
         lecturer.setModifiedAt(new Date(cursor.getLong(6)));
+        lecturer.setFacultyID(cursor.getString(cursor.getColumnIndex(DBConst.TB_LECTURER.COL_FACULTY_ID)));
 
         Log.i("getLecturer("+lecturerID+")", lecturer.toString());
 
@@ -309,7 +310,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(DBConst.TB_MARK.TB_NAME, // a. table
-                        new String[]{DBConst.TB_MARK.COL_MARK_ID, DBConst.TB_MARK.COL_FK_STUDENT_ID, DBConst.TB_MARK.COL_FK_SUBJECT_ID, DBConst.TB_MARK.COL_CC, DBConst.TB_MARK.COL_TH, DBConst.TB_MARK.COL_KT, DBConst.TB_MARK.COL_THI, DBConst.TB_MARK.COL_KQ,  DBConst.TB_MARK.COL_TK, DBConst.TB_MARK.COL_XEP_LOAI}, // b. column names
+                        new String[]{DBConst.TB_MARK.COL_MARK_ID, DBConst.TB_MARK.COL_FK_STUDENT_ID, DBConst.TB_MARK.COL_FK_SUBJECT_ID, DBConst.TB_MARK.COL_CC, DBConst.TB_MARK.COL_TH, DBConst.TB_MARK.COL_KT, DBConst.TB_MARK.COL_THI, DBConst.TB_MARK.COL_KQ,  DBConst.TB_MARK.COL_TK, DBConst.TB_MARK.COL_XEP_LOAI, DBConst.TB_MARK.COL_SEMESTER}, // b. column names
                         DBConst.TB_MARK.COL_FK_STUDENT_ID+"=? AND " + DBConst.TB_MARK.COL_FK_SUBJECT_ID+"=?", // c. selections
                         new String[] { studentID, subjectID }, // d. selections args
                         null, // e. group by
@@ -333,6 +334,7 @@ public class DBHelper extends SQLiteOpenHelper {
         mark.setKQ(cursor.getString(7));
         mark.setTK(cursor.getFloat(8));
         mark.setXepLoai(cursor.getString(9));
+        mark.setSemester(cursor.getString(cursor.getColumnIndex(DBConst.TB_MARK.COL_SEMESTER)));
 
         Log.i("getMark("+studentID+" - " + subjectID + ")", mark.toString());
 
@@ -349,7 +351,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 2. build query
         Cursor cursor =
                 db.query(DBConst.TB_COURSE.TB_NAME, // a. table
-                        new String[]{DBConst.TB_COURSE.COL_COURSE_ID, DBConst.TB_COURSE.COL_FK_SUBJECT_ID, DBConst.TB_COURSE.COL_FK_CLASS_CODE, DBConst.TB_COURSE.COL_SO_TIET, DBConst.TB_COURSE.COL_DAY_OF_WEEK, DBConst.TB_COURSE.COL_STUDY_GROUP,  DBConst.TB_COURSE.COL_TTH, DBConst.TB_COURSE.COL_STUDY_TIME, DBConst.TB_COURSE.COL_TIET_BD, DBConst.TB_COURSE.COL_NOTE, DBConst.TB_COURSE.COL_START_DATE, DBConst.TB_COURSE.COL_END_DATE}, // b. column names
+                        new String[]{DBConst.TB_COURSE.COL_COURSE_ID, DBConst.TB_COURSE.COL_FK_SUBJECT_ID, DBConst.TB_COURSE.COL_FK_CLASS_ID, DBConst.TB_COURSE.COL_SO_TIET, DBConst.TB_COURSE.COL_DAY_OF_WEEK, DBConst.TB_COURSE.COL_STUDY_GROUP,  DBConst.TB_COURSE.COL_TTH, DBConst.TB_COURSE.COL_TIET_BD, DBConst.TB_COURSE.COL_NOTE, DBConst.TB_COURSE.COL_START_DATE, DBConst.TB_COURSE.COL_END_DATE, DBConst.TB_COURSE.COL_FK_LECTURER_ID, DBConst.TB_COURSE.COL_SEMESTER}, // b. column names
                         DBConst.TB_COURSE.COL_COURSE_ID+"=?", // c. selections
                         new String[] { courseID }, // d. selections args
                         null, // e. group by
@@ -364,18 +366,19 @@ public class DBHelper extends SQLiteOpenHelper {
         // 4. build area object
         Course course = new Course();
         course.setCourseID(cursor.getString(0));
-        course.setSubjectID(cursor.getString(1));
-        course.setClassCode(cursor.getString(2));
-        course.setSoTiet(cursor.getString(3));
-        course.setDayOfWeek(cursor.getString(4));
+        course.setSubjectID(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_FK_SUBJECT_ID)));
+        course.setClassCode(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_FK_CLASS_ID)));
+        course.setSoTiet(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_SO_TIET)));
+        course.setDayOfWeek(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_DAY_OF_WEEK)));
 
-        course.setStudyGroup(cursor.getString(5));
-        course.setTTH(cursor.getString(6));
-        course.setStudyTime(cursor.getString(7));
-        course.setTietBD(cursor.getString(8));
-        course.setNote(cursor.getString(9));
-        course.setStartDate(new Date(cursor.getLong(10)));
-        course.setEndDate(new Date(cursor.getLong(11)));
+        course.setStudyGroup(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_STUDY_GROUP)));
+        course.setTTH(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_TTH)));
+        course.setTietBD(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_TIET_BD)));
+        course.setNote(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_NOTE)));
+        course.setStartDate(new Date(cursor.getLong(cursor.getColumnIndex(DBConst.TB_COURSE.COL_START_DATE))));
+        course.setEndDate(new Date(cursor.getLong(cursor.getColumnIndex(DBConst.TB_COURSE.COL_END_DATE))));
+        course.setLecturerID(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_FK_LECTURER_ID)));
+        course.setSemester(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_SEMESTER)));
 
         Log.i("getCourse("+courseID+")", course.toString());
 

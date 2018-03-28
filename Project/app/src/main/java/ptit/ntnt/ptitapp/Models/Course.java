@@ -9,16 +9,18 @@ import java.util.Date;
 public class Course {
     private String courseID;
     private String subjectID;
-    private String classCode;
+    private String classID;
     private String studyGroup;
     private String TTH;
     private String dayOfWeek;
     private String tietBD;
     private String soTiet;
-    private String studyTime;
     private Date startDate;
     private Date endDate;
     private String note;
+    private String lecturerID;
+    private String semester;
+    private String room;
 
     public Course() {
     }
@@ -60,11 +62,11 @@ public class Course {
     }
 
     public String getClassCode() {
-        return classCode;
+        return classID;
     }
 
-    public Course setClassCode(String classCode) {
-        this.classCode = classCode;
+    public Course setClassCode(String classID) {
+        this.classID = classID;
         return this;
     }
 
@@ -105,14 +107,6 @@ public class Course {
         return this;
     }
 
-    public String getStudyTime() {
-        return studyTime;
-    }
-
-    public Course setStudyTime(String studyTime) {
-        this.studyTime = studyTime;
-        return this;
-    }
 
     public String getTietBD() {
         return tietBD;
@@ -129,6 +123,42 @@ public class Course {
 
     public Course setNote(String note) {
         this.note = note;
+        return this;
+    }
+
+    public String getLecturerID() {
+        return lecturerID;
+    }
+
+    public Course setLecturerID(String lecturerID) {
+        this.lecturerID = lecturerID;
+        return this;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public Course setSemester(String semester) {
+        this.semester = semester;
+        return this;
+    }
+
+    public String getClassID() {
+        return classID;
+    }
+
+    public Course setClassID(String classID) {
+        this.classID = classID;
+        return this;
+    }
+
+    public String getRoom() {
+        return room;
+    }
+
+    public Course setRoom(String room) {
+        this.room = room;
         return this;
     }
 }

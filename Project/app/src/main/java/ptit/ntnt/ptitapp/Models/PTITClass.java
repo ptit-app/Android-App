@@ -5,32 +5,27 @@ package ptit.ntnt.ptitapp.Models;
  */
 
 public class PTITClass {
-    String ClassName;
-    String ClassCode;
+    String classID;
+    String className;
 
     public PTITClass() {
     }
 
-    public PTITClass(String className, String classCode) {
-        ClassName = className;
-        ClassCode = classCode;
+    public String getClassID() {
+        return classID;
     }
 
-    public String getClassName() {
-        return ClassName;
-    }
-
-    public PTITClass setClassName(String className) {
-        ClassName = className;
+    public PTITClass setClassID(String classID) {
+        this.classID = classID;
         return this;
     }
 
-    public String getClassCode() {
-        return ClassCode;
+    public String getClassName() {
+        return className;
     }
 
-    public PTITClass setClassCode(String classCode) {
-        ClassCode = classCode;
+    public PTITClass setClassName(String className) {
+        this.className = className;
         return this;
     }
 }

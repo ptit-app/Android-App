@@ -17,6 +17,7 @@ public class Mark {
     private String KQ;
     private float TK;
     private String xepLoai;
+    private String semester;
 
     public Mark() {
     }
@@ -108,6 +109,15 @@ public class Mark {
 
     public Mark setXepLoai(String xepLoai) {
         this.xepLoai = xepLoai;
+        return this;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public Mark setSemester(String semester) {
+        this.semester = semester;
         return this;
     }
 }
