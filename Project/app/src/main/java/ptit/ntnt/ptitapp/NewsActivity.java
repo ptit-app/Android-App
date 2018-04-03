@@ -1,5 +1,6 @@
 package ptit.ntnt.ptitapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +31,9 @@ import ptit.ntnt.ptitapp.Models.User;
 public class NewsActivity extends AppCompatActivity {
 
     private ListView lvNews;
+    private ArrayList<News> listNews =new ArrayList<>();
+    private FirebaseHelper db = new FirebaseHelper();
+    private NewsAdapter newsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,63 +41,23 @@ public class NewsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news);
         setControl();
 
-        final ArrayList<News> listNews;
-        listNews = new ArrayList<News>();
 
-
-//        Log.d(TAG, listNews);
-        final NewsAdapter newsAdapter = new NewsAdapter(this, R.layout.listview_news, listNews);
+        newsAdapter = new NewsAdapter(NewsActivity.this, R.layout.listview_news, listNews);
         lvNews.setAdapter(newsAdapter);
 
-        FirebaseHelper db = new FirebaseHelper();
-        final AtomicInteger count = new AtomicInteger();
+        db.getListNews2(newsAdapter);
 
-        db.mData.child("TB_COURSE").addChildEventListener(new ChildEventListener() {
+        lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
-                // New child added, increment count
-                int newCount = count.incrementAndGet();
-                System.out.println("Added " + dataSnapshot.getKey() + ", count is " + newCount);
-                Log.d("Count Object", String.valueOf(newCount));
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                Toast.makeText(NewsActivity.this, i+"", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(NewsActivity.this, NewsDetailActivity.class);
 
             }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-
-            // ...
         });
-
-
-//        try{
-//            DBHelper ptitDBHelper = new DBHelper(this);
-//            SQLiteDatabase db = ptitDBHelper.getReadableDatabase();
-//            PTITClass ptitClass = getPTITClass(db, "1");
-//        }catch (SQLException e){
-//            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
-//            toast.show();
-//        }
-
-
     }
     protected void setControl(){
-        lvNews = findViewById(R.id.lvNews);
+        lvNews = (ListView) findViewById(R.id.lvNews);
     }
     private void importData(){
         DBHelper dbHelper = new DBHelper(this);

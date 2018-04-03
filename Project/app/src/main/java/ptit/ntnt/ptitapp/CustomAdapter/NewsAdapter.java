@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -44,21 +45,28 @@ public class NewsAdapter extends ArrayAdapter<News> {
         LayoutInflater inflater = LayoutInflater.from(context);
         convertView = inflater.inflate(resource,parent,false);
 
-        ImageButton imgbtnFeatureImage = (ImageButton)convertView.findViewById(R.id.imgbtnFeatureImage);
+        ImageView imgViewFeatureImage = (ImageView) convertView.findViewById(R.id.imgViewFeatureImage);
         TextView tvTitle = (TextView)convertView.findViewById(R.id.tvTitle);
         TextView tvContent = (TextView)convertView.findViewById(R.id.tvContent);
         TextView tvUploadDate = (TextView)convertView.findViewById(R.id.tvUploadDate);
         News news = objects.get(position);
 
-        imgbtnFeatureImage.setImageResource(news.getFeatureImageId());
+        imgViewFeatureImage.setImageResource(news.getFeatureImageId());
         tvTitle.setText(news.getTitle());
         tvContent.setText(news.getContent());
 
-        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy - HH:mm");
-        String temp = formater.format(news.getCreatedAt());
-        tvUploadDate.setText(formater.format(news.getCreatedAt()));
+        if(news.getCreatedAt() != null){
+            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy - HH:mm");
+            String temp = formater.format(news.getCreatedAt());
+            tvUploadDate.setText(formater.format(news.getCreatedAt()));
+        }
 
         return convertView;
     }
 
+    @Nullable
+    @Override
+    public News getItem(int position) {
+        return this.objects.get(position);
+    }
 }

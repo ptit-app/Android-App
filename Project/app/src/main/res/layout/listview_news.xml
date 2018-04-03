@@ -4,12 +4,12 @@
     android:layout_height="@dimen/default_news_items_listview_height"
     android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/imgbtnFeatureImage"
+    <ImageView
+        android:id="@+id/imgViewFeatureImage"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_margin="10dp"
-        android:src="@drawable/bell_icon" />
+        android:src="@drawable/bell_icon"/>
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"

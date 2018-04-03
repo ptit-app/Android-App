@@ -21,6 +21,19 @@ public class News {
     public News() {
     }
 
+    @Override
+    public String toString() {
+        return "News{" +
+                "id='" + id + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", authorId='" + authorId + '\'' +
+                ", featureImageId=" + featureImageId +
+                ", createdAt=" + createdAt +
+                ", modifiedAt=" + modifiedAt +
+                '}';
+    }
+
     void UpdateModifyTime(){
         this.modifiedAt = new Date();
     }

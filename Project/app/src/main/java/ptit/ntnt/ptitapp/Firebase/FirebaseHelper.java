@@ -2,12 +2,17 @@ package ptit.ntnt.ptitapp.Firebase;
 
 import android.util.Log;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Date;
+
+import ptit.ntnt.ptitapp.CustomAdapter.NewsAdapter;
 import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Lecturer;
@@ -180,6 +185,104 @@ public class FirebaseHelper {
         }else{
             return null;
         }
+    }
+    public ArrayList<News> getListNews(){
+        final ArrayList<News> results = new ArrayList<>();
+        mData.child(DBConst.TB_NEWS.TB_NAME).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot newsSnapshot: dataSnapshot.getChildren()){
+                    News news = newsSnapshot.getValue(News.class);
+                    if (news.getCreatedAt() == null){
+                        news.setCreatedAt(new Date());
+                    }
+                    if (news.getModifiedAt() == null){
+                        news.setModifiedAt(new Date());
+                    }
+                    Log.d("Get Data From Firebase", "Get " + news);
+                    results.add(news);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+//        mData.child(DBConst.TB_NEWS.TB_NAME).addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                News news = dataSnapshot.getValue(News.class);
+//                if (news.getCreatedAt() == null){
+//                    news.setCreatedAt(new Date());
+//                }
+//                if (news.getModifiedAt() == null){
+//                    news.setModifiedAt(new Date());
+//                }
+//                Log.d("Get Data From Firebase", "Get " + news);
+//                results.add(news);
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+        return results;
+    }
+
+    public void getListNews2(final NewsAdapter adapter){
+        mData.child(DBConst.TB_NEWS.TB_NAME).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                News news = dataSnapshot.getValue(News.class);
+                if (news.getCreatedAt() == null){
+                    news.setCreatedAt(new Date());
+                }
+                if (news.getModifiedAt() == null){
+                    news.setModifiedAt(new Date());
+                }
+                Log.d("Get Data From Firebase", "Get " + news);
+                adapter.add(news);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public UserGroup getUserGroup(final String userGroupName){
