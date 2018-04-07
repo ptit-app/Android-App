@@ -45,13 +45,15 @@ public class NewsActivity extends AppCompatActivity {
         newsAdapter = new NewsAdapter(NewsActivity.this, R.layout.listview_news, listNews);
         lvNews.setAdapter(newsAdapter);
 
-        db.getListNews2(newsAdapter);
+        db.getListNews(newsAdapter);
 
         lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 //                Toast.makeText(NewsActivity.this, i+"", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(NewsActivity.this, NewsDetailActivity.class);
+                intent.putExtra(NewsDetailActivity.NEWS_ID, (int) id);
+                startActivity(intent);
 
             }
         });

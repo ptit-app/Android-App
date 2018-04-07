@@ -1,5 +1,8 @@
 package ptit.ntnt.ptitapp.Models;
 
+import android.icu.lang.UProperty;
+
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ptit.ntnt.ptitapp.R;
@@ -14,9 +17,9 @@ public class News {
     private String content;
     private String authorId;
     private int featureImageId;
-    private Date createdAt;
-    private Date modifiedAt;
-    
+    private String createdAt;
+    private String modifiedAt;
+    private String description;
 
     public News() {
     }
@@ -35,7 +38,8 @@ public class News {
     }
 
     void UpdateModifyTime(){
-        this.modifiedAt = new Date();
+        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
+        this.modifiedAt = formater.format(new Date());
     }
 
     public String getId() {
@@ -58,12 +62,32 @@ public class News {
         return featureImageId;
     }
 
-    public Date getCreatedAt() {
+    public String getAuthorId() {
+        return authorId;
+    }
+
+    public News setAuthorId(String authorId) {
+        this.authorId = authorId;
+        this.UpdateModifyTime();
+        return this;
+    }
+
+    public String getCreatedAt() {
         return createdAt;
     }
 
-    public Date getModifiedAt() {
+    public News setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    public String getModifiedAt() {
         return modifiedAt;
+    }
+
+    public News setModifiedAt(String modifiedAt) {
+        this.modifiedAt = modifiedAt;
+        return this;
     }
 
     public News setId(String id) {
@@ -96,14 +120,13 @@ public class News {
         return this;
     }
 
-    public News setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        UpdateModifyTime();
-        return this;
+
+    public String getDescription() {
+        return description;
     }
 
-    public News setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
+    public News setDescription(String description) {
+        this.description = description;
         UpdateModifyTime();
         return this;
     }

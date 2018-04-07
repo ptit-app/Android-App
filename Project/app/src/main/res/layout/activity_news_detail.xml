@@ -10,10 +10,13 @@
         android:id="@+id/newsDetailTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TitleTitleTitleTitleTitleTitleTitleTitleTitleTitle"
+        android:text="Title"
         android:layout_weight="1"
         android:textSize="@dimen/default_title_font_size"
         android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:background="@android:color/background_light"
+        android:textStyle="bold"
         />
     <TextView
         android:id="@+id/newsDetailUploadDate"
@@ -22,7 +25,7 @@
         android:text="Upload at"
         app:layout_constraintEnd_toEndOf="parent"
         android:textSize="@dimen/default_tiny_font_size"/>
-    <TextView
+    <WebView
         android:id="@+id/newsDetailContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +35,7 @@
         android:id="@+id/newsDetailModifiedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/newsDetailContent"/>
+        app:layout_constraintTop_toBottomOf="@id/newsDetailContent"/>
 
 
 </android.support.constraint.ConstraintLayout>

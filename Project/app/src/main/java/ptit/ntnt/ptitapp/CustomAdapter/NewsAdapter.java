@@ -53,13 +53,13 @@ public class NewsAdapter extends ArrayAdapter<News> {
 
         imgViewFeatureImage.setImageResource(news.getFeatureImageId());
         tvTitle.setText(news.getTitle());
-        tvContent.setText(news.getContent());
+        tvContent.setText(news.getDescription());
 
-        if(news.getCreatedAt() != null){
-            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy - HH:mm");
-            String temp = formater.format(news.getCreatedAt());
-            tvUploadDate.setText(formater.format(news.getCreatedAt()));
-        }
+//        if(news.getCreatedAt() != null){
+//            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy - HH:mm");
+//            String temp = formater.format(news.getCreatedAt());
+//            tvUploadDate.setText(formater.format(news.getCreatedAt()));
+//        }
 
         return convertView;
     }

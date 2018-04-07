@@ -1,6 +1,7 @@
 package ptit.ntnt.ptitapp.Firebase;
 
 import android.util.Log;
+import android.widget.ArrayAdapter;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -9,6 +10,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -98,6 +102,29 @@ public class FirebaseHelper {
             return null ;
         }
     }
+    public void getListSubjects(final ArrayAdapter adapter){
+        /***
+         * must Pass a ArrayAdapter<Subject> as a parameter
+         */
+        mData.child(DBConst.TB_SUBJECT.TB_NAME).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.clear();
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    Subject subject = ds.getValue(Subject.class);
+
+                    Log.d("Get Data From Firebase", "Get " + subject);
+                    adapter.add(subject);
+                    adapter.notifyDataSetChanged();
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public Course getCourse(final String courseID){
         final Course[] courses = {new Course()};
@@ -186,98 +213,22 @@ public class FirebaseHelper {
             return null;
         }
     }
-    public ArrayList<News> getListNews(){
-        final ArrayList<News> results = new ArrayList<>();
+
+
+    public void getListNews(final NewsAdapter adapter){
         mData.child(DBConst.TB_NEWS.TB_NAME).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot newsSnapshot: dataSnapshot.getChildren()){
-                    News news = newsSnapshot.getValue(News.class);
-                    if (news.getCreatedAt() == null){
-                        news.setCreatedAt(new Date());
-                    }
-                    if (news.getModifiedAt() == null){
-                        news.setModifiedAt(new Date());
-                    }
+                adapter.clear();
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    News news = ds.getValue(News.class);
+
                     Log.d("Get Data From Firebase", "Get " + news);
-                    results.add(news);
+                    adapter.add(news);
+                    adapter.notifyDataSetChanged();
                 }
 
             }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-//        mData.child(DBConst.TB_NEWS.TB_NAME).addChildEventListener(new ChildEventListener() {
-//            @Override
-//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-//                News news = dataSnapshot.getValue(News.class);
-//                if (news.getCreatedAt() == null){
-//                    news.setCreatedAt(new Date());
-//                }
-//                if (news.getModifiedAt() == null){
-//                    news.setModifiedAt(new Date());
-//                }
-//                Log.d("Get Data From Firebase", "Get " + news);
-//                results.add(news);
-//            }
-//
-//            @Override
-//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onChildRemoved(DataSnapshot dataSnapshot) {
-//
-//            }
-//
-//            @Override
-//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-        return results;
-    }
-
-    public void getListNews2(final NewsAdapter adapter){
-        mData.child(DBConst.TB_NEWS.TB_NAME).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                News news = dataSnapshot.getValue(News.class);
-                if (news.getCreatedAt() == null){
-                    news.setCreatedAt(new Date());
-                }
-                if (news.getModifiedAt() == null){
-                    news.setModifiedAt(new Date());
-                }
-                Log.d("Get Data From Firebase", "Get " + news);
-                adapter.add(news);
-                adapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 

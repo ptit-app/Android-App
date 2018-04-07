@@ -27,7 +27,7 @@
 
     <dimen name="default_news_items_listview_height">120dp</dimen>
 
-    <dimen name="default_title_font_size">20dp</dimen>
+    <dimen name="default_title_font_size">24dp</dimen>
     <dimen name="default_tiny_font_size">10dp</dimen>
 </resources>
 
