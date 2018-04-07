@@ -62,12 +62,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void createDrawerMenu() {
         drawe_menu_lv = (ListView) findViewById(R.id.drawer_menu_list);
         drawe_menu_list_array = new ArrayList<>();
-        drawe_menu_list_array.add(new drawerMenuItem("Trang chủ",R.drawable.home));
-        drawe_menu_list_array.add(new drawerMenuItem("Thời khoá biểu",R.drawable.timetable_icon));
-        drawe_menu_list_array.add(new drawerMenuItem("Xem điểm",R.drawable.score_icon));
-        drawe_menu_list_array.add(new drawerMenuItem("Lịch thi",R.drawable.test_schedule_icon));
-        drawe_menu_list_array.add(new drawerMenuItem("Thông tin ứng dụng",R.drawable.info_icon));
-        drawe_menu_list_array.add(new drawerMenuItem("Hướng dẫn sử dụng",R.drawable.user_manual_icon));
+        drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.home_page),R.drawable.home));
+        drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.time_table),R.drawable.timetable_icon));
+        drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.score),R.drawable.score_icon));
+        drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.exp_schedule),R.drawable.test_schedule_icon));
+        drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.app_info),R.drawable.info_icon));
+        drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.help),R.drawable.user_manual_icon));
 
         drawe_menu_lv.setOnItemClickListener(new ItemClick());
     }

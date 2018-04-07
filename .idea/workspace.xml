@@ -1,21 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="42a73469-287a-4e3c-bd83-523b65112925" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/feedback_icon.png" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/feedback_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/info_icon.png" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/info_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/logout_icon.png" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/logout_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/score_icon.png" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/score_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/setting_icon.png" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/setting_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/test_schedule_icon.png" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/test_schedule_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/timetable_icon.png" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/timetable_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/drawable/user_manual_icon.png" afterPath="$PROJECT_DIR$/Project/app/src/main/res/drawable/user_manual_icon.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/Project/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/java/ptit/ntnt/ptitapp/MainActivity.java" afterPath="$PROJECT_DIR$/Project/app/src/main/java/ptit/ntnt/ptitapp/MainActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/layout/activity_calendar_view.xml" afterPath="$PROJECT_DIR$/Project/app/src/main/res/layout/activity_calendar_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/Project/app/src/main/res/layout/activity_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Project/app/src/main/res/layout/listview_item_drawer_menu.xml" afterPath="$PROJECT_DIR$/Project/app/src/main/res/layout/listview_item_drawer_menu.xml" />
-    </list>
+    <list default="true" id="42a73469-287a-4e3c-bd83-523b65112925" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -53,10 +39,10 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="ProjectPane" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
