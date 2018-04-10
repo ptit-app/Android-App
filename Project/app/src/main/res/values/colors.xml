@@ -2,15 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#777</color>
     <color name="black">#000</color>
-    <color name="white">#fff</color>
-<<<<<<< Updated upstream
     <color name="Login_button">#fb6b55</color>
     <color name="Header_title">#fff</color>
     <color name="Header_background">#469ee2</color>
     <color name="Login_text">#9f9f9f</color>
-=======
-    <color name="red">#fb6b55</color>
->>>>>>> Stashed changes
 </resources>
