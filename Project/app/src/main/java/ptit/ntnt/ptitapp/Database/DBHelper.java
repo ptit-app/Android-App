@@ -290,7 +290,6 @@ public class DBHelper extends SQLiteOpenHelper {
         News news = new News();
         news.setTitle(cursor.getString(0));
         news.setContent(cursor.getString(1));
-        news.setFeatureImageId(cursor.getInt(2));
         news.setAuthor(cursor.getString(3));
 //        news.setCreatedAt(new Date(cursor.getLong(4)));
 //        news.setModifiedAt(new Date(cursor.getLong(5)));

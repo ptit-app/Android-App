@@ -35,8 +35,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_news_detail);
         setControl();
 
-        int newsID = (Integer)getIntent().getExtras().get(NEWS_ID);
-
+        int newsID = (Integer)getIntent().getExtras().get(NEWS_ID) + 1;     // Do list view bat dau tu 0 trong khi id tren firebase bat dau tu 1
+//        Toast.makeText(this, "Id" + newsID, Toast.LENGTH_SHORT).show();
         // Get News from Firebase
         final News[] news = new News[1];
         DatabaseReference firebase;
@@ -67,7 +67,7 @@ public class NewsDetailActivity extends AppCompatActivity {
     private void setNews(News news){
         title.setText(news.getTitle());
         content.loadData(news.getContent(),"text/html; charset=utf-8", "utf-8");
-        uploadDate.setText(news.getCreatedAt());
-        modifiedDate.setText(news.getModifiedAt());
+        uploadDate.setText("Uploaded At: " + news.getCreatedAt());
+        modifiedDate.setText("Modified at: " + news.getModifiedAt());
     }
 }

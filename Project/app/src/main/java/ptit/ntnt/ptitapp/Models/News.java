@@ -16,7 +16,6 @@ public class News {
     private String title;
     private String content;
     private String authorId;
-    private int featureImageId;
     private String createdAt;
     private String modifiedAt;
     private String description;
@@ -31,7 +30,6 @@ public class News {
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
                 ", authorId='" + authorId + '\'' +
-                ", featureImageId=" + featureImageId +
                 ", createdAt=" + createdAt +
                 ", modifiedAt=" + modifiedAt +
                 '}';
@@ -56,10 +54,6 @@ public class News {
 
     public String getAuthor() {
         return authorId;
-    }
-
-    public int getFeatureImageId() {
-        return featureImageId;
     }
 
     public String getAuthorId() {
@@ -110,12 +104,6 @@ public class News {
 
     public News setAuthor(String author) {
         this.authorId = author;
-        UpdateModifyTime();
-        return this;
-    }
-
-    public News setFeatureImageId(int featureImageId) {
-        this.featureImageId = featureImageId;
         UpdateModifyTime();
         return this;
     }
