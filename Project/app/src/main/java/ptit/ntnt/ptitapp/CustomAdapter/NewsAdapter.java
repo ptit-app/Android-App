@@ -14,8 +14,10 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import ptit.ntnt.ptitapp.Models.News;
@@ -55,11 +57,9 @@ public class NewsAdapter extends ArrayAdapter<News> {
         tvTitle.setText(news.getTitle());
         tvContent.setText(news.getDescription());
 
-//        if(news.getCreatedAt() != null){
-//            SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yy - HH:mm");
-//            String temp = formater.format(news.getCreatedAt());
-//            tvUploadDate.setText(formater.format(news.getCreatedAt()));
-//        }
+        if(news.getCreatedAt() != null){
+            tvUploadDate.setText(news.getCreatedAt());
+        }
 
         return convertView;
     }
