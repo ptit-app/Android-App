@@ -44,7 +44,7 @@ public class MainPage extends Fragment{
         newsAdapter = new NewsAdapter(getContext(), R.layout.listview_news, listNews);
         lvNews.setAdapter(newsAdapter);
 
-        db.getListNews(newsAdapter);
+        db.getListgNews(newsAdapter, 5);
 
         lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

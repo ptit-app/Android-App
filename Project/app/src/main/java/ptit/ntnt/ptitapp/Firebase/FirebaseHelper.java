@@ -235,6 +235,31 @@ public class FirebaseHelper {
             }
         });
     }
+    public void getListNews(final NewsAdapter adapter, final int count){
+        mData.child(DBConst.TB_NEWS.TB_NAME).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.clear();
+                int numberRow = 0;
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    News news = ds.getValue(News.class);
+
+                    Log.d("Get Data From Firebase", "Get " + news);
+                    adapter.add(news);
+                    numberRow++;
+                    if(numberRow > count){
+                        break;
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 
     public UserGroup getUserGroup(final String userGroupName){
         final UserGroup[] userGroups = {new UserGroup()};
