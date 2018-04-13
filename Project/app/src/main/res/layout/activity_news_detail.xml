@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ptit.ntnt.ptitapp.NewsDetailActivity"
+    android:padding="@dimen/activity_padding">
+    <TextView
+        android:id="@+id/newsDetailTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="@dimen/default_title_font_size"
+        android:paddingTop="25dp"
+        android:paddingBottom="25dp"
+        android:background="@android:color/background_light"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/newsDetailUploadDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload at"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/default_tiny_font_size"/>
+    <WebView
+        android:id="@+id/newsDetailContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/newsDetailTitle"
+        android:text="Content \n of \n content news"/>
+    <TextView
+        android:id="@+id/newsDetailModifiedDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/newsDetailContent"/>
+
+
+</android.support.constraint.ConstraintLayout>
