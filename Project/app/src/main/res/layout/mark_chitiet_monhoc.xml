@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="50dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvchuyencan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chuyên cần" />
+
+    <TextView
+        android:id="@+id/tvktgiuaky"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="KT giữa kỳ" />
+
+    <TextView
+        android:id="@+id/tvthilan1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thi lần 1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tvdiemtbhe10monhoc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Điểm TB hệ 10" />
+
+    <TextView
+        android:id="@+id/tvdiemtbhe4monhoc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Điểm TB hệ 4" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/black" />
+
+    <TextView
+        android:id="@+id/tvsotinchi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Số tín chi" />
+
+    <TextView
+        android:id="@+id/tvkq"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Kết quả" />
+
+</LinearLayout>
