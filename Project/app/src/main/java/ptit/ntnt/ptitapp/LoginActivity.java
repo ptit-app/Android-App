@@ -23,11 +23,18 @@ public class LoginActivity extends AppCompatActivity {
         edEmail = (TextInputEditText) findViewById(R.id.edEmail);
         edPass = (TextInputEditText) findViewById(R.id.edPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
+        tvForgotPass = (TextView) findViewById(R.id.tvForgotPass);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 validateLogin();
+            }
+        });
+        tvForgotPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(v.getContext(),"hello", Toast.LENGTH_LONG).show();
             }
         });
     }
