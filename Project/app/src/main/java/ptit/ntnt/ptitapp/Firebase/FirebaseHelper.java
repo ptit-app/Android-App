@@ -214,7 +214,26 @@ public class FirebaseHelper {
         }
     }
 
+    public void getListNews2(final NewsAdapter adapter){
+        mData.child("TB_NEWS2").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.clear();
+                for (DataSnapshot ds: dataSnapshot.getChildren()){
+                    News news = ds.getValue(News.class);
 
+//                    Log.d("Get Data From Firebase", "Get " + news);
+                    adapter.add(news);
+                    adapter.notifyDataSetChanged();
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
     public void getListNews(final NewsAdapter adapter){
         mData.child(DBConst.TB_NEWS.TB_NAME).addValueEventListener(new ValueEventListener() {
             @Override
@@ -223,7 +242,7 @@ public class FirebaseHelper {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     News news = ds.getValue(News.class);
 
-                    Log.d("Get Data From Firebase", "Get " + news);
+//                    Log.d("Get Data From Firebase", "Get " + news);
                     adapter.add(news);
                     adapter.notifyDataSetChanged();
                 }

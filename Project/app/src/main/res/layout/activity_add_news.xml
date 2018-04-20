@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ptit.ntnt.ptitapp.AddNewsActivity">
+    <EditText
+    android:id="@+id/newNewsTitleEditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Enter news title here"
+    android:textSize="@dimen/default_title_font_size"
+    android:paddingTop="25dp"
+    android:paddingBottom="25dp"
+    android:textStyle="bold"/>
+    <EditText
+        android:id="@+id/newNewsContentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:gravity="top"
+        app:layout_constraintTop_toBottomOf="@id/newNewsTitleEditText"
+        android:hint="Enter news content here"/>
+    <Button
+        android:id="@+id/addNewNewsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add News"
+        app:layout_constraintTop_toBottomOf="@id/newNewsContentEditText"/>
+    <Button
+        android:id="@+id/cancelNewNewsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancle"
+        app:layout_constraintStart_toEndOf="@id/addNewNewsButton"
+        app:layout_constraintTop_toBottomOf="@id/newNewsContentEditText"/>
+</android.support.constraint.ConstraintLayout>

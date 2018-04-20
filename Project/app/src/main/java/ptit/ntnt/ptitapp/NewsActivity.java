@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,12 +32,13 @@ import ptit.ntnt.ptitapp.Models.User;
 public class NewsActivity extends AppCompatActivity {
 
     private ListView lvNews;
+    private ImageButton addButton;
     private ArrayList<News> listNews =new ArrayList<>();
     private FirebaseHelper db = new FirebaseHelper();
     private NewsAdapter newsAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
         setControl();
@@ -45,20 +47,30 @@ public class NewsActivity extends AppCompatActivity {
         newsAdapter = new NewsAdapter(NewsActivity.this, R.layout.listview_news, listNews);
         lvNews.setAdapter(newsAdapter);
 
-        db.getListNews(newsAdapter);
+        db.getListNews2(newsAdapter);
 
         lvNews.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
 //                Toast.makeText(NewsActivity.this, i+"", Toast.LENGTH_SHORT).show();
+                News item = (News) adapterView.getItemAtPosition(position);
                 Intent intent = new Intent(NewsActivity.this, NewsDetailActivity.class);
-                intent.putExtra(NewsDetailActivity.NEWS_ID, (int) id);
+                intent.putExtra(NewsDetailActivity.NEWS_ID, item.getId());
                 startActivity(intent);
+            }
+        });
 
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(NewsActivity.this, AddNewsActivity.class);
+                intent.putExtra(AddNewsActivity.LIST_SIZE, newsAdapter.getListItem().size());
+                startActivity(intent);
             }
         });
     }
     protected void setControl(){
+        addButton = findViewById(R.id.addButton);
         lvNews = (ListView) findViewById(R.id.lvNews);
     }
     private void importData(){

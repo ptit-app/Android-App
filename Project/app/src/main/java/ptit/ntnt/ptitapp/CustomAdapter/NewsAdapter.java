@@ -69,4 +69,8 @@ public class NewsAdapter extends ArrayAdapter<News> {
     public News getItem(int position) {
         return this.objects.get(position);
     }
+
+    public ArrayList<News> getListItem(){
+        return this.objects;
+    }
 }

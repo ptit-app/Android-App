@@ -7,35 +7,57 @@
     tools:context="ptit.ntnt.ptitapp.NewsDetailActivity"
     android:background="@android:color/background_light"
     android:padding="@dimen/activity_padding">
-    <TextView
+    <EditText
         android:id="@+id/newsDetailTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Title"
         android:textSize="@dimen/default_title_font_size"
-        android:paddingTop="25dp"
-        android:paddingBottom="25dp"
-
-        android:textStyle="bold"
-        />
+        android:paddingTop="35dp"
+        android:paddingBottom="15dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"/>
     <TextView
         android:id="@+id/newsDetailUploadDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload at"
-        app:layout_constraintEnd_toEndOf="parent"/>
-    <WebView
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/newsDetailTitle"/>
+    <EditText
         android:id="@+id/newsDetailContent"
         android:layout_width="match_parent"
-        android:layout_height="460dp"
-        app:layout_constraintTop_toBottomOf="@id/newsDetailTitle"
-        android:text="Content \n of \n content news"/>
+        android:layout_height="360dp"
+        android:gravity="top"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/newsDetailUploadDate"
+        android:text="Content \n of \n content news"
+        />
     <TextView
         android:id="@+id/newsDetailModifiedDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/newsDetailContent"
         app:layout_constraintStart_toEndOf="parent"/>
-
+    <ImageButton
+        android:id="@+id/newsDetailEditImageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:src="@drawable/editicon"
+        app:layout_constraintEnd_toEndOf="@id/newsDetailTitle"
+        app:layout_constraintTop_toTopOf="@id/newsDetailTitle"
+        app:layout_constraintTop_toBottomOf="@id/newsDetailUploadDate"
+        />
+    <ImageButton
+        android:id="@+id/newsDetailDeleteImageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/recyclebin"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="@id/newsDetailTitle"
+        app:layout_constraintTop_toTopOf="@id/newsDetailTitle"
+        app:layout_constraintEnd_toStartOf="@id/newsDetailEditImageButton"
+        />
 
 </android.support.constraint.ConstraintLayout>

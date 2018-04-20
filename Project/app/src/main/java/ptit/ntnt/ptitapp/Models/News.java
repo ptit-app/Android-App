@@ -22,6 +22,8 @@ public class News {
     private String description;
 
     public News() {
+        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
+        this.createdAt = formater.format(new Date());
     }
 
     @Override
@@ -59,7 +61,7 @@ public class News {
     }
 
     public int getFeatureImageId() {
-        return featureImageId;
+        return featureImageId != 0? featureImageId : R.drawable.test_schedule_icon;
     }
 
     public String getAuthorId() {
