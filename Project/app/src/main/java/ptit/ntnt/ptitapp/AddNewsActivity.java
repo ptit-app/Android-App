@@ -49,7 +49,7 @@ public class AddNewsActivity extends AppCompatActivity {
                     News news = new News();
                     news.setTitle(titleEditText.getText().toString());
                     news.setContent(contentEditText.getText().toString());
-                    news.setDescription(contentEditText.getText().toString().length() < 100 ? contentEditText.getText().toString() : contentEditText.getText().toString().substring(100));
+                    news.setDescription(contentEditText.getText().toString().length() < 50 ? contentEditText.getText().toString() : contentEditText.getText().toString().substring(0,50));
                     String idNews = String.valueOf(new Date().getTime());
                     news.setId(idNews);
                     DatabaseReference firebase = FirebaseDatabase.getInstance().getReference();

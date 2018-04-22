@@ -22,7 +22,7 @@ public class News {
     private String description;
 
     public News() {
-        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
+        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         this.createdAt = formater.format(new Date());
     }
 
@@ -40,7 +40,7 @@ public class News {
     }
 
     void UpdateModifyTime(){
-        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
+        SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
         this.modifiedAt = formater.format(new Date());
     }
 
@@ -61,7 +61,7 @@ public class News {
     }
 
     public int getFeatureImageId() {
-        return featureImageId != 0? featureImageId : R.drawable.test_schedule_icon;
+        return featureImageId != 0? featureImageId : R.drawable.document;
     }
 
     public String getAuthorId() {

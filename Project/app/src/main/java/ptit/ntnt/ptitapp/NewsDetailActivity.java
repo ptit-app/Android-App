@@ -1,5 +1,7 @@
 package ptit.ntnt.ptitapp;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,9 +67,23 @@ public class NewsDetailActivity extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                firebase.child("TB_NEWS2").child(String.valueOf(newsID)).removeValue();
-                Toast.makeText(NewsDetailActivity.this, "Removed this news", Toast.LENGTH_SHORT).show();
-                finish();
+                AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+                builder.setMessage("Do you sure to delete this news?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                firebase.child("TB_NEWS2").child(String.valueOf(newsID)).removeValue();
+                                Toast.makeText(NewsDetailActivity.this, "Removed this news", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+                        })
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         });
 
@@ -85,7 +101,7 @@ public class NewsDetailActivity extends AppCompatActivity {
                         editedNews.setTitle(title.getText().toString());
                         editedNews.setContent(content.getText().toString());
                         editedNews.setCreatedAt(news[0].getCreatedAt());
-                        editedNews.setDescription(content.getText().toString().length() < 100 ? content.getText().toString() : content.getText().toString().substring(100));
+                        editedNews.setDescription(content.getText().toString().length() < 50 ? content.getText().toString() : content.getText().toString().substring(0,50));
                         clearNews();
                         setNews(editedNews);
                         firebase.child("TB_NEWS2").child(newsID).setValue(editedNews);
