@@ -10,29 +10,30 @@
         android:layout_height="wrap_content"
         android:weightSum="10"
         android:orientation="horizontal"
-        android:background="#41becc"
+        android:background="#f2f2f2"
         android:paddingTop="5dp"
         android:paddingBottom="5dp">
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/images"/>
+            android:src="@drawable/back"/>
         <TextView
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
             android:text="Thới khóa biểu"
             android:layout_weight="8"
-            android:background="#40becc"
+
             android:gravity="center"
-            android:textColor="#ffffff"
+            android:textColor="#aaaaaa"
             android:textSize="20dp"
             />
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@drawable/image1"/>
+            android:src="@drawable/menu2"
+            />
 
     </LinearLayout>
     <LinearLayout
@@ -40,33 +41,43 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="10"
-        android:background="#42becc">
+        android:background="#f2f2f2">
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"/>
         <TextView
             android:id="@+id/txtVieưDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#42becc"
+            android:layout_weight="5"
+
             android:gravity="center"
-            android:textColor="#ffffff"
-            android:paddingLeft="70dp"
-            android:layout_weight="8"
+            android:textColor="#9f9f9f"
+            android:textSize="13sp"
+            android:paddingLeft="38dp"
+
+
             />
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:src="@drawable/images2"
-            android:background="#42becc"/>
+
+<ImageView
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="2"
+    android:src="@drawable/uparrow"
+    android:paddingRight="30dp"
+    />
 
     </LinearLayout>
     <TextView
         android:id="@+id/txtViewMonth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#42becc"
+        android:background="#f2f2f2"
         android:gravity="center"
-        android:textColor="#ffffff"
-        android:textAlignment="center"/>
+        android:textColor="#afafaf"
+        android:textAlignment="center"
+        android:textSize="18sp"/>
 
     <com.github.sundeepk.compactcalendarview.CompactCalendarView
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -77,10 +88,10 @@
         android:layout_height="250dp"
         app:compactCalendarTargetHeight="250dp"
         app:compactCalendarTextSize="12sp"
-        app:compactCalendarBackgroundColor="#41becc"
-        app:compactCalendarTextColor="#fff"
-        app:compactCalendarCurrentSelectedDayBackgroundColor="#6edbe7"
-        app:compactCalendarCurrentDayBackgroundColor="#41becc"
+        app:compactCalendarBackgroundColor="#f2f2f2"
+        app:compactCalendarTextColor="#8c8c8c"
+        app:compactCalendarCurrentSelectedDayBackgroundColor="#ecaaaa"
+        app:compactCalendarCurrentDayBackgroundColor="#f2f2f2"
         app:compactCalendarMultiEventIndicatorColor="#fff"
         />
 

@@ -17,7 +17,7 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:orientation="horizontal"
-            android:background="@drawable/background_1">
+            android:background="@color/Header_background">
 
             <ImageView
                 android:id="@+id/bt_open_drawer_menu"
@@ -37,7 +37,7 @@
                 android:text="@string/app_name"
                 android:gravity="center"
                 android:textSize="20dp"
-                android:textColor="#fff"/>
+                android:textColor="@color/Header_title"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -119,7 +119,7 @@
                 android:layout_weight="2"
                 android:orientation="horizontal"
                 android:padding="20dp"
-                android:background="@drawable/background_1"
+                android:background="@color/Header_background"
                 >
 
                 <ImageView
@@ -186,7 +186,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="7"
-                        android:text="Cài đặt"
+                        android:text="@string/setting"
                         android:textSize="20dp"
                         android:textAlignment="textStart"
                         android:gravity="center"
@@ -211,7 +211,7 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="7"
-                        android:text="Thoát"
+                        android:text="@string/exit"
                         android:textSize="20dp"
                         android:textAlignment="textStart"
                         android:gravity="center"
@@ -228,3 +228,4 @@
 
 
 </android.support.v4.widget.DrawerLayout>
+

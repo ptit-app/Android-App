@@ -5,22 +5,37 @@ package ptit.ntnt.ptitapp.Models;
  */
 
 public class Subject {
-    private String name;
     private String id;
+    private String name;
+    private int soTC;
 
     public Subject() {
     }
 
-    public Subject(String name, String id) {
-        this.name = name;
+    public String getId() {
+        return id;
+    }
+
+    public Subject setId(String id) {
         this.id = id;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public String getId() {
-        return id;
+    public Subject setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public int getSoTC() {
+        return soTC;
+    }
+
+    public Subject setSoTC(int soTC) {
+        this.soTC = soTC;
+        return this;
     }
 }
