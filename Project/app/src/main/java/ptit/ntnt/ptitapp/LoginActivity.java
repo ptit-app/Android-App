@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import ptit.ntnt.ptitapp.ForgotPassword.PassRecoverS1;
+
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText edEmail, edPass;
@@ -34,7 +36,11 @@ public class LoginActivity extends AppCompatActivity {
         tvForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),"hello", Toast.LENGTH_LONG).show();
+                PassRecoverS1 step1 = new PassRecoverS1();
+//                Bundle args = new Bundle();
+//                args.putString("fuck", "cai lol que");
+//                step1.setArguments(args);
+                step1.show(getFragmentManager(),"rec_pass_1");
             }
         });
     }
