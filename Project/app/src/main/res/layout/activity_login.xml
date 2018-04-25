@@ -15,9 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginBottom="40dp"
-        android:layout_marginTop="20dp"/>
-        <!--app:srcCompat="@drawable/logo"-->
-        <!--/>-->
+        android:layout_marginTop="20dp"
+        app:srcCompat="@drawable/logo"
+        />
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -50,7 +50,7 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:backgroundTint="@color/red"
+        android:backgroundTint="@color/Login_button"
         android:padding="15dp"
         android:text="ĐĂNG NHẬP"
         android:textColor="@color/white"
