@@ -12,6 +12,12 @@ public class Subject {
     public Subject() {
     }
 
+    public Subject(String id, String name, int soTC) {
+        this.id = id;
+        this.name = name;
+        this.soTC = soTC;
+    }
+
     public String getId() {
         return id;
     }

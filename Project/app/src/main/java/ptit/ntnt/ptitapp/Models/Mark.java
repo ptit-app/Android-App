@@ -10,114 +10,147 @@ public class Mark {
     private String markID;
     private String studentID;
     private String subjectID;
-    private float CC ;
-    private float KT ;
-    private float TH ;
-    private float thi ;
+    private double CC ;
+    private double KT ;
+    private double TH ;
+    private double thi ;
     private String KQ;
-    private float TK;
+    private double TK;
+    private double TK4;
+    private String TKChu;
     private String xepLoai;
     private String semester;
+    private String year;
 
     public Mark() {
+    }
+
+    public Mark(String markID, String studentID, String subjectID, double CC, double KT, double TH, double thi, String KQ, double TK, double TK4, String TKChu, String xepLoai, String semester, String year) {
+        this.markID = markID;
+        this.studentID = studentID;
+        this.subjectID = subjectID;
+        this.CC = CC;
+        this.KT = KT;
+        this.TH = TH;
+        this.thi = thi;
+        this.KQ = KQ;
+        this.TK = TK;
+        this.TK4 = TK4;
+        this.TKChu = TKChu;
+        this.xepLoai = xepLoai;
+        this.semester = semester;
+        this.year = year;
     }
 
     public String getMarkID() {
         return markID;
     }
 
-    public Mark setMarkID(String markID) {
+    public void setMarkID(String markID) {
         this.markID = markID;
-        return this;
     }
 
     public String getStudentID() {
         return studentID;
     }
 
-    public Mark setStudentID(String studentID) {
+    public void setStudentID(String studentID) {
         this.studentID = studentID;
-        return this;
     }
 
     public String getSubjectID() {
         return subjectID;
     }
 
-    public Mark setSubjectID(String subjectID) {
+    public void setSubjectID(String subjectID) {
         this.subjectID = subjectID;
-        return this;
     }
 
-    public float getCC() {
+    public double getCC() {
         return CC;
     }
 
-    public Mark setCC(float CC) {
+    public void setCC(double CC) {
         this.CC = CC;
-        return this;
     }
 
-    public float getKT() {
+    public double getKT() {
         return KT;
     }
 
-    public Mark setKT(float KT) {
+    public void setKT(double KT) {
         this.KT = KT;
-        return this;
     }
 
-    public float getTH() {
+    public double getTH() {
         return TH;
     }
 
-    public Mark setTH(float TH) {
+    public void setTH(double TH) {
         this.TH = TH;
-        return this;
     }
 
-    public float getThi() {
+    public double getThi() {
         return thi;
     }
 
-    public Mark setThi(float thi) {
+    public void setThi(double thi) {
         this.thi = thi;
-        return this;
     }
 
     public String getKQ() {
         return KQ;
     }
 
-    public Mark setKQ(String KQ) {
+    public void setKQ(String KQ) {
         this.KQ = KQ;
-        return this;
     }
 
-    public float getTK() {
+    public double getTK() {
         return TK;
     }
 
-    public Mark setTK(float TK) {
+    public void setTK(double TK) {
         this.TK = TK;
-        return this;
+    }
+
+    public double getTK4() {
+        return TK4;
+    }
+
+    public void setTK4(double TK4) {
+        this.TK4 = TK4;
+    }
+
+    public String getTKChu() {
+        return TKChu;
+    }
+
+    public void setTKChu(String TKChu) {
+        this.TKChu = TKChu;
     }
 
     public String getXepLoai() {
         return xepLoai;
     }
 
-    public Mark setXepLoai(String xepLoai) {
+    public void setXepLoai(String xepLoai) {
         this.xepLoai = xepLoai;
-        return this;
     }
 
     public String getSemester() {
         return semester;
     }
 
-    public Mark setSemester(String semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
-        return this;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }

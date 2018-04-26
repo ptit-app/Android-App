@@ -22,6 +22,7 @@ public class Expandable_monhoc_Adapter extends BaseExpandableListAdapter {
     private Context context;
     private List<Subject> listMonhoc;
     private HashMap<Subject, List<Mark>> listchitietmonhoc;
+    private TextView tvTKChu;
 //    private FirebaseHelper db = new FirebaseHelper();
 
     public Expandable_monhoc_Adapter() {
@@ -76,7 +77,9 @@ public class Expandable_monhoc_Adapter extends BaseExpandableListAdapter {
         convertview = inflater.inflate(R.layout.mark_monhoc_header, null);
 
         TextView tvmonhoc = convertview.findViewById(R.id.tvtenmonhoc);
+        tvTKChu = convertview.findViewById(R.id.tvTKChu);
         tvmonhoc.setText(monhoc.getName());
+//        tvTKChu.setText(monhoc.getTKChu());
         return convertview;
     }
 
@@ -99,12 +102,13 @@ public class Expandable_monhoc_Adapter extends BaseExpandableListAdapter {
         TextView tvsotinchi = convertview.findViewById(R.id.tvsotinchi);
         TextView tvkq = convertview.findViewById(R.id.tvkq);
 
-        tvchuyencan.setText(item.getCC());
-        tvktgiuaky.setText(item.getKT());
-        tvthilan1.setText(item.getThi());
-        tvdiemtbtichluyhe10.setText(item.getTK());
-        tvdiemtbtichluyhe4.setText(item.getTK4());
-        tvsotinchi.setText(monhoc.getSoTC());
+//        tvTKChu.setText(item.getTKChu());
+        tvchuyencan.setText(String.valueOf(item.getCC()));
+        tvktgiuaky.setText(String.valueOf(item.getKT()));
+        tvthilan1.setText(String.valueOf(item.getThi()));
+        tvdiemtbtichluyhe10.setText(String.valueOf(item.getTK()));
+        tvdiemtbtichluyhe4.setText(String.valueOf(item.getTK4()));
+        tvsotinchi.setText(String.valueOf(monhoc.getSoTC()));
         tvkq.setText(item.getKQ());
 
         return convertview;
