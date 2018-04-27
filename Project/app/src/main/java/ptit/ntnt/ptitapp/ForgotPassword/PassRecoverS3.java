@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import ptit.ntnt.ptitapp.R;
 
@@ -15,18 +16,16 @@ import ptit.ntnt.ptitapp.R;
  * Created by DEFAK on 4/1/2018.
  */
 
-public class PassRecoverS2 extends DialogFragment{
-    EditText vrf_code;
-    Button back;
+public class PassRecoverS3 extends DialogFragment {
+    EditText new_pass;
+    EditText pass_confirm;
     Button cont;
-    String veriCode;
+    Button back;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
-        Bundle mArgs = getArguments();
-        veriCode = mArgs.getString("veriCode");
-        dialog.setContentView(R.layout.dialog_recover_pass_step2);
+        dialog.setContentView(R.layout.dialog_recover_pass_step3);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         return dialog;
     }
@@ -38,16 +37,15 @@ public class PassRecoverS2 extends DialogFragment{
 
     private void mapping(){
         View view = getDialog().getWindow().getDecorView();
-        vrf_code = view.findViewById(R.id.edt_verify_code);
-        cont = view.findViewById(R.id.btn_continue_step2);
-        back = view.findViewById(R.id.btn_return_step2);
+        new_pass = view.findViewById(R.id.edt_new_pwd);
+        pass_confirm = view.findViewById(R.id.edt_confirm_pwd);
+        cont = view.findViewById(R.id.btn_change_pwd);
+        back = view.findViewById(R.id.btn_return_step3);
 
         cont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PassRecoverS3 step3 = new PassRecoverS3();
-                step3.show(getFragmentManager(),"rec_pass_3");
-                vrf_code.setText(veriCode);
+                Toast.makeText(getActivity(), "Địt con mẹ mày Phát!", Toast.LENGTH_SHORT).show();
             }
         });
 
