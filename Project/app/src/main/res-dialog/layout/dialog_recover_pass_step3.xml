@@ -30,7 +30,8 @@
         android:hint="Mật khẩu mới"
         android:textColorHint="#888"
         android:textColor="@color/black"
-        android:paddingLeft="15dp"/>
+        android:paddingLeft="15dp"
+        android:inputType="textPassword"/>
     <EditText
         android:id="@+id/edt_confirm_pwd"
         android:layout_width="300dp"
@@ -41,11 +42,19 @@
         android:hint="Nhập lại mật khẩu"
         android:textColorHint="#888"
         android:textColor="@color/black"
-        android:paddingLeft="15dp"/>
+        android:paddingLeft="15dp"
+        android:inputType="textPassword"/>
+    <TextView
+        android:id="@+id/tv_step3_warning"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="#f44842"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:weightSum="10">
 
         <Button

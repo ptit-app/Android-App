@@ -143,16 +143,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build student object
         Student student = new Student();
-        student.setId(studentID);
+        student.setStudentID(studentID);
         student.setFullName(cursor.getString(0));
-        student.setBirthday(new Date(cursor.getLong(1)));
-        student.setMail(cursor.getString(2));
-        student.setClassCode(cursor.getString(3));
-        student.setGroupName(cursor.getString(4));
-        student.setCreatedAt(new Date(cursor.getLong(5)));
-        student.setModifiedAt(new Date(cursor.getLong(6)));
-        student.setPhone(cursor.getString(7));
-        student.setFacultyID(cursor.getString(8));
+//        student.setBirthday(new Date(cursor.getLong(1)));
+        student.setEmail(cursor.getString(2));
+//        student.setClassCode(cursor.getString(3));
+//        student.setUserGroup(cursor.getString(4));
+//        student.setCreatedAt(new Date(cursor.getLong(5)));
+//        student.setModifiedAt(new Date(cursor.getLong(6)));
+//        student.setPhone(cursor.getString(7));
+//        student.setFacultyID(cursor.getString(8));
 
         Log.i("getStudent("+studentID+")", student.toString());
 
