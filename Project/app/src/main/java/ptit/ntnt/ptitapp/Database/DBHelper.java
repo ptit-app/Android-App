@@ -437,7 +437,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Schedule schedule = new Schedule();
         schedule.setScheduleID(cursor.getString(0));
         schedule.setRoom(cursor.getString(1));
-        schedule.setStudyDate(new Date(cursor.getLong(2)));
+//        schedule.setStudyDate(new Date(cursor.getLong(2)));
         schedule.setTietBD(cursor.getInt(3));
         schedule.setIsTheory(cursor.getString(4));
         schedule.setNote(cursor.getString(5));
