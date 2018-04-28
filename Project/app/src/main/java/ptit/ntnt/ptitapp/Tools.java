@@ -2,6 +2,7 @@ package ptit.ntnt.ptitapp;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,6 +22,7 @@ import java.util.Map;
 import java.util.Set;
 
 import ptit.ntnt.ptitapp.Database.DBConst;
+import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Schedule;
 
 /**
@@ -46,7 +48,7 @@ public class Tools {
         }
     }
 
-    public static ArrayList<Date> ListDate(String stringStartDate, String stringEndDate){
+    public static ArrayList<Date> ListDate(String stringStartDate, String stringEndDate, int dayOfWeek){
         /***
          * Return the list of date of each week since startDate to endDate
          */
@@ -56,6 +58,7 @@ public class Tools {
             Calendar c = Calendar.getInstance();
             Calendar d = Calendar.getInstance();
             Date startDate = formater.parse(stringStartDate);
+            startDate = getDateFromDayOfWeek(formater.format(startDate),dayOfWeek);
             Date endDate = formater.parse(stringEndDate);
             c.setTime(startDate);
             d.setTime(endDate);
@@ -68,7 +71,6 @@ public class Tools {
             return null;
         }
     }
-
     public static Date getDateFromDayOfWeek(String stringDate, int dayOfWeek){
         /***
          * Input is the stringDate of Monday, which also mean the first day of the week, and get the date correspond to the input-dayOfWeek
@@ -85,6 +87,63 @@ public class Tools {
             Log.d("Failed Date Parse", ex.getMessage());
             return null;
         }
+    }
+
+    public static void DatShiroWork(){
+        final DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        final DatabaseReference attendanceNode = mData.child(DBConst.TB_ATTENDANCE.TB_NAME);      // Reference to student node
+        final DatabaseReference courseNode = mData.child(DBConst.TB_COURSE.TB_NAME);
+        attendanceNode.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot student: dataSnapshot.getChildren()){     // For each student in TB_ATTENDANCE
+                    final String studentID = student.getKey();
+                    attendanceNode.child(studentID).child("courseID").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            final ArrayList<String> listCourse = (ArrayList<String>) dataSnapshot.getValue();
+                            for(final String course : listCourse){                            // For each course in listCourse of that Student
+                                attendanceNode.child(studentID).child(course).setValue("");
+                                courseNode.child(course).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        Course c = (Course) dataSnapshot.getValue(Course.class);
+                                        ArrayList<Date> listStudyDate = ListDate(c.getStartDate(),c.getEndDate(),c.getDayOfWeek()); // For each study date - create schedule
+                                        for(Date d : listStudyDate){
+                                            Schedule schedule = new Schedule();
+                                            schedule.setCourseID(c.getCourseID());
+                                            schedule.setTietBD(c.getTietBD());
+                                            schedule.setIsTheory(c.getTTH() == 0 ? "LT":"TH");
+                                            schedule.setNote("");
+                                            schedule.setRoom(c.getRoom());
+                                            schedule.setStudyDate(DateToString(d));
+
+                                            attendanceNode.child(studentID).child(course).child(String.valueOf(d.getTime())).setValue(schedule);
+                                        }
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     public static void getMapCourse(final String studentID){
@@ -137,8 +196,11 @@ public class Tools {
         for(Map.Entry<String,HashMap<String,Schedule>> course: setCourse){
             try{
                 Schedule schedule = course.getValue().get(stringDate);
-                listSchedule.add(schedule);
-                Log.d("DAT SHIRO WORK", schedule.toString());
+                if (schedule != null){
+                    listSchedule.add(schedule);
+                    Log.d("DAT SHIRO WORK", schedule.toString());
+                    continue;
+                }
             }catch (NullPointerException e){
                 continue;
             }
