@@ -25,6 +25,9 @@ import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
+import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjects;
+import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjectsApdapter;
+import ptit.ntnt.ptitapp.TeacherRating.TeacherRatingAdapter;
 import ptit.ntnt.ptitapp.TestSchedule.TestScheduleAdapter;
 import ptit.ntnt.ptitapp.TimeTable.TimeTableAdapter;
 
@@ -69,6 +72,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.time_table),R.drawable.timetable_icon));
         drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.score),R.drawable.score_icon));
         drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.exp_schedule),R.drawable.test_schedule_icon));
+        drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.registered_subjects),R.drawable.list));
+        drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.teacher_rating),R.drawable.star));
         drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.app_info),R.drawable.info_icon));
         drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.help),R.drawable.user_manual_icon));
 
@@ -139,32 +144,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case 0:
                     MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
                     viewPager.setAdapter(mainPageAdapter);
-                    main_page_title.setText("PTIT App");
+                    main_page_title.setText(getString(R.string.app_name));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
                     break;
                 case 1:
                     TimeTableAdapter timeTableAdapter = new TimeTableAdapter(getSupportFragmentManager());
                     viewPager.setAdapter(timeTableAdapter);
-                    main_page_title.setText("Thời khóa biểu");
+                    main_page_title.setText(getString(R.string.time_table));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,1f));
                     tabLayout.setupWithViewPager(viewPager);
                     break;
                 case 2:
                     MarkTableAdapter markTableAdapter = new MarkTableAdapter((getSupportFragmentManager()));
                     viewPager.setAdapter(markTableAdapter);
-                    main_page_title.setText("Xem điểm");
+                    main_page_title.setText(getString(R.string.score));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
                     break;
                 case 3:
                     TestScheduleAdapter testScheduleAdapter = new TestScheduleAdapter(getSupportFragmentManager());
                     viewPager.setAdapter(testScheduleAdapter);
-                    main_page_title.setText("Xem lịch thi");
+                    main_page_title.setText(getString(R.string.exp_schedule));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
                     break;
                 case 4:
+                    RegisteredSubjectsApdapter registeredSubjectsApdapter = new RegisteredSubjectsApdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(registeredSubjectsApdapter);
+                    main_page_title.setText(getString(R.string.registered_subjects));
+                    mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
+                    break;
+                case 5:
+                    TeacherRatingAdapter teacherRatingAdapter = new TeacherRatingAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(teacherRatingAdapter);
+                    main_page_title.setText(getString(R.string.teacher_rating));
+                    mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
+                    break;
+                case 6:
                     AppInfoAdapter appInfoAdapter = new AppInfoAdapter(getSupportFragmentManager());
                     viewPager.setAdapter(appInfoAdapter);
-                    main_page_title.setText("Thông tin ứng dụng");
+                    main_page_title.setText(getString(R.string.app_info));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
                     break;
                 default:
