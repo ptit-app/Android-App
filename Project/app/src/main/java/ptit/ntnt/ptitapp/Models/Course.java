@@ -10,13 +10,13 @@ public class Course {
     private String courseID;
     private String subjectID;
     private String classID;
-    private String studyGroup;
-    private String TTH;
-    private String dayOfWeek;
-    private String tietBD;
-    private String soTiet;
-    private Date startDate;
-    private Date endDate;
+    private int studyGroup;
+    private int TTH;
+    private int dayOfWeek;
+    private int tietBD;
+    private int soTiet;
+    private String startDate;
+    private String endDate;
     private String note;
     private String lecturerID;
     private String semester;
@@ -25,20 +25,20 @@ public class Course {
     public Course() {
     }
 
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public Course setStartDate(Date startDate) {
+    public Course setStartDate(String startDate) {
         this.startDate = startDate;
         return this;
     }
 
-    public Date getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public Course setEndDate(Date endDate) {
+    public Course setEndDate(String endDate) {
         this.endDate = endDate;
         return this;
     }
@@ -70,49 +70,49 @@ public class Course {
         return this;
     }
 
-    public String getSoTiet() {
+    public int getSoTiet() {
         return soTiet;
     }
 
-    public Course setSoTiet(String soTiet) {
+    public Course setSoTiet(int soTiet) {
         this.soTiet = soTiet;
         return this;
     }
 
-    public String getDayOfWeek() {
+    public int getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public Course setDayOfWeek(String dayOfWeek) {
+    public Course setDayOfWeek(int dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
         return this;
     }
 
 
-    public String getStudyGroup() {
+    public int getStudyGroup() {
         return studyGroup;
     }
 
-    public Course setStudyGroup(String studyGroup) {
+    public Course setStudyGroup(int studyGroup) {
         this.studyGroup = studyGroup;
         return this;
     }
 
-    public String getTTH() {
+    public int getTTH() {
         return TTH;
     }
 
-    public Course setTTH(String TTH) {
+    public Course setTTH(int TTH) {
         this.TTH = TTH;
         return this;
     }
 
 
-    public String getTietBD() {
+    public int getTietBD() {
         return tietBD;
     }
 
-    public Course setTietBD(String tietBD) {
+    public Course setTietBD(int tietBD) {
         this.tietBD = tietBD;
         return this;
     }
@@ -160,5 +160,25 @@ public class Course {
     public Course setRoom(String room) {
         this.room = room;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseID='" + courseID + '\'' +
+                ", subjectID='" + subjectID + '\'' +
+                ", classID='" + classID + '\'' +
+                ", studyGroup=" + studyGroup +
+                ", TTH=" + TTH +
+                ", dayOfWeek=" + dayOfWeek +
+                ", tietBD=" + tietBD +
+                ", soTiet=" + soTiet +
+                ", startDate='" + startDate + '\'' +
+                ", endDate='" + endDate + '\'' +
+                ", note='" + note + '\'' +
+                ", lecturerID='" + lecturerID + '\'' +
+                ", semester='" + semester + '\'' +
+                ", room='" + room + '\'' +
+                '}';
     }
 }

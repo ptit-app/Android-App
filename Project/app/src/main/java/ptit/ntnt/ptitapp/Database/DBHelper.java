@@ -367,18 +367,18 @@ public class DBHelper extends SQLiteOpenHelper {
         Course course = new Course();
         course.setCourseID(cursor.getString(0));
         course.setSubjectID(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_FK_SUBJECT_ID)));
-        course.setClassCode(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_FK_CLASS_ID)));
-        course.setSoTiet(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_SO_TIET)));
-        course.setDayOfWeek(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_DAY_OF_WEEK)));
-
-        course.setStudyGroup(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_STUDY_GROUP)));
-        course.setTTH(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_TTH)));
-        course.setTietBD(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_TIET_BD)));
-        course.setNote(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_NOTE)));
-        course.setStartDate(new Date(cursor.getLong(cursor.getColumnIndex(DBConst.TB_COURSE.COL_START_DATE))));
-        course.setEndDate(new Date(cursor.getLong(cursor.getColumnIndex(DBConst.TB_COURSE.COL_END_DATE))));
-        course.setLecturerID(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_FK_LECTURER_ID)));
-        course.setSemester(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_SEMESTER)));
+//        course.setClassCode(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_FK_CLASS_ID)));
+//        course.setSoTiet(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_SO_TIET)));
+//        course.setDayOfWeek(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_DAY_OF_WEEK)));
+//
+//        course.setStudyGroup(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_STUDY_GROUP)));
+//        course.setTTH(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_TTH)));
+//        course.setTietBD(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_TIET_BD)));
+//        course.setNote(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_NOTE)));
+//        course.setStartDate(new Date(cursor.getLong(cursor.getColumnIndex(DBConst.TB_COURSE.COL_START_DATE))));
+//        course.setEndDate(new Date(cursor.getLong(cursor.getColumnIndex(DBConst.TB_COURSE.COL_END_DATE))));
+//        course.setLecturerID(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_FK_LECTURER_ID)));
+//        course.setSemester(cursor.getString(cursor.getColumnIndex(DBConst.TB_COURSE.COL_SEMESTER)));
 
         Log.i("getCourse("+courseID+")", course.toString());
 
@@ -437,7 +437,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Schedule schedule = new Schedule();
         schedule.setScheduleID(cursor.getString(0));
         schedule.setRoom(cursor.getString(1));
-        schedule.setStudyDate(new Date(cursor.getLong(2)));
+//        schedule.setStudyDate(new Date(cursor.getLong(2)));
         schedule.setTietBD(cursor.getInt(3));
         schedule.setIsTheory(cursor.getString(4));
         schedule.setNote(cursor.getString(5));
