@@ -10,4 +10,14 @@
     <string name="exp_schedule">Lịch thi</string>
     <string name="app_info">Thông tin ứng dụng</string>
     <string name="help">Hướng dẫn sử dụng</string>
+    <array name="chonTuan">
+        <item></item>
+        <item>Tuần 1, 26/2/2018 - 4/3/2018</item>
+        <item>Tuần 2, 5/3/2018 - 11/3/2018</item>
+        <item>Tuần 3, 12/3/2018 - 18/3/2018</item>
+        <item>Tuần 4, 19/3/2018 - 25/3/2018</item>
+        <item>Tuần 5, 26/3/2018 - 1/4/2018</item>
+    </array>
+    <string name="mon">Hello its Monday</string>
+    <string name="spinner_title">Chọn tuần</string>
 </resources>

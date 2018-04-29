@@ -1,5 +1,6 @@
 package ptit.ntnt.ptitapp.TimeTable;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 /**
