@@ -158,7 +158,7 @@ public class DBConst {
         public static final String COL_ID = "_ID";
         public static final String COL_ATTENDER_ID = "ATTENDER_ID";
         public static final String COL_FK_COURSE_ID = "COURSE_ID";
-    }
+}
 
     public static class TB_FACULTY{
         public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_FACULTY (FACULTY_ID TEXT PRIMARY KEY, FACULTY_NAME TEXT NOT NULL";

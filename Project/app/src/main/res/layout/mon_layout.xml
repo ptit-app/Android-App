@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:hint="Buổi"
             android:textSize="30sp"
-            android:id="@+id/txtBuoi"/>
+            android:id="@+id/tvBuoi"/>
 
 
         <LinearLayout
@@ -39,17 +39,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Mã môn học"
-                    android:id="@+id/txtMaMonHoc"/>
+                    android:id="@+id/tvMaMonHoc"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Tên môn học"
-                    android:id="@+id/txtTenMonHoc"/>
+                    android:id="@+id/tvTenMonHoc"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:hint="Phòng học"
-                    android:id="@+id/txtPhong"/>
+                    android:id="@+id/tvPhong"/>
             </LinearLayout>
             <View
                 android:layout_marginLeft="210dp"
