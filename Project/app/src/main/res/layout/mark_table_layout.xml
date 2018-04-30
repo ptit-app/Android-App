@@ -232,7 +232,8 @@
                 android:gravity="left"
                 android:paddingLeft="10dp"
                 android:text="Bảng điễm chi tiết học kỳ I năm 2018"
-                android:textColor="@android:color/holo_blue_light" />
+                android:textColor="@android:color/holo_blue_light"
+                android:textStyle="bold" />
 
             <ExpandableListView
                 android:id="@+id/Expandlv"
