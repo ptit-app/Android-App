@@ -324,17 +324,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build area object
         Mark mark = new Mark();
-        mark.setMarkID(cursor.getString(0));
-        mark.setStudentID(cursor.getString(1));
-        mark.setSubjectID(cursor.getString(2));
-        mark.setCC(cursor.getFloat(3));
-        mark.setTH(cursor.getFloat(4));
-        mark.setKT(cursor.getFloat(5));
-        mark.setThi(cursor.getFloat(6));
-        mark.setKQ(cursor.getString(7));
-        mark.setTK(cursor.getFloat(8));
-        mark.setXepLoai(cursor.getString(9));
-        mark.setSemester(cursor.getString(cursor.getColumnIndex(DBConst.TB_MARK.COL_SEMESTER)));
+//        mark.setMarkID(cursor.getString(0));
+//        mark.setStudentID(cursor.getString(1));
+//        mark.setSubjectID(cursor.getString(2));
+//        mark.setCC(cursor.getFloat(3));
+//        mark.setTH(cursor.getFloat(4));
+//        mark.setKT(cursor.getFloat(5));
+//        mark.setThi(cursor.getFloat(6));
+//        mark.setKQ(cursor.getString(7));
+//        mark.setTK(cursor.getFloat(8));
+//        mark.setXepLoai(cursor.getString(9));
+//        mark.setSemester(cursor.getString(cursor.getColumnIndex(DBConst.TB_MARK.COL_SEMESTER)));
 
         Log.i("getMark("+studentID+" - " + subjectID + ")", mark.toString());
 

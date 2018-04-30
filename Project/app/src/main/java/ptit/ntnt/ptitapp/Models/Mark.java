@@ -7,55 +7,34 @@ import java.util.Date;
  */
 
 public class Mark {
-    private String markID;
-    private String studentID;
+    private String subjectName;
     private String subjectID;
     private double CC ;
     private double KT ;
     private double TH ;
-    private double thi ;
+    private double BT ;
+    private double THI ;
     private String KQ;
     private double TK;
     private double TK4;
-    private String TKChu;
-    private String xepLoai;
-    private String semester;
-    private String year;
+    private String TKCHU;
+    private int soTC;
+
+    private int CC_Percentage;
+    private int BT_Percentage;
+    private int TH_Percentage;
+    private int KT_Percentage;
+    private int THI_Percentage;
 
     public Mark() {
     }
 
-    public Mark(String markID, String studentID, String subjectID, double CC, double KT, double TH, double thi, String KQ, double TK, double TK4, String TKChu, String xepLoai, String semester, String year) {
-        this.markID = markID;
-        this.studentID = studentID;
-        this.subjectID = subjectID;
-        this.CC = CC;
-        this.KT = KT;
-        this.TH = TH;
-        this.thi = thi;
-        this.KQ = KQ;
-        this.TK = TK;
-        this.TK4 = TK4;
-        this.TKChu = TKChu;
-        this.xepLoai = xepLoai;
-        this.semester = semester;
-        this.year = year;
+    public String getSubjectName() {
+        return subjectName;
     }
 
-    public String getMarkID() {
-        return markID;
-    }
-
-    public void setMarkID(String markID) {
-        this.markID = markID;
-    }
-
-    public String getStudentID() {
-        return studentID;
-    }
-
-    public void setStudentID(String studentID) {
-        this.studentID = studentID;
+    public void setSubjectName(String subjectName) {
+        this.subjectName = subjectName;
     }
 
     public String getSubjectID() {
@@ -90,12 +69,20 @@ public class Mark {
         this.TH = TH;
     }
 
-    public double getThi() {
-        return thi;
+    public double getBT() {
+        return BT;
     }
 
-    public void setThi(double thi) {
-        this.thi = thi;
+    public void setBT(double BT) {
+        this.BT = BT;
+    }
+
+    public double getTHI() {
+        return THI;
+    }
+
+    public void setTHI(double THI) {
+        this.THI = THI;
     }
 
     public String getKQ() {
@@ -122,35 +109,59 @@ public class Mark {
         this.TK4 = TK4;
     }
 
-    public String getTKChu() {
-        return TKChu;
+    public int getSoTC() {
+        return soTC;
     }
 
-    public void setTKChu(String TKChu) {
-        this.TKChu = TKChu;
+    public void setSoTC(int soTC) {
+        this.soTC = soTC;
     }
 
-    public String getXepLoai() {
-        return xepLoai;
+    public String getTKCHU() {
+        return TKCHU;
     }
 
-    public void setXepLoai(String xepLoai) {
-        this.xepLoai = xepLoai;
+    public void setTKCHU(String TKCHU) {
+        this.TKCHU = TKCHU;
     }
 
-    public String getSemester() {
-        return semester;
+    public int getCC_Percentage() {
+        return CC_Percentage;
     }
 
-    public void setSemester(String semester) {
-        this.semester = semester;
+    public void setCC_Percentage(int CC_Percentage) {
+        this.CC_Percentage = CC_Percentage;
     }
 
-    public String getYear() {
-        return year;
+    public int getBT_Percentage() {
+        return BT_Percentage;
     }
 
-    public void setYear(String year) {
-        this.year = year;
+    public void setBT_Percentage(int BT_Percentage) {
+        this.BT_Percentage = BT_Percentage;
+    }
+
+    public int getTH_Percentage() {
+        return TH_Percentage;
+    }
+
+    public void setTH_Percentage(int TH_Percentage) {
+        this.TH_Percentage = TH_Percentage;
+    }
+
+    public int getKT_Percentage() {
+        return KT_Percentage;
+    }
+
+    public void setKT_Percentage(int KT_Percentage) {
+        this.KT_Percentage = KT_Percentage;
+    }
+
+    public int getTHI_Percentage() {
+        return THI_Percentage;
+    }
+
+    public void setTHI_Percentage(int THI_Percentage) {
+        this.THI_Percentage = THI_Percentage;
     }
 }

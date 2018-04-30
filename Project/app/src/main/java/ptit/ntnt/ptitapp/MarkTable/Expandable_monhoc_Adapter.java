@@ -1,6 +1,7 @@
 package ptit.ntnt.ptitapp.MarkTable;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,15 +21,13 @@ import ptit.ntnt.ptitapp.R;
 
 public class Expandable_monhoc_Adapter extends BaseExpandableListAdapter {
     private Context context;
-    private List<Subject> listMonhoc;
-    private HashMap<Subject, List<Mark>> listchitietmonhoc;
-    private TextView tvTKChu;
-//    private FirebaseHelper db = new FirebaseHelper();
+    private List<Mark> listMonhoc;
+    private HashMap<Mark, List<Mark>> listchitietmonhoc;
 
     public Expandable_monhoc_Adapter() {
     }
 
-    public Expandable_monhoc_Adapter(Context context, List<Subject> listMonhoc, HashMap<Subject, List<Mark>> listchitietmonhoc) {
+    public Expandable_monhoc_Adapter(Context context, List<Mark> listMonhoc, HashMap<Mark, List<Mark>> listchitietmonhoc) {
         this.context = context;
         this.listMonhoc = listMonhoc;
         this.listchitietmonhoc = listchitietmonhoc;
@@ -71,30 +70,35 @@ public class Expandable_monhoc_Adapter extends BaseExpandableListAdapter {
 
     @Override
     public View getGroupView(int groupPosition, boolean b, View convertview, ViewGroup viewGroup) {
-        Subject monhoc = (Subject) getGroup(groupPosition);
+        Mark monhoc = (Mark) getGroup(groupPosition);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertview = inflater.inflate(R.layout.mark_monhoc_header, null);
 
         TextView tvmonhoc = convertview.findViewById(R.id.tvtenmonhoc);
-        tvTKChu = convertview.findViewById(R.id.tvTKChu);
-        tvmonhoc.setText(monhoc.getName());
-//        tvTKChu.setText(monhoc.getTKChu());
+        TextView tvTKChu = convertview.findViewById(R.id.tvTKChu);
+        tvmonhoc.setText(monhoc.getSubjectName());
+        tvTKChu.setText(monhoc.getTKCHU());
+
         return convertview;
     }
 
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean b, View convertview, ViewGroup viewGroup) {
 
-        Subject monhoc = (Subject) getGroup(groupPosition);
-//        db.getSubject(String.valueOf(groupPosition));
+        Mark monhoc = (Mark) getGroup(groupPosition);
         Mark item = (Mark) getChild(groupPosition, childPosition);
-//        db.getMark(String.valueOf(childPosition));
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertview = inflater.inflate(R.layout.mark_chitiet_monhoc, null);
 
-//        TextView tvtenmonhoc = convertview.findViewById(R.id.tvtenmonhoc);
+        TextView tvphantramcc = convertview.findViewById(R.id.tvphantramcc);
+        TextView tvphantramth = convertview.findViewById(R.id.tvphantramth);
+        TextView tvphantrambt = convertview.findViewById(R.id.tvphantrambt);
+        TextView tvphantramkt = convertview.findViewById(R.id.tvphantramkt);
+        TextView tvphantramthi = convertview.findViewById(R.id.tvphantramthi);
         TextView tvchuyencan = convertview.findViewById(R.id.tvchuyencan);
+        TextView tvthuchanh = convertview.findViewById(R.id.tvthuchanh);
+        TextView tvbaitap = convertview.findViewById(R.id.tvbaitap);
         TextView tvktgiuaky = convertview.findViewById(R.id.tvktgiuaky);
         TextView tvthilan1 = convertview.findViewById(R.id.tvthilan1);
         TextView tvdiemtbtichluyhe10 = convertview.findViewById(R.id.tvdiemtbhe10monhoc);
@@ -102,10 +106,16 @@ public class Expandable_monhoc_Adapter extends BaseExpandableListAdapter {
         TextView tvsotinchi = convertview.findViewById(R.id.tvsotinchi);
         TextView tvkq = convertview.findViewById(R.id.tvkq);
 
-//        tvTKChu.setText(item.getTKChu());
+        tvphantramcc.setText(String.valueOf(item.getCC_Percentage()));
+        tvphantramth.setText(String.valueOf(item.getTH_Percentage()));
+        tvphantrambt.setText(String.valueOf(item.getBT_Percentage()));
+        tvphantramkt.setText(String.valueOf(item.getKT_Percentage()));
+        tvphantramthi.setText(String.valueOf(item.getTHI_Percentage()));
         tvchuyencan.setText(String.valueOf(item.getCC()));
+        tvthuchanh.setText(String.valueOf(item.getTH()));
+        tvbaitap.setText(String.valueOf(item.getBT()));
         tvktgiuaky.setText(String.valueOf(item.getKT()));
-        tvthilan1.setText(String.valueOf(item.getThi()));
+        tvthilan1.setText(String.valueOf(item.getTHI()));
         tvdiemtbtichluyhe10.setText(String.valueOf(item.getTK()));
         tvdiemtbtichluyhe4.setText(String.valueOf(item.getTK4()));
         tvsotinchi.setText(String.valueOf(monhoc.getSoTC()));

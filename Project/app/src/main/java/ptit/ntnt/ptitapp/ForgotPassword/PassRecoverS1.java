@@ -76,7 +76,7 @@ public class PassRecoverS1 extends DialogFragment{
     private void mapping(){
         View view = getDialog().getWindow().getDecorView();
         fbData = FirebaseDatabase.getInstance().getReference();
-        mailsv = view.findViewById(R.id.edt_mailsv);
+        mailsv = view.findViewById(R.id.edt_mssv);
         cont = view.findViewById(R.id.btn_continue);
         warning = view.findViewById(R.id.tv_step1_warning);
         studentArr = new ArrayList<>();
