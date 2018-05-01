@@ -3,12 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-        <TextView
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="30dp"
-            android:text="Xem theo ngày"
-            android:gravity="center"
-            android:background="#fff"/>
+            android:id="@+id/frameContent">
 
+                <fragment
+                    android:id="@+id/fragment"
+                    android:name="ptit.ntnt.ptitapp.TimeTable.FragmentCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <fragment
+                    android:id="@+id/SchuduleDetail"
+                    android:name="ptit.ntnt.ptitapp.TimeTable.FragmentDayDetail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+        </LinearLayout>
 </LinearLayout>
