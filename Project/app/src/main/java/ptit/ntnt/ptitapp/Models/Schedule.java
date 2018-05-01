@@ -12,7 +12,7 @@ public class Schedule {
     private int tietBD;
     private String room;
     private String isTheory;   // Lý Thuyêt hay thực hành
-    private Date studyDate;
+    private String studyDate;
     private String note;
 
     public Schedule() {
@@ -72,12 +72,25 @@ public class Schedule {
         return this;
     }
 
-    public Date getStudyDate() {
+    public String getStudyDate() {
         return studyDate;
     }
 
-    public Schedule setStudyDate(Date studyDate) {
+    public Schedule setStudyDate(String studyDate) {
         this.studyDate = studyDate;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "scheduleID='" + scheduleID + '\'' +
+                ", courseID='" + courseID + '\'' +
+                ", tietBD=" + tietBD +
+                ", room='" + room + '\'' +
+                ", isTheory='" + isTheory + '\'' +
+                ", studyDate='" + studyDate + '\'' +
+                ", note='" + note + '\'' +
+                '}';
     }
 }

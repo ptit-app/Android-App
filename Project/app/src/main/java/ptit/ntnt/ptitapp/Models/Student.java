@@ -1,33 +1,47 @@
 package ptit.ntnt.ptitapp.Models;
 
-import java.util.Date;
-
 /**
  * Created by datshiro on 11/03/2018.
  */
 
 public class Student{
-    private String id;
-    private String fullName;
-    private String mail;
-    private String phone;
+    private String birthday;
     private String classID;
-    private Date birthday;
-    private String facultyID;
-    private Date createdAt;
-    private Date modifiedAt;
-    private String groupName;
+    private String email;
+    private String fullName;
     private String note;
+    private String passwd;
+    private String phone;
+    private String studentID;
+    private String userGroup;
 
     public Student() {
     }
 
-    public String getId() {
-        return id;
+    public String getBirthday() {
+        return birthday;
     }
 
-    public Student setId(String id) {
-        this.id = id;
+    public Student setBirthday(String birthday) {
+        this.birthday = birthday;
+        return this;
+    }
+
+    public String getClassID() {
+        return classID;
+    }
+
+    public Student setClassID(String classID) {
+        this.classID = classID;
+        return this;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Student setEmail(String email) {
+        this.email = email;
         return this;
     }
 
@@ -40,12 +54,21 @@ public class Student{
         return this;
     }
 
-    public String getMail() {
-        return mail;
+    public String getNote() {
+        return note;
     }
 
-    public Student setMail(String mail) {
-        this.mail = mail;
+    public Student setNote(String note) {
+        this.note = note;
+        return this;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public Student setPasswd(String passwd) {
+        this.passwd = passwd;
         return this;
     }
 
@@ -58,75 +81,30 @@ public class Student{
         return this;
     }
 
-    public String getClassCode() {
-        return classID;
+    public String getStudentID() {
+        return studentID;
     }
 
-    public Student setClassCode(String classID) {
-        this.classID = classID;
+    public Student setStudentID(String studentID) {
+        this.studentID = studentID;
         return this;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getUserGroup() {
+        return userGroup;
     }
 
-    public Student setBirthday(Date birthday) {
-        this.birthday = birthday;
-        return this;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Student setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public Student setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
-        return this;
-    }
-
-    public String getFacultyID() {
-        return facultyID;
-    }
-
-    public Student setFacultyID(String facultyID) {
-        this.facultyID = facultyID;
-        return this;
-    }
-
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public Student setGroupName(String groupName) {
-        this.groupName = groupName;
-        return this;
-    }
-
-    public String getNote() {
-        return note;
-    }
-
-    public Student setNote(String note) {
-        this.note = note;
+    public Student setUserGroup(String userGroup) {
+        this.userGroup = userGroup;
         return this;
     }
 
     @Override
     public String toString() {
         return "Student{" +
-                "id='" + id + '\'' +
+                "id='" + studentID + '\'' +
                 ", fullName='" + fullName + '\'' +
-                ", groupName='" + groupName + '\'' +
+                ", groupName='" + userGroup + '\'' +
                 '}';
     }
 }
