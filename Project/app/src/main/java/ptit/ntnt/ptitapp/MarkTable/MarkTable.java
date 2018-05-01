@@ -72,6 +72,7 @@ public class MarkTable extends android.support.v4.app.Fragment {
                 showPopupmenu();
             }
         });
+
         getdataspinner();
         addControl();
 
@@ -85,7 +86,7 @@ public class MarkTable extends android.support.v4.app.Fragment {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
                 switch (menuItem.getItemId()) {
-                    case R.id.menuhocky:
+                    case R.id.menuchitiet:
                         spinnernamhoc.setVisibility(View.VISIBLE);
                         spinnerhocky.setVisibility(View.VISIBLE);
                         linearsemester.setVisibility(View.VISIBLE);
@@ -95,7 +96,7 @@ public class MarkTable extends android.support.v4.app.Fragment {
                         getdataspinner();
                         addControl();
                         break;
-                    case R.id.menunamhoc:
+                    case R.id.menuhocky:
                         spinnernamhoc.setVisibility(View.GONE);
                         spinnerhocky.setVisibility(View.GONE);
                         linearsemester.setVisibility(View.GONE);
