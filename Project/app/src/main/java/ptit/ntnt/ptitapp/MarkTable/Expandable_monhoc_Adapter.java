@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import ptit.ntnt.ptitapp.Models.Mark;
-import ptit.ntnt.ptitapp.Models.Subject;
 import ptit.ntnt.ptitapp.R;
 
 /**

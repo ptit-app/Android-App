@@ -5,11 +5,16 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,6 +37,12 @@ import ptit.ntnt.ptitapp.R;
 
 public class MarkTable extends android.support.v4.app.Fragment {
     private View view;
+    LinearLayout linearsemester, linearexplist;
+    TextView tvnamhoc;
+    ListView lvnamhoc;
+    ArrayList<SemesterMark> arrSemester;
+    Semester_mark_adapter semester_mark_adapter;
+    ImageView imgmn;
     private Spinner spinnerhocky, spinnernamhoc;
 
     private TextView tvdiemtbhe10, tvdiemtbhe4, tvphanloaihocluc, tvphanloaitenluyen, tvdiemtbtichluyhe10, tvdiemtbtichluyhe4, tvsotinchitichluy, tvbangdiemchitiet;
@@ -54,10 +65,55 @@ public class MarkTable extends android.support.v4.app.Fragment {
 
         database = FirebaseDatabase.getInstance().getReference();
         mdata = database.child("TB_MARK").child("N14DCAT069");
+
+        imgmn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupmenu();
+            }
+        });
         getdataspinner();
         addControl();
 
         return view;
+    }
+
+    private void showPopupmenu() {
+        PopupMenu popupMenu = new PopupMenu(MarkTable.this.getActivity(), imgmn);
+        popupMenu.getMenuInflater().inflate(R.menu.mark_menu, popupMenu.getMenu());
+        popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.menuhocky:
+                        spinnernamhoc.setVisibility(View.VISIBLE);
+                        spinnerhocky.setVisibility(View.VISIBLE);
+                        linearsemester.setVisibility(View.VISIBLE);
+                        linearexplist.setVisibility(View.VISIBLE);
+                        tvnamhoc.setVisibility(View.GONE);
+                        lvnamhoc.setVisibility(View.GONE);
+                        getdataspinner();
+                        addControl();
+                        break;
+                    case R.id.menunamhoc:
+                        spinnernamhoc.setVisibility(View.GONE);
+                        spinnerhocky.setVisibility(View.GONE);
+                        linearsemester.setVisibility(View.GONE);
+                        linearexplist.setVisibility(View.GONE);
+                        tvnamhoc.setVisibility(View.VISIBLE);
+                        lvnamhoc.setVisibility(View.VISIBLE);
+                        arrSemester = new ArrayList<>();
+
+                        arrSemester = new ArrayList<>();
+                        semester_mark_adapter = new Semester_mark_adapter(MarkTable.this.getActivity(), R.layout.mark_semester_item, arrSemester);
+                        lvnamhoc.setAdapter(semester_mark_adapter);
+                        getDataNamhoc(semester_mark_adapter);
+                        break;
+                }
+                return false;
+            }
+        });
+        popupMenu.show();
     }
 
     private void addControl() {
@@ -163,7 +219,7 @@ public class MarkTable extends android.support.v4.app.Fragment {
         listchitietmonhoc = new HashMap<>();
         namhoc = spinnernamhoc.getSelectedItem().toString();
         hocky = spinnerhocky.getSelectedItem().toString();
-        tvbangdiemchitiet.setText("Bảng điễm chi tiết "+hocky+" năm "+namhoc);
+        tvbangdiemchitiet.setText("Bảng điễm chi tiết " + hocky + " năm " + namhoc);
         mdata.child(namhoc).child(hocky).child("Tongket").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -212,11 +268,62 @@ public class MarkTable extends android.support.v4.app.Fragment {
         });
     }
 
+    private void getDataNamhoc(final Semester_mark_adapter adapter) {
+        mdata.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                adapter.clear();
+                for (DataSnapshot y : dataSnapshot.getChildren()) {
+                    final String year = y.getKey();
+                    Log.d("year ", year);
+                    mdata.child(year).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for (DataSnapshot se : dataSnapshot.getChildren()) {
+                                final String semester = se.getKey();
+                                Log.d("Semester ", semester);
+                                mdata.child(year).child(semester).child("Tongket").addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        SemesterMark semesterMark = dataSnapshot.getValue(SemesterMark.class);
+                                        Log.d("Get Data From Firebase", "Get " + semesterMark);
+                                        adapter.add(semesterMark);
+                                        adapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
     private void init() {
+        tvnamhoc = view.findViewById(R.id.tvnamhoc);
+        lvnamhoc = view.findViewById(R.id.lvnamhoc);
+        linearsemester = view.findViewById(R.id.linearsemester);
+        linearexplist = view.findViewById(R.id.linearexplist);
         spinnerhocky = (Spinner) view.findViewById(R.id.spinnerHocky);
         spinnernamhoc = (Spinner) view.findViewById(R.id.spinnerNamhoc);
+        imgmn = (ImageView) view.findViewById(R.id.imgmn);
 
-        tvbangdiemchitiet = view.findViewById(R.id.tvbangdiemchitiet);
+        tvbangdiemchitiet = (TextView) view.findViewById(R.id.tvbangdiemchitiet);
 
         tvdiemtbhe10 = (TextView) view.findViewById(R.id.tvdiemtbhe10);
         tvdiemtbhe4 = (TextView) view.findViewById(R.id.tvdiemtbhe4);

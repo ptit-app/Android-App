@@ -13,6 +13,9 @@ public class SemesterMark {
     private String plhocluc;
     private String plrenluyen;
 
+    private String semester;
+    private String year;
+
     public SemesterMark() {
     }
 
@@ -70,5 +73,21 @@ public class SemesterMark {
 
     public void setPlrenluyen(String plrenluyen) {
         this.plrenluyen = plrenluyen;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public void setSemester(String semester) {
+        this.semester = semester;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 }
