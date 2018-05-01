@@ -7,12 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,43 +50,45 @@ public class FragmentDayDetail extends android.support.v4.app.Fragment{
 
 
 
+                    mData  = FirebaseDatabase.getInstance().getReference("TB_COURSE");
+                    mData2 = FirebaseDatabase.getInstance().getReference("TB_ATTENDANCE").child("N14DCAT022").child("INT1342_D14CQAT01-N_01_00_61");
 
-                    mData2 = FirebaseDatabase.getInstance().getReference("TB_SUBJECT");
                     mData2.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                            mData = FirebaseDatabase.getInstance().getReference("TB_ATTENDANCE").child("N14DCAT022").child("INT1342_D14CQAT01-N_01_00_61");
-                            mData.addChildEventListener(new ChildEventListener() {
-                                @Override
-                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                    SubjectSchedule subjectSchedule = dataSnapshot.getValue(SubjectSchedule.class);
-                                    arrSubjectSchedules.add(subjectSchedule);
-                                    subjectSchedule.setCourseID(dataSnapshot.getKey());
-                                    subjectScheduleAdapter.notifyDataSetChanged();
 
-                                }
+                            if(dataSnapshot.getKey().equals("1524157200000")){
 
-                                @Override
-                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                                mData.addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                                        SubjectSchedule subjectSchedule = dataSnapshot.getValue(SubjectSchedule.class);
+                                        arrSubjectSchedules.add(subjectSchedule);
 
-                                }
+                                        subjectScheduleAdapter.notifyDataSetChanged();
+                                    }
 
-                                @Override
-                                public void onChildRemoved(DataSnapshot dataSnapshot) {
+                                    @Override
+                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                                    @Override
+                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
+                                    @Override
+                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
 
-                                }
-                            });
+                                    }
 
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
                         }
 
                         @Override
@@ -107,8 +112,6 @@ public class FragmentDayDetail extends android.support.v4.app.Fragment{
                         }
                     });
 
-            }
 
-
-    }
+    }}
 

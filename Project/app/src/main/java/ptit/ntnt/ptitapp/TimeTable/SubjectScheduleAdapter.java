@@ -45,7 +45,7 @@ public class SubjectScheduleAdapter extends ArrayAdapter<SubjectSchedule>{
         }
         SubjectSchedule subjectSchedule = arrSubjectScheduleList.get(position);
         holder.txtBuoi.setText(subjectSchedule.buoi);
-        holder.txtMaMonHoc.setText(subjectSchedule.subjectID);
+      holder.txtMaMonHoc.setText(subjectSchedule.subjectID);
         holder.txtTenMonHoc.setText(subjectSchedule.subjectName);
         holder.txtPhongHoc.setText(subjectSchedule.room);
         return convertView;
