@@ -24,6 +24,7 @@ import java.util.Set;
 import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Schedule;
+import ptit.ntnt.ptitapp.Models.Subject;
 
 /**
  * Created by datshiro on 22/03/2018.
@@ -147,6 +148,7 @@ public class Tools {
     }
 
     public static void getMapCourse(final String studentID){
+        mapCourse.clear();
         final DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
         final DatabaseReference studentNode = mData.child(DBConst.TB_ATTENDANCE.TB_NAME).child(studentID);      // Reference to student node
         studentNode.addValueEventListener(new ValueEventListener() {
@@ -210,5 +212,18 @@ public class Tools {
 
         }
         return listSchedule;
+    }
+
+    public static HashMap<String,Subject> getCurrentStudyMapSubject(){
+        /**
+         * Get all the subject that current Student is studying
+         * @key: courseID
+         * @value: Subject
+         */
+        HashMap<String,Subject> mapSubject = new HashMap<>();
+        for(String courseID: mapCourse.keySet()){
+            mapSubject.put(courseID,mapSubject.get(courseID));
+        }
+        return mapSubject;
     }
 }
