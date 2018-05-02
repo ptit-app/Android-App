@@ -26,6 +26,7 @@ import java.util.TimeZone;
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.Models.Subject;
+import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
 import ptit.ntnt.ptitapp.Tools;
 
@@ -51,15 +52,15 @@ public class FragmentDayDetail extends android.support.v4.app.Fragment {
         arrSubjectSchedules = new ArrayList<>();
         subjectScheduleAdapter = new SubjectScheduleAdapter(getActivity(), R.layout.timetable_view_subject_row, arrSubjectSchedules);
         lvSubjectSchedule.setAdapter(subjectScheduleAdapter);
-        Tools.getMapCourse("N14DCAT022");
+//        Tools.getMapCourse("N14DCAT022");
         Toast.makeText(getActivity(), txtDate.getText().toString()+"abc", Toast.LENGTH_SHORT).show();
         arrSchedules = Tools.getSchedulesByDate(txtDate.getText().toString());
         Toast.makeText(getActivity(), arrSchedules.toString(), Toast.LENGTH_SHORT).show();
         if (arrSchedules.isEmpty()) {
             Toast.makeText(getActivity(), "NULL", Toast.LENGTH_SHORT).show();
         } else {
-            Tools.mapCourse.get(arrSchedules.get(0).getCourseID());
-            Toast.makeText(getActivity(), Tools.mapCourse.get(arrSchedules.get(0).getCourseID()).toString(), Toast.LENGTH_SHORT).show();
+            MyApplication.mapCourse.get(arrSchedules.get(0).getCourseID());
+            Toast.makeText(getActivity(), MyApplication.mapCourse.get(arrSchedules.get(0).getCourseID()).toString(), Toast.LENGTH_SHORT).show();
             if (arrSchedules.get(0).getTietBD() == 5) {
                 buoi = "Chiều";
             } else buoi = "Sáng";

@@ -27,6 +27,7 @@ import java.util.Date;
 
 import ptit.ntnt.ptitapp.CalendarView;
 import ptit.ntnt.ptitapp.Models.Schedule;
+import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
 import ptit.ntnt.ptitapp.Tools;
 
@@ -84,7 +85,6 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     }
     private void getSchedule(String Date) {
         int i;
-        Tools.getMapCourse("N14DCAT022");
         arrSchedules = Tools.getSchedulesByDate(Date);
         Collections.sort(arrSchedules);
         Toast.makeText(getActivity(), arrSchedules.toString(), Toast.LENGTH_SHORT).show();
@@ -92,7 +92,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
             if (arrSchedules.isEmpty()) {
                 Toast.makeText(getActivity(), "NULL", Toast.LENGTH_SHORT).show();
             } else {
-                Tools.mapCourse.get(arrSchedules.get(i).getCourseID());
+                MyApplication.mapCourse.get(arrSchedules.get(i).getCourseID());
 
                 mData = FirebaseDatabase.getInstance().getReference("TB_SUBJECT");
 
