@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuchitiet"
+        android:title="Xem chi tiết học kỳ" />
+    <item
+        android:id="@+id/menuhocky"
+        android:title="Xem theo học kỳ" />
+</menu>
