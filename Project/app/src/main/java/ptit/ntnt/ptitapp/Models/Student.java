@@ -7,27 +7,51 @@ import java.util.Date;
  */
 
 public class Student{
-    private String id;
+    private String studentID;
+    private String passwd;
     private String fullName;
-    private String mail;
+    private String email;
     private String phone;
     private String classID;
-    private Date birthday;
+    private String birthday;
     private String facultyID;
-    private Date createdAt;
-    private Date modifiedAt;
-    private String groupName;
+    private String userGroup;
     private String note;
 
     public Student() {
     }
 
-    public String getId() {
-        return id;
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentID='" + studentID + '\'' +
+                ", passwd='" + passwd + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", mail='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", classID='" + classID + '\'' +
+                ", birthday='" + birthday + '\'' +
+                ", facultyID='" + facultyID + '\'' +
+                ", userGroup='" + userGroup + '\'' +
+                ", note='" + note + '\'' +
+                '}';
     }
 
-    public Student setId(String id) {
-        this.id = id;
+    public String getStudentID() {
+        return studentID;
+    }
+
+    public Student setStudentID(String studentID) {
+        this.studentID = studentID;
+        return this;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public Student setPasswd(String passwd) {
+        this.passwd = passwd;
         return this;
     }
 
@@ -40,12 +64,12 @@ public class Student{
         return this;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public Student setMail(String mail) {
-        this.mail = mail;
+    public Student setEmail(String email) {
+        this.email = email;
         return this;
     }
 
@@ -58,39 +82,21 @@ public class Student{
         return this;
     }
 
-    public String getClassCode() {
+    public String getClassID() {
         return classID;
     }
 
-    public Student setClassCode(String classID) {
+    public Student setClassID(String classID) {
         this.classID = classID;
         return this;
     }
 
-    public Date getBirthday() {
+    public String getBirthday() {
         return birthday;
     }
 
-    public Student setBirthday(Date birthday) {
+    public Student setBirthday(String birthday) {
         this.birthday = birthday;
-        return this;
-    }
-
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public Student setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-        return this;
-    }
-
-    public Date getModifiedAt() {
-        return modifiedAt;
-    }
-
-    public Student setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
         return this;
     }
 
@@ -103,12 +109,12 @@ public class Student{
         return this;
     }
 
-    public String getGroupName() {
-        return groupName;
+    public String getUserGroup() {
+        return userGroup;
     }
 
-    public Student setGroupName(String groupName) {
-        this.groupName = groupName;
+    public Student setUserGroup(String userGroup) {
+        this.userGroup = userGroup;
         return this;
     }
 
@@ -119,14 +125,5 @@ public class Student{
     public Student setNote(String note) {
         this.note = note;
         return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id='" + id + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", groupName='" + groupName + '\'' +
-                '}';
     }
 }

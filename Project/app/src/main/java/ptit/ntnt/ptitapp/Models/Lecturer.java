@@ -8,17 +8,35 @@ import java.util.Date;
 
 public class Lecturer{
     private String id;
-    private String name;
-    private String mail;
+    private String fullName;
+    private String email;
     private String phone;
-    private Date birthday;
     private String facultyID;         // Khoa
     private int rating;
-    private Date createdAt;
-    private Date modifiedAt;
+    private int ratingCount;
+    private String website;
+    private String position;
+    private String degree;
     private String groupName;
 
     public Lecturer() {
+    }
+
+    @Override
+    public String toString() {
+        return "Lecturer{" +
+                "id='" + id + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", facultyID='" + facultyID + '\'' +
+                ", rating=" + rating +
+                ", ratingCount=" + ratingCount +
+                ", website='" + website + '\'' +
+                ", position='" + position + '\'' +
+                ", degree='" + degree + '\'' +
+                ", groupName='" + groupName + '\'' +
+                '}';
     }
 
     public String getId() {
@@ -30,21 +48,21 @@ public class Lecturer{
         return this;
     }
 
-    public String getName() {
-        return name;
+    public String getFullName() {
+        return fullName;
     }
 
-    public Lecturer setName(String name) {
-        this.name = name;
+    public Lecturer setFullName(String fullName) {
+        this.fullName = fullName;
         return this;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
-    public Lecturer setMail(String mail) {
-        this.mail = mail;
+    public Lecturer setEmail(String email) {
+        this.email = email;
         return this;
     }
 
@@ -54,15 +72,6 @@ public class Lecturer{
 
     public Lecturer setPhone(String phone) {
         this.phone = phone;
-        return this;
-    }
-
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public Lecturer setBirthday(Date birthday) {
-        this.birthday = birthday;
         return this;
     }
 
@@ -84,21 +93,39 @@ public class Lecturer{
         return this;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public int getRatingCount() {
+        return ratingCount;
     }
 
-    public Lecturer setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public Lecturer setRatingCount(int ratingCount) {
+        this.ratingCount = ratingCount;
         return this;
     }
 
-    public Date getModifiedAt() {
-        return modifiedAt;
+    public String getWebsite() {
+        return website;
     }
 
-    public Lecturer setModifiedAt(Date modifiedAt) {
-        this.modifiedAt = modifiedAt;
+    public Lecturer setWebsite(String website) {
+        this.website = website;
+        return this;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public Lecturer setPosition(String position) {
+        this.position = position;
+        return this;
+    }
+
+    public String getDegree() {
+        return degree;
+    }
+
+    public Lecturer setDegree(String degree) {
+        this.degree = degree;
         return this;
     }
 

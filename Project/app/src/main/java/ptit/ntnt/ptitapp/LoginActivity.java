@@ -4,10 +4,19 @@ import android.content.Intent;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import ptit.ntnt.ptitapp.Database.DBConst;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -40,8 +49,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateLogin(){
+        Log.d("DAT SHIRO WORK" , MyApplication.listAllLecturer.toString());
         String email = edEmail.getText().toString();
         String pass = edPass.getText().toString();
+        String studentLoginID = email.split("@")[0];
         if(email.isEmpty()){
             //Toast.makeText(LoginActivity.this, "Vui long nhap Email!", Toast.LENGTH_SHORT).show();
             edEmail.setError("Vui long nhap Email!");
@@ -53,6 +64,9 @@ public class LoginActivity extends AppCompatActivity {
                 edPass.requestFocus();
             }else{
                 if(email.equals("admin")&&pass.equals("admin")){
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }else if(MyApplication.mapAllStudent.get(studentLoginID) != null){
+                    MyApplication.setCurrentStudent(MyApplication.mapAllStudent.get(studentLoginID));
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }else{
                     Toast.makeText(LoginActivity.this, "Sai Email hoac mat khau!", Toast.LENGTH_SHORT).show();
