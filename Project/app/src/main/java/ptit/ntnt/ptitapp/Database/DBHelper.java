@@ -143,16 +143,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build student object
         Student student = new Student();
-        student.setId(studentID);
-        student.setFullName(cursor.getString(0));
-        student.setBirthday(new Date(cursor.getLong(1)));
-        student.setMail(cursor.getString(2));
-        student.setClassCode(cursor.getString(3));
-        student.setGroupName(cursor.getString(4));
-        student.setCreatedAt(new Date(cursor.getLong(5)));
-        student.setModifiedAt(new Date(cursor.getLong(6)));
+//        student.setId(studentID);
+//        student.setFullName(cursor.getString(0));
+//        student.setBirthday(new Date(cursor.getLong(1)));
+//        student.setMail(cursor.getString(2));
+//        student.setClassCode(cursor.getString(3));
+//        student.setGroupName(cursor.getString(4));
+//        student.setCreatedAt(new Date(cursor.getLong(5)));
+//        student.setModifiedAt(new Date(cursor.getLong(6)));
         student.setPhone(cursor.getString(7));
-        student.setFacultyID(cursor.getString(8));
+//        student.setFacultyID(cursor.getString(8));
 
         Log.i("getStudent("+studentID+")", student.toString());
 
@@ -183,19 +183,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build lecturer object
         Lecturer lecturer = new Lecturer();
-        lecturer.setId(lecturerID);
-        lecturer.setName(cursor.getString(0));
-        lecturer.setBirthday(new Date(cursor.getLong(1)));
-        lecturer.setMail(cursor.getString(2));
-        lecturer.setRating(cursor.getInt(3));
-        lecturer.setGroupName(cursor.getString(4));
-        lecturer.setCreatedAt(new Date(cursor.getLong(5)));
-        lecturer.setModifiedAt(new Date(cursor.getLong(6)));
-        lecturer.setFacultyID(cursor.getString(cursor.getColumnIndex(DBConst.TB_LECTURER.COL_FACULTY_ID)));
-
-        Log.i("getLecturer("+lecturerID+")", lecturer.toString());
-
-        // 5. return lecturer
+//        lecturer.setId(lecturerID);
+//        lecturer.setName(cursor.getString(0));
+//        lecturer.setBirthday(new Date(cursor.getLong(1)));
+//        lecturer.setMail(cursor.getString(2));
+//        lecturer.setRating(cursor.getInt(3));
+//        lecturer.setGroupName(cursor.getString(4));
+//        lecturer.setCreatedAt(new Date(cursor.getLong(5)));
+//        lecturer.setModifiedAt(new Date(cursor.getLong(6)));
+//        lecturer.setFacultyID(cursor.getString(cursor.getColumnIndex(DBConst.TB_LECTURER.COL_FACULTY_ID)));
+//
+//        Log.i("getLecturer("+lecturerID+")", lecturer.toString());
+//
+//        // 5. return lecturer
         return lecturer;
     }
 
@@ -255,9 +255,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build area object
         Subject subject = new Subject();
-        subject.setName(cursor.getString(0));
+        subject.setSubjectName(cursor.getString(0));
         subject.setSoTC(cursor.getInt(1));
-        subject.setId(subjectID);
+        subject.setSubjectID(subjectID);
 
         Log.i("getSubject("+subjectID+")", subject.toString());
 
@@ -291,7 +291,7 @@ public class DBHelper extends SQLiteOpenHelper {
         news.setTitle(cursor.getString(0));
         news.setContent(cursor.getString(1));
         news.setFeatureImageId(cursor.getInt(2));
-        news.setAuthor(cursor.getString(3));
+//        news.setAuthor(cursor.getString(3));
 //        news.setCreatedAt(new Date(cursor.getLong(4)));
 //        news.setModifiedAt(new Date(cursor.getLong(5)));
 
@@ -324,17 +324,17 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build area object
         Mark mark = new Mark();
-        mark.setMarkID(cursor.getString(0));
-        mark.setStudentID(cursor.getString(1));
-        mark.setSubjectID(cursor.getString(2));
-        mark.setCC(cursor.getFloat(3));
-        mark.setTH(cursor.getFloat(4));
-        mark.setKT(cursor.getFloat(5));
-        mark.setThi(cursor.getFloat(6));
-        mark.setKQ(cursor.getString(7));
-        mark.setTK(cursor.getFloat(8));
-        mark.setXepLoai(cursor.getString(9));
-        mark.setSemester(cursor.getString(cursor.getColumnIndex(DBConst.TB_MARK.COL_SEMESTER)));
+//        mark.setMarkID(cursor.getString(0));
+//        mark.setStudentID(cursor.getString(1));
+//        mark.setSubjectID(cursor.getString(2));
+//        mark.setCC(cursor.getFloat(3));
+//        mark.setTH(cursor.getFloat(4));
+//        mark.setKT(cursor.getFloat(5));
+//        mark.setThi(cursor.getFloat(6));
+//        mark.setKQ(cursor.getString(7));
+//        mark.setTK(cursor.getFloat(8));
+//        mark.setXepLoai(cursor.getString(9));
+//        mark.setSemester(cursor.getString(cursor.getColumnIndex(DBConst.TB_MARK.COL_SEMESTER)));
 
         Log.i("getMark("+studentID+" - " + subjectID + ")", mark.toString());
 

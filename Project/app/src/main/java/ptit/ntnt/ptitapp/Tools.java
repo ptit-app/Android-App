@@ -1,8 +1,5 @@
 package ptit.ntnt.ptitapp;
 
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
@@ -11,12 +8,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -24,13 +20,16 @@ import java.util.Set;
 import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Schedule;
+import ptit.ntnt.ptitapp.Models.Subject;
+
+import static ptit.ntnt.ptitapp.MyApplication.mapCourse;
+import static ptit.ntnt.ptitapp.MyApplication.mapCourseIDToSubject;
 
 /**
  * Created by datshiro on 22/03/2018.
  */
 
 public class Tools {
-    static final public HashMap<String,HashMap<String,Schedule>> mapCourse = new HashMap<>();
 
     public final static String DateToString(Date d){
         return new SimpleDateFormat("dd/MM/yyyy").format(d);
@@ -145,45 +144,30 @@ public class Tools {
             }
         });
     }
-//Hàm lấy map course
-    public static void getMapCourse(final String studentID){
-        final DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
-        final DatabaseReference studentNode = mData.child(DBConst.TB_ATTENDANCE.TB_NAME).child(studentID);      // Reference to student node
-        studentNode.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot course : dataSnapshot.getChildren()){             // for each course get from student
-                    final String courseID = course.getKey();                        // pick up courseID
-                    mapCourse.put(courseID,new HashMap<String, Schedule>());        // Create a new HashMap with key is that courseID
-                    studentNode.child(courseID).orderByKey().addValueEventListener(new ValueEventListener() {       // Reference to that courseID for list of study day
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot s : dataSnapshot.getChildren()){       // for study date (schedule) add into mapCourse
-                                if (s.getKey().length() <5 ) continue;
-                                Schedule schedule = s.getValue(Schedule.class);
-                                schedule.setCourseID(courseID);
 
-                                Date studyDate = new Date();
-                                studyDate.setTime(Long.parseLong(s.getKey()));
-                                String studyDateKey = DateToString(studyDate);
+    public static HashMap<String,Subject> getCurrentStudyMapSubject(){
+        /**
+         * Get all the subject that current Student is studying as HashMap
+         * @key: courseID
+         * @value: Subject
+         */
+        HashMap<String,Subject> mapSubject = new HashMap<>();
+        for(String courseID: mapCourse.keySet()){
+            mapSubject.put(courseID,mapSubject.get(courseID));
+        }
+        return mapSubject;
+    }
 
-                                mapCourse.get(courseID).put(studyDateKey,schedule);
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
+    public static ArrayList<Subject> getCurrentStudyListSubject(){
+        /**
+         * Get all the subject that current Student is studying as ArrayList
+         *
+         */
+        ArrayList<Subject> listSubject = new ArrayList<>();
+        for(String courseID: mapCourse.keySet()){
+            listSubject.add(mapCourseIDToSubject.get(courseID));
+        }
+        return listSubject;
     }
 
     public static ArrayList<Schedule> getSchedulesByDate(String stringDate){
@@ -211,4 +195,5 @@ public class Tools {
         }
         return listSchedule;
     }
+
 }
