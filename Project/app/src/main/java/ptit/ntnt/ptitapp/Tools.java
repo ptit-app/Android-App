@@ -194,7 +194,7 @@ public class Tools {
         ArrayList<Schedule> listSchedule = new ArrayList<Schedule>();
         Set<Map.Entry<String, HashMap<String, Schedule>>> setCourse = mapCourse.entrySet();
         for(Map.Entry<String,HashMap<String,Schedule>> course: setCourse){
-            try{
+                try{
                 Schedule schedule = course.getValue().get(stringDate);
                 if (schedule != null){
                     listSchedule.add(schedule);

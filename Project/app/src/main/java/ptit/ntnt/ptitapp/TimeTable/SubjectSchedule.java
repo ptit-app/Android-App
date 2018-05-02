@@ -6,11 +6,12 @@ public class SubjectSchedule {
     public SubjectSchedule() {
     }
 
-    public SubjectSchedule(String subjectID, String subjectName, String room, String buoi) {
+    public SubjectSchedule(String subjectID, String subjectName, String room, String buoi, String courseID) {
         this.subjectID = subjectID;
         this.subjectName = subjectName;
         this.room = room;
         this.buoi = buoi;
+        this.courseID = courseID;
     }
 
     public String getSubjectID() {

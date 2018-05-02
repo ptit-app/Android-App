@@ -17,101 +17,89 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
+import ptit.ntnt.ptitapp.Models.Course;
+import ptit.ntnt.ptitapp.Models.Schedule;
+import ptit.ntnt.ptitapp.Models.Subject;
 import ptit.ntnt.ptitapp.R;
+import ptit.ntnt.ptitapp.Tools;
 
-public class FragmentDayDetail extends android.support.v4.app.Fragment{
-    DatabaseReference mData,mData2;
+public class FragmentDayDetail extends android.support.v4.app.Fragment {
+    static String tenMH;
+    DatabaseReference mData, mData2;
     ArrayList<SubjectSchedule> arrSubjectSchedules;
+    ArrayList<Schedule> arrSchedules;
     SubjectScheduleAdapter subjectScheduleAdapter;
     TextView txtDate;
+    String buoi;
     String UserID;
+    private String pattern = "dd/MM/yyyy";
+    String dateInString = new SimpleDateFormat(pattern).format(new Date());
 
-    Calendar calendar = Calendar.getInstance(TimeZone.getDefault());
-    String currentDate= String.valueOf(calendar.get(Calendar.DAY_OF_MONTH))+'/'+String.valueOf(calendar.get(Calendar.MONTH))+'/'+String.valueOf(calendar.get(Calendar.YEAR));
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.timetable_view_detail,container,false);
-        txtDate =(TextView) view.findViewById(R.id.showDate);
-        txtDate.setText(currentDate.toString());
-        ListView lvSubjectSchedule = (ListView) view.findViewById(R.id.lvSubjectSchedule);
-        arrSubjectSchedules= new ArrayList<>();
-        subjectScheduleAdapter = new SubjectScheduleAdapter(getActivity(), R.layout.timetable_view_subject_row,arrSubjectSchedules);
+        View view = inflater.inflate(R.layout.timetable_view_detail, container, false);
+        txtDate = (TextView) view.findViewById(R.id.showDate);
+        txtDate.setText(dateInString.toString());
+        ListView lvSubjectSchedule = (ListView) view.findViewById(R.id.lvShedule);
+        arrSubjectSchedules = new ArrayList<>();
+        subjectScheduleAdapter = new SubjectScheduleAdapter(getActivity(), R.layout.timetable_view_subject_row, arrSubjectSchedules);
         lvSubjectSchedule.setAdapter(subjectScheduleAdapter);
-        getData();
+        Tools.getMapCourse("N14DCAT022");
+        Toast.makeText(getActivity(), txtDate.getText().toString()+"abc", Toast.LENGTH_SHORT).show();
+        arrSchedules = Tools.getSchedulesByDate(txtDate.getText().toString());
+        Toast.makeText(getActivity(), arrSchedules.toString(), Toast.LENGTH_SHORT).show();
+        if (arrSchedules.isEmpty()) {
+            Toast.makeText(getActivity(), "NULL", Toast.LENGTH_SHORT).show();
+        } else {
+            Tools.mapCourse.get(arrSchedules.get(0).getCourseID());
+            Toast.makeText(getActivity(), Tools.mapCourse.get(arrSchedules.get(0).getCourseID()).toString(), Toast.LENGTH_SHORT).show();
+            if (arrSchedules.get(0).getTietBD() == 5) {
+                buoi = "Chiều";
+            } else buoi = "Sáng";
+            mData = FirebaseDatabase.getInstance().getReference("TB_SUBJECT");
+            mData.addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+
+                    if (arrSchedules.get(0).getCourseID().split("_")[0].toString().equals(dataSnapshot.getKey().toString())) {
+                        CustomSubject customSubject = dataSnapshot.getValue(CustomSubject.class);
+                        tenMH = customSubject.getSubjectName();
+                        SubjectSchedule subjectSchedule = new SubjectSchedule(arrSchedules.get(0).getCourseID().split("_")[0], tenMH, arrSchedules.get(0).getRoom().toString(), buoi, arrSchedules.get(0).getCourseID());
+                        arrSubjectSchedules.add(subjectSchedule);
+                        subjectScheduleAdapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
         return view;
     }
-    private void getData(){
 
-
-
-                    mData  = FirebaseDatabase.getInstance().getReference("TB_COURSE");
-                    mData2 = FirebaseDatabase.getInstance().getReference("TB_ATTENDANCE").child("N14DCAT022").child("INT1342_D14CQAT01-N_01_00_61");
-
-                    mData2.addChildEventListener(new ChildEventListener() {
-                        @Override
-                        public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                            if(dataSnapshot.getKey().equals("1524157200000")){
-
-                                mData.addChildEventListener(new ChildEventListener() {
-                                    @Override
-                                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                                        SubjectSchedule subjectSchedule = dataSnapshot.getValue(SubjectSchedule.class);
-                                        arrSubjectSchedules.add(subjectSchedule);
-
-                                        subjectScheduleAdapter.notifyDataSetChanged();
-                                    }
-
-                                    @Override
-                                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                                    }
-
-                                    @Override
-                                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                            }
-                        }
-
-                        @Override
-                        public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                        }
-
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-
-                        }
-                    });
-
-
-    }}
+}
 

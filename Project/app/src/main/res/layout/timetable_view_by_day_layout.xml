@@ -15,10 +15,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <fragment
-                    android:id="@+id/SchuduleDetail"
-                    android:name="ptit.ntnt.ptitapp.TimeTable.FragmentDayDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                <!--<fragment-->
+                    <!--android:id="@+id/SchuduleDetail"-->
+                    <!--android:name="ptit.ntnt.ptitapp.TimeTable.FragmentDayDetail"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
         </LinearLayout>
 </LinearLayout>

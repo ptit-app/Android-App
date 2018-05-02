@@ -1,12 +1,14 @@
 package ptit.ntnt.ptitapp.Models;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 /**
  * Created by datshiro on 11/03/2018.
  */
 
-public class Schedule {
+public class Schedule implements Comparable<Schedule> {
     private String scheduleID;
     private String courseID;
     private int tietBD;
@@ -92,5 +94,11 @@ public class Schedule {
                 ", studyDate='" + studyDate + '\'' +
                 ", note='" + note + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NonNull Schedule o) {
+
+        return getTietBD()-o.getTietBD();
     }
 }

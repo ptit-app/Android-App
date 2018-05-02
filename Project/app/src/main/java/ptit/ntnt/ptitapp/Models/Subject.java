@@ -6,7 +6,7 @@ package ptit.ntnt.ptitapp.Models;
 
 public class Subject {
     private String id;
-    private String name;
+    private String subjectName;
     private int soTC;
 
     public Subject() {
@@ -22,11 +22,11 @@ public class Subject {
     }
 
     public String getName() {
-        return name;
+        return subjectName;
     }
 
     public Subject setName(String name) {
-        this.name = name;
+        this.subjectName = name;
         return this;
     }
 
