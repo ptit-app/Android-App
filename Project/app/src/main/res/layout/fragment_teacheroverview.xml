@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:gravity="center_horizontal"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView
+        android:id="@+id/txt_tenGV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tên GV: "
+        android:textSize="30dp"
+        android:textColor="#ff00"/>
+    <TextView
+        android:id="@+id/txt_maGV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mã GV: "
+        android:textSize="25dp"/>
+    <TextView
+        android:id="@+id/txt_hocviGV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Học vị: "
+        android:textSize="25dp"
+        android:textStyle="bold"/>
+    <TextView
+        android:id="@+id/txt_emailGV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email: "
+        android:textSize="25dp"/>
+    <TextView
+        android:id="@+id/txt_chucvuGV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Chức vụ: "
+        android:textSize="25dp"/>
+</LinearLayout>
