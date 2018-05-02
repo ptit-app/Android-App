@@ -29,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import ptit.ntnt.ptitapp.Models.Mark;
+import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
 
 /**
@@ -64,7 +65,7 @@ public class MarkTable extends android.support.v4.app.Fragment {
         init();
 
         database = FirebaseDatabase.getInstance().getReference();
-        mdata = database.child("TB_MARK").child("N14DCAT069");
+        mdata = database.child("TB_MARK").child(MyApplication.currentStudent.getStudentID());
 
         imgmn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -152,7 +152,7 @@ public class DBHelper extends SQLiteOpenHelper {
 //        student.setCreatedAt(new Date(cursor.getLong(5)));
 //        student.setModifiedAt(new Date(cursor.getLong(6)));
         student.setPhone(cursor.getString(7));
-        student.setFacultyID(cursor.getString(8));
+//        student.setFacultyID(cursor.getString(8));
 
         Log.i("getStudent("+studentID+")", student.toString());
 
@@ -291,7 +291,7 @@ public class DBHelper extends SQLiteOpenHelper {
         news.setTitle(cursor.getString(0));
         news.setContent(cursor.getString(1));
         news.setFeatureImageId(cursor.getInt(2));
-        news.setAuthor(cursor.getString(3));
+//        news.setAuthor(cursor.getString(3));
 //        news.setCreatedAt(new Date(cursor.getLong(4)));
 //        news.setModifiedAt(new Date(cursor.getLong(5)));
 
