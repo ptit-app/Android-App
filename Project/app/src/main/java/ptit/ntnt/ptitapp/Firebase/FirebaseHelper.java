@@ -223,7 +223,7 @@ public class FirebaseHelper {
                 for (DataSnapshot ds: dataSnapshot.getChildren()){
                     News news = ds.getValue(News.class);
 
-                    Log.d("Get Data From Firebase", "Get " + news);
+//                    Log.d("Get Data From Firebase", "Get " + news);
                     adapter.add(news);
                     adapter.notifyDataSetChanged();
                 }

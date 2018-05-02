@@ -143,16 +143,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build student object
         Student student = new Student();
-        student.setStudentID(studentID);
-        student.setFullName(cursor.getString(0));
+//        student.setId(studentID);
+//        student.setFullName(cursor.getString(0));
 //        student.setBirthday(new Date(cursor.getLong(1)));
-        student.setEmail(cursor.getString(2));
+//        student.setMail(cursor.getString(2));
 //        student.setClassCode(cursor.getString(3));
-//        student.setUserGroup(cursor.getString(4));
+//        student.setGroupName(cursor.getString(4));
 //        student.setCreatedAt(new Date(cursor.getLong(5)));
 //        student.setModifiedAt(new Date(cursor.getLong(6)));
-//        student.setPhone(cursor.getString(7));
-//        student.setFacultyID(cursor.getString(8));
+        student.setPhone(cursor.getString(7));
+        student.setFacultyID(cursor.getString(8));
 
         Log.i("getStudent("+studentID+")", student.toString());
 
@@ -183,19 +183,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build lecturer object
         Lecturer lecturer = new Lecturer();
-        lecturer.setId(lecturerID);
-        lecturer.setName(cursor.getString(0));
-        lecturer.setBirthday(new Date(cursor.getLong(1)));
-        lecturer.setMail(cursor.getString(2));
-        lecturer.setRating(cursor.getInt(3));
-        lecturer.setGroupName(cursor.getString(4));
-        lecturer.setCreatedAt(new Date(cursor.getLong(5)));
-        lecturer.setModifiedAt(new Date(cursor.getLong(6)));
-        lecturer.setFacultyID(cursor.getString(cursor.getColumnIndex(DBConst.TB_LECTURER.COL_FACULTY_ID)));
-
-        Log.i("getLecturer("+lecturerID+")", lecturer.toString());
-
-        // 5. return lecturer
+//        lecturer.setId(lecturerID);
+//        lecturer.setName(cursor.getString(0));
+//        lecturer.setBirthday(new Date(cursor.getLong(1)));
+//        lecturer.setMail(cursor.getString(2));
+//        lecturer.setRating(cursor.getInt(3));
+//        lecturer.setGroupName(cursor.getString(4));
+//        lecturer.setCreatedAt(new Date(cursor.getLong(5)));
+//        lecturer.setModifiedAt(new Date(cursor.getLong(6)));
+//        lecturer.setFacultyID(cursor.getString(cursor.getColumnIndex(DBConst.TB_LECTURER.COL_FACULTY_ID)));
+//
+//        Log.i("getLecturer("+lecturerID+")", lecturer.toString());
+//
+//        // 5. return lecturer
         return lecturer;
     }
 
@@ -255,9 +255,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build area object
         Subject subject = new Subject();
-        subject.setName(cursor.getString(0));
+        subject.setSubjectName(cursor.getString(0));
         subject.setSoTC(cursor.getInt(1));
-        subject.setId(subjectID);
+        subject.setSubjectID(subjectID);
 
         Log.i("getSubject("+subjectID+")", subject.toString());
 
