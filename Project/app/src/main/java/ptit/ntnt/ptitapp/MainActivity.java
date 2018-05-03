@@ -1,6 +1,7 @@
 package ptit.ntnt.ptitapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -98,25 +99,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 //        return super.onKeyDown(keyCode, event);
 //    }
-    boolean doubleBackToExitPressedOnce = false;
-    @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Vui lòng nhấn 2 lần để thoát.", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
-    }
 
     @Override
     public void onClick (View view_object){
@@ -126,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 
     private class ItemClick implements android.widget.AdapterView.OnItemClickListener {
         @Override
@@ -191,5 +172,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             drawerMenu.closeDrawer(Gravity.LEFT,true);
         }
+    }
+
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Vui lòng nhấn 2 lần để thoát.", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

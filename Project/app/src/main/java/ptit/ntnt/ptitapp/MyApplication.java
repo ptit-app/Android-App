@@ -138,7 +138,7 @@ public class MyApplication extends Application{
     }
 
 
-    MyApplication(){
+    public MyApplication(){
         currentStudent = new Student();
         currentStudent.setStudentID("N14DCAT124");
     }
