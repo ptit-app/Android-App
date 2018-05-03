@@ -19,13 +19,23 @@ import android.widget.TextView;
 import android.support.design.widget.TabLayout;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
+import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
+import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjects;
 import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjectsApdapter;
 import ptit.ntnt.ptitapp.TeacherRating.TeacherRatingAdapter;
@@ -43,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ViewPager viewPager;
 
-
+    DatabaseReference fbData;
+    ArrayList<String> courseIdArr;
 
 
 
@@ -56,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createDrawerMenu();
         drawer_menu_adapter = new drawerMenuAdapter(this,R.layout.listview_item_drawer_menu,drawe_menu_list_array);
         drawe_menu_lv.setAdapter(drawer_menu_adapter);
-
+        //Dưới đây là start service hiển thị thông báo
+        //startService(new Intent(this, NotiService.class));
 
 //        MainPageAdapter mainpage = new MainPageAdapter();
 //        FragmentManager fragmentManager = getFragmentManager();
@@ -90,7 +102,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager = (ViewPager) findViewById(R.id.main_view_pager);
         MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mainPageAdapter);
+        fbData = FirebaseDatabase.getInstance().getReference();
+//        if(MyApplication.currentStudent.getStudentID()=="N14DCAT022"){
+//
+//        }
+        Intent intent = getIntent();
+        Bundle args = intent.getBundleExtra("BUNDLE");
+        ArrayList<Object> object = (ArrayList<Object>) args.getSerializable("ARRAYLIST");
+        ArrayList<String> key = (ArrayList<String>) args.getSerializable("KEY");
+        HashMap<String, Schedule> courses = (HashMap<String, Schedule>) object.get(0);
+        for(String course : courses.keySet()){
+            fbData.child(DBConst.TB_ATTENDANCE.TB_NAME).child("N14DCAT022").child(course).addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                    Schedule a = dataSnapshot.getValue(Schedule.class);
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
     }
 //
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {

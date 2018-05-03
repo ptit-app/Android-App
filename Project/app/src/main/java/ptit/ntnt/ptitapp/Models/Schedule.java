@@ -16,6 +16,16 @@ public class Schedule implements Comparable<Schedule> {
     private String isTheory;   // Lý Thuyêt hay thực hành
     private String studyDate;
     private String note;
+    private String isOff;
+
+    public String getIsOff() {
+        return isOff;
+    }
+
+    public Schedule setIsOff(String isOff) {
+        this.isOff = isOff;
+        return this;
+    }
 
     public Schedule() {
     }
