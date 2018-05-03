@@ -5,10 +5,4 @@
     android:id="@+id/Content"
     android:orientation="vertical">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Click Me!"
-        android:id="@+id/btn_fragment"
-        android:onClick="AddFragment"/>
 </LinearLayout>

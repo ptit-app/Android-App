@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:gravity="center_horizontal"
+    android:paddingLeft="30dp"
+    android:paddingTop="100dp"
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
@@ -10,31 +11,40 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tên GV: "
-        android:textSize="30dp"
-        android:textColor="#ff00"/>
+        android:textSize="20dp"
+        android:textColor="#ff00"
+        android:paddingVertical="15dp"/>
     <TextView
         android:id="@+id/txt_maGV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mã GV: "
-        android:textSize="25dp"/>
+        android:textSize="20dp"/>
     <TextView
         android:id="@+id/txt_hocviGV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Học vị: "
-        android:textSize="25dp"
-        android:textStyle="bold"/>
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:paddingVertical="15dp"/>
     <TextView
         android:id="@+id/txt_emailGV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email: "
-        android:textSize="25dp"/>
+        android:textSize="20dp"/>
     <TextView
         android:id="@+id/txt_chucvuGV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chức vụ: "
-        android:textSize="25dp"/>
+        android:textSize="20dp"
+        android:paddingVertical="15dp"/>
+    <TextView
+        android:id="@+id/txt_websiteGV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Website: "
+        android:textSize="20dp"/>
 </LinearLayout>

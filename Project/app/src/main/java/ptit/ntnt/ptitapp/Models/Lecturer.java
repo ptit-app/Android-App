@@ -1,12 +1,13 @@
 package ptit.ntnt.ptitapp.Models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by datshiro on 11/03/2018.
  */
 
-public class Lecturer{
+public class Lecturer implements Serializable{
     private String id;
     private String fullName;
     private String email;
@@ -20,6 +21,15 @@ public class Lecturer{
     private String groupName;
 
     public Lecturer() {
+    }
+
+    public Lecturer(String fullName, String id,  String email,String degree, String position, int ratingCount ) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.ratingCount = ratingCount;
+        this.position = position;
+        this.degree = degree;
     }
 
     @Override

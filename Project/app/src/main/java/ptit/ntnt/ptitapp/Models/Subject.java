@@ -9,6 +9,12 @@ public class Subject {
     private String subjectName;
     private int soTC;
 
+    public Subject(String subjectID, String subjectName, int soTC) {
+        this.subjectID = subjectID;
+        this.subjectName = subjectName;
+        this.soTC = soTC;
+    }
+
     public Subject() {
     }
 
@@ -37,5 +43,14 @@ public class Subject {
     public Subject setSoTC(int soTC) {
         this.soTC = soTC;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Subject{" +
+                "subjectID='" + subjectID + '\'' +
+                ", subjectName='" + subjectName + '\'' +
+                ", soTC=" + soTC +
+                '}';
     }
 }

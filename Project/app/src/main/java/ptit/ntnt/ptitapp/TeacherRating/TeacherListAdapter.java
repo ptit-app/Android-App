@@ -11,17 +11,20 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
+import ptit.ntnt.ptitapp.Models.Lecturer;
 import ptit.ntnt.ptitapp.R;
 
 public class TeacherListAdapter extends BaseAdapter {
     private Context context;
     private int layout;
-    private List<Teacher> teacherList; //List để chứa các list gv
+    private List<Lecturer> teacherList; //List để chứa các list gv
 
-    public TeacherListAdapter(Context context, int layout, List<Teacher> teacherList) {
+
+    public TeacherListAdapter(Context context, int layout, List<Lecturer> teacherList) {
         this.context = context;
         this.layout = layout;
         this.teacherList = teacherList;
@@ -45,9 +48,8 @@ public class TeacherListAdapter extends BaseAdapter {
     private class ViewHolder{
         TextView txtName;
         TextView txtID;
-        RatingBar rtbGBRating;
-        TextView countView;
-        ImageView imgPic;
+        TextView ratingCount;
+        RatingBar ratingStar;
     }
 
     @Override
@@ -58,20 +60,20 @@ public class TeacherListAdapter extends BaseAdapter {
             view = LayoutInflater.from(context).inflate(R.layout.teacherrating_row,viewGroup,false);
             holder.txtName = (TextView) view.findViewById(R.id.txt_GVName);
             holder.txtID = (TextView) view.findViewById(R.id.txt_GVId);
-            //holder.rtbGBRating = (RatingBar) view.findViewById(R.id.rtb_GVRating);
-            holder.countView = (TextView) view.findViewById(R.id.txt_countRate);
+            holder.ratingStar = (RatingBar) view.findViewById(R.id.rtb_GVRating);
+            holder.ratingCount = (TextView) view.findViewById(R.id.txt_countRate);
             view.setTag(holder);
         }
         else {
             holder = (ViewHolder) view.getTag();
         }
 
-        Teacher teacher = teacherList.get(i);
+        Lecturer teacher = teacherList.get(i);
 
-        holder.txtName.setText("Tên GV: " + teacher.getNameGV());
-        holder.txtID.setText("Mã GV: " + teacher.getIdGV());
-        //holder.rtbGBRating.setText(teacher.getRatingGV());
-        holder.countView.setText("Lượt đánh giá: " + String.valueOf(teacher.getCountView()));
+        holder.txtName.setText("Tên GV: " + teacher.getFullName());
+        holder.txtID.setText("Mã GV: " + teacher.getId());
+        holder.ratingStar.setRating(5);
+        holder.ratingCount.setText("Lượt đánh giá: " + String.valueOf(teacher.getRatingCount()));
 
         return view;
     }

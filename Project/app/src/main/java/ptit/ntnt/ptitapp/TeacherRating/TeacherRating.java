@@ -20,7 +20,6 @@ import ptit.ntnt.ptitapp.R;
 public class TeacherRating extends Fragment {
     View view;
 
-    Button btnChangeFragment;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -32,22 +31,6 @@ public class TeacherRating extends Fragment {
         fragmentTransaction.add(R.id.Content, fragmentTeacherList);
         fragmentTransaction.commit();
 
-        btnChangeFragment = (Button) view.findViewById(R.id.btn_fragment);
-        btnChangeFragment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddFragment();
-            }
-        });
         return view;
-    }
-
-    public void AddFragment(){
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        FragmentTeacherInfo fragmentTeacherInfo = new FragmentTeacherInfo();
-
-        fragmentTransaction.replace(R.id.Content, fragmentTeacherInfo);
-        fragmentTransaction.commit();
     }
 }
