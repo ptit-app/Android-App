@@ -47,4 +47,27 @@
         android:layout_height="wrap_content"
         android:text="Website: "
         android:textSize="20dp"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RatingBar
+            android:id="@+id/rtb_GVRatingDeTail"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:numStars="5"
+            android:scaleX=".5"
+            android:scaleY=".6"
+            android:stepSize="1.0"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp"
+
+            />
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sumit Rating"/>
+    </LinearLayout>
 </LinearLayout>

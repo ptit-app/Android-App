@@ -6,14 +6,20 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import ptit.ntnt.ptitapp.Models.Lecturer;
 import ptit.ntnt.ptitapp.R;
 
 public class FragmentTeacherInfo extends Fragment {
     TextView txtTenGV, txtMaGV, txtHocVi, txtEmail, txtChucVu, txtWebsite;
+    RatingBar ratingBarDetail;
+    Button btnSubmit;
+    Float star;
     View view;
     @Nullable
     @Override
@@ -23,6 +29,45 @@ public class FragmentTeacherInfo extends Fragment {
         Lecturer t = (Lecturer) bundle.getSerializable("lectureInfo");
         AnhXa();
         SetInfo(t);
+        final float star;
+        ratingBarDetail.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
+          btnSubmit.setOnClickListener(new View.OnClickListener() {
+              @Override
+              public void onClick(View v) {
+                  
+              }
+          });
+//                switch ((int) ratingBar.getRating()) {
+//                    case 1:
+//                        btnSubmit.setOnClickListener(new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View v) {
+//
+//                            }
+//                        });
+//                        break;
+//                    case 2:
+//
+//                        break;
+//                    case 3:
+//
+//                        break;
+//                    case 4:
+//
+//                        break;
+//                    case 5:
+//
+//                        break;
+//                    default:
+//
+//                }
+            }
+
+        });
+
+
         return view;
     }
 
@@ -42,5 +87,7 @@ public class FragmentTeacherInfo extends Fragment {
         txtEmail = (TextView) view.findViewById(R.id.txt_emailGV);
         txtChucVu = (TextView) view.findViewById(R.id.txt_chucvuGV);
         txtWebsite = (TextView) view.findViewById(R.id.txt_websiteGV);
+        ratingBarDetail=(RatingBar) view.findViewById(R.id.rtb_GVRatingDeTail);
+        btnSubmit = (Button) view.findViewById(R.id.btnSubmit);
     }
 }

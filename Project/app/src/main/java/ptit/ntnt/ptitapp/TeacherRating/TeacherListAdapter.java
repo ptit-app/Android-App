@@ -72,7 +72,7 @@ public class TeacherListAdapter extends BaseAdapter {
 
         holder.txtName.setText("Tên GV: " + teacher.getFullName());
         holder.txtID.setText("Mã GV: " + teacher.getId());
-        holder.ratingStar.setRating(5);
+        holder.ratingStar.setRating(teacher.getRating());
         holder.ratingCount.setText("Lượt đánh giá: " + String.valueOf(teacher.getRatingCount()));
 
         return view;
