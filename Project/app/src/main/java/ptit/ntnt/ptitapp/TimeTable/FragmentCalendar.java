@@ -27,12 +27,13 @@ import java.util.Date;
 
 import ptit.ntnt.ptitapp.CalendarView;
 import ptit.ntnt.ptitapp.Models.Schedule;
+import ptit.ntnt.ptitapp.Models.Subject;
 import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
 import ptit.ntnt.ptitapp.Tools;
 
 public class FragmentCalendar  extends android.support.v4.app.Fragment {
-    FragmentDayDetail fragmentDayDetail;
+//
     Date currentTime = Calendar.getInstance().getTime();
     String dayOFMONTH,MONTH,YEAR;
     static String tenMH;
@@ -40,7 +41,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     ArrayList<SubjectSchedule> arrSubjectSchedules;
     ArrayList<Schedule> arrSchedules;
     SubjectScheduleAdapter subjectScheduleAdapter;
-    TextView txtDate;
+   // TextView txtDate;
     String buoi;
     View view;
     android.widget.CalendarView calendarView;
@@ -64,8 +65,8 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
                 else
                     MONTH = String.valueOf(month+1);
                 String Date = dayOFMONTH +"/"+ MONTH + "/"+ String.valueOf(year);
-                txtDate.setText(Date);
-                Toast.makeText(getActivity(), txtDate.getText().toString()+"abc", Toast.LENGTH_SHORT).show();
+                //txtDate.setText(Date);
+               // Toast.makeText(getActivity(), txtDate.getText().toString()+"abc", Toast.LENGTH_SHORT).show();
                 arrSubjectSchedules.clear();
                 subjectScheduleAdapter.notifyDataSetChanged();
                 getSchedule(Date);
@@ -75,10 +76,10 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     }
     private void setControl(){
         calendarView =   (android.widget.CalendarView) view.findViewById(R.id.calender_Day);
-        txtDate = (TextView) view.findViewById(R.id.showDate);
+//        txtDate = (TextView) view.findViewById(R.id.showDate);
         final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         arrSubjectSchedules = new ArrayList<>();
-        txtDate.setText(dateInString.toString());
+       // txtDate.setText(dateInString.toString());
         ListView lvSubjectSchedule = (ListView) view.findViewById(R.id.lvShedule);
         subjectScheduleAdapter = new SubjectScheduleAdapter(getActivity(), R.layout.timetable_view_subject_row, arrSubjectSchedules);
         lvSubjectSchedule.setAdapter(subjectScheduleAdapter);
@@ -87,7 +88,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
         int i;
         arrSchedules = Tools.getSchedulesByDate(Date);
         Collections.sort(arrSchedules);
-        Toast.makeText(getActivity(), arrSchedules.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), arrSchedules.toString(), Toast.LENGTH_SHORT).show();
         for (i = 0; i < arrSchedules.size(); i++) {
             if (arrSchedules.isEmpty()) {
                 Toast.makeText(getActivity(), "NULL", Toast.LENGTH_SHORT).show();
@@ -104,11 +105,11 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
                         if (arrSchedules.get(finalI).getCourseID().split("_")[0].toString().equals(dataSnapshot.getKey().toString())) {
 
                             if (arrSchedules.get(finalI).getTietBD() == 1) {
-                                Toast.makeText(getActivity(), "Tiet Bat dau:" + arrSchedules.get(finalI).getTietBD(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getActivity(), "Tiet Bat dau:" + arrSchedules.get(finalI).getTietBD(), Toast.LENGTH_SHORT).show();
                                 buoi = "Sáng";
                             } else buoi = "Chiều";
-                            CustomSubject customSubject = dataSnapshot.getValue(CustomSubject.class);
-                            tenMH = customSubject.getSubjectName();
+                            Subject subject = dataSnapshot.getValue(Subject.class);
+                            tenMH = subject.getSubjectName();
                             SubjectSchedule subjectSchedule = new SubjectSchedule(arrSchedules.get(finalI).getCourseID().split("_")[0], tenMH, arrSchedules.get(finalI).getRoom().toString(), buoi, arrSchedules.get(finalI).getCourseID());
                             arrSubjectSchedules.add(subjectSchedule);
 
