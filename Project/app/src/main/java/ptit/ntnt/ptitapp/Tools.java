@@ -21,6 +21,8 @@ import java.util.Set;
 import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Exam;
+import ptit.ntnt.ptitapp.Models.Lecturer;
+import ptit.ntnt.ptitapp.Models.Rate;
 import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.Models.Subject;
 
@@ -105,7 +107,7 @@ public class Tools {
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             final ArrayList<String> listCourse = (ArrayList<String>) dataSnapshot.getValue();
                             for(final String course : listCourse){                            // For each course in listCourse of that Student
-                                attendanceNode.child(studentID).child(course).setValue("");
+//                                attendanceNode.child(studentID).child(course).setValue("");
                                 courseNode.child(course).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
@@ -119,6 +121,7 @@ public class Tools {
                                             schedule.setNote("");
                                             schedule.setRoom(c.getRoom());
                                             schedule.setStudyDate(DateToString(d));
+                                            schedule.setIsOff("false");
 
                                             attendanceNode.child(studentID).child(course).child(String.valueOf(d.getTime())).setValue(schedule);
                                         }
@@ -207,4 +210,32 @@ public class Tools {
         return listSchedule;
     }
 
+    public static void addRate(String studentID, final String lecturerID, final int rateStar){
+        final DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        Rate rate = new Rate();
+        rate.setLecturerID(lecturerID);
+        rate.setStar(rateStar);
+        mData.child("TB_RATE").child(studentID).child(lecturerID).setValue(rate);
+        // Update Lecturer
+
+        mData.child(DBConst.TB_LECTURER.TB_NAME).child(lecturerID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Lecturer lecturer = dataSnapshot.getValue(Lecturer.class);
+                int ratingCount = lecturer.getRatingCount();
+                int rating = lecturer.getRating();
+                rating += rateStar;
+                ratingCount++;
+                lecturer.setRating(rating);
+                lecturer.setRatingCount(ratingCount);
+                Log.d("DAT SHIRO WORK","Update new rating lecturer " + lecturer.toString());
+                mData.child(DBConst.TB_LECTURER.TB_NAME).child(lecturerID).setValue(lecturer);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
 }

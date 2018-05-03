@@ -15,7 +15,7 @@ public class News {
     private String id;
     private String title;
     private String content;
-    private String authorId;
+    private String author;
     private int featureImageId;
     private String createdAt;
     private String modifiedAt;
@@ -30,7 +30,6 @@ public class News {
                 "id='" + id + '\'' +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +
-                ", authorId='" + authorId + '\'' +
                 ", featureImageId=" + featureImageId +
                 ", createdAt=" + createdAt +
                 ", modifiedAt=" + modifiedAt +
@@ -40,6 +39,15 @@ public class News {
     void UpdateModifyTime(){
         SimpleDateFormat formater = new SimpleDateFormat("dd-MM-yyyy hh-mm-ss");
         this.modifiedAt = formater.format(new Date());
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public News setAuthor(String author) {
+        this.author = author;
+        return this;
     }
 
     public String getId() {
@@ -54,23 +62,11 @@ public class News {
         return content;
     }
 
-    public String getAuthor() {
-        return authorId;
-    }
 
     public int getFeatureImageId() {
         return featureImageId;
     }
 
-    public String getAuthorId() {
-        return authorId;
-    }
-
-    public News setAuthorId(String authorId) {
-        this.authorId = authorId;
-        this.UpdateModifyTime();
-        return this;
-    }
 
     public String getCreatedAt() {
         return createdAt;
@@ -108,11 +104,6 @@ public class News {
         return this;
     }
 
-    public News setAuthor(String author) {
-        this.authorId = author;
-        UpdateModifyTime();
-        return this;
-    }
 
     public News setFeatureImageId(int featureImageId) {
         this.featureImageId = featureImageId;

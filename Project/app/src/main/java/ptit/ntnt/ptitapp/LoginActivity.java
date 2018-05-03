@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateLogin(){
-        Log.d("DAT SHIRO WORK" , MyApplication.listAllLecturer.toString());
         String email = edEmail.getText().toString();
         String pass = edPass.getText().toString();
         String studentLoginID = email.split("@")[0];

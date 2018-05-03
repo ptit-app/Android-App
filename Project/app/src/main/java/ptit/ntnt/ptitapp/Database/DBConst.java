@@ -170,4 +170,10 @@ public class DBConst {
     public static class TB_EXAM{
         public static final String TB_NAME = "TB_EXAM";
     }
+
+//    public static class TB_SCHEDULE{
+//        public static final String TB_NAME = "TB_EXAM";
+//
+//    }
+
 }
