@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.Models.Course;
+import ptit.ntnt.ptitapp.Models.Exam;
 import ptit.ntnt.ptitapp.Models.Lecturer;
 import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.Models.Student;
@@ -33,6 +34,7 @@ public class MyApplication extends Application{
     static public HashMap<String,Subject> mapCourseIDToSubject = new HashMap<>();
     static public HashMap<String,Student> mapAllStudent = new HashMap<>();
     static public ArrayList<Lecturer> listAllLecturer = new ArrayList<>();
+    static public HashMap<String,Exam> mapExam = new HashMap<>();
 
     @Override
     public void onCreate() {
@@ -43,6 +45,7 @@ public class MyApplication extends Application{
             getMapCourseIDToSubject();
             getMapAllStudent();
             getListAllLecturer();
+            getMapExam();
         }catch (Exception ex){
             Toast.makeText(MyApplication.this, "Failed to load data from firebase", Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
@@ -53,6 +56,7 @@ public class MyApplication extends Application{
         mapCourseIDToSubject.clear();
         mapAllStudent.clear();
         listAllLecturer.clear();
+        mapExam.clear();
     }
 
     public static void getMapCourse(final String studentID){
@@ -185,5 +189,24 @@ public class MyApplication extends Application{
         mapCourse.clear();
         currentStudent = student;
         getMapCourse(currentStudent.getStudentID());
+    }
+
+    public void getMapExam(){
+        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        mData.child(DBConst.TB_EXAM.TB_NAME).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot e : dataSnapshot.getChildren()){
+                    Exam exam = e.getValue(Exam.class);
+                    exam.setCourseID(e.getKey());
+                    mapExam.put(e.getKey(),exam);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 }

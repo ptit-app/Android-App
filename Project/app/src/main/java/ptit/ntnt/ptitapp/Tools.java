@@ -8,6 +8,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ import java.util.Set;
 
 import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.Models.Course;
+import ptit.ntnt.ptitapp.Models.Exam;
 import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.Models.Subject;
 
 import static ptit.ntnt.ptitapp.MyApplication.mapCourse;
 import static ptit.ntnt.ptitapp.MyApplication.mapCourseIDToSubject;
+import static ptit.ntnt.ptitapp.MyApplication.mapExam;
 
 /**
  * Created by datshiro on 22/03/2018.
@@ -168,6 +171,14 @@ public class Tools {
             listSubject.add(mapCourseIDToSubject.get(courseID));
         }
         return listSubject;
+    }
+
+    public static ArrayList<Exam> getCurrentExamOnStudyingCourse(){
+        ArrayList<Exam> listExam = new ArrayList<>();
+        for(String courseID: mapCourse.keySet()){
+            listExam.add(mapExam.get(courseID));
+        }
+        return listExam;
     }
 
     public static ArrayList<Schedule> getSchedulesByDate(String stringDate){
