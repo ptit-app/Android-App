@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import ptit.ntnt.ptitapp.AppInfo.AppInfo;
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Lecturer;
 import ptit.ntnt.ptitapp.Models.Mark;
@@ -42,8 +43,6 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         updateMyDatabase(db, 0, DBConst.DATABASE_VERSION);
-
-
     }
 
     @Override
@@ -62,7 +61,9 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(DBConst.TB_MARK.CREATE);
             db.execSQL(DBConst.TB_NEWS.CREATE);
             db.execSQL(DBConst.TB_ATTENDANCE.CREATE);
-
+            db.execSQL(DBConst.TB_MISSION.CREATE);
+            db.execSQL(DBConst.TB_DEV.CREATE);
+            db.execSQL(DBConst.TB_TONGHOP.CREATE);
         }
         if (oldVersion < 2) {
 //Code to add the extra column
@@ -143,15 +144,15 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // 4. build student object
         Student student = new Student();
-//        student.setId(studentID);
-//        student.setFullName(cursor.getString(0));
+        student.setStudentID(studentID);
+        student.setFullName(cursor.getString(0));
 //        student.setBirthday(new Date(cursor.getLong(1)));
-//        student.setMail(cursor.getString(2));
+        student.setEmail(cursor.getString(2));
 //        student.setClassCode(cursor.getString(3));
-//        student.setGroupName(cursor.getString(4));
+//        student.setUserGroup(cursor.getString(4));
 //        student.setCreatedAt(new Date(cursor.getLong(5)));
 //        student.setModifiedAt(new Date(cursor.getLong(6)));
-        student.setPhone(cursor.getString(7));
+//        student.setPhone(cursor.getString(7));
 //        student.setFacultyID(cursor.getString(8));
 
         Log.i("getStudent("+studentID+")", student.toString());
@@ -161,28 +162,28 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Get lecturer
-    public Lecturer getLecturer(String lecturerID){
-
-        // 1. get reference to readable DB
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // 2. build query
-        Cursor cursor =
-                db.query(DBConst.TB_LECTURER.TB_NAME, // a. table
-                        new String[] {DBConst.TB_LECTURER.COL_NAME,DBConst.TB_LECTURER.COL_BIRTHDAY,DBConst.TB_LECTURER.COL_EMAIL, DBConst.TB_LECTURER.COL_RATING, DBConst.TB_LECTURER.COL_FK_USER_GROUP, DBConst.TB_LECTURER.COL_CREATED_AT, DBConst.TB_LECTURER.COL_MODIFIED_AT, DBConst.TB_LECTURER.COL_FACULTY_ID}, // b. column names
-                        DBConst.TB_LECTURER.COL_LECTURER_ID+"=?", // c. selections
-                        new String[] { lecturerID }, // d. selections args
-                        null, // e. group by
-                        null, // f. having
-                        null, // g. order by
-                        null); // h. limit
-
-        // 3. if we got results get the first one
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        // 4. build lecturer object
-        Lecturer lecturer = new Lecturer();
+//    public Lecturer getLecturer(String lecturerID){
+//
+//        // 1. get reference to readable DB
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        // 2. build query
+//        Cursor cursor =
+//                db.query(DBConst.TB_LECTURER.TB_NAME, // a. table
+//                        new String[] {DBConst.TB_LECTURER.COL_NAME,DBConst.TB_LECTURER.COL_BIRTHDAY,DBConst.TB_LECTURER.COL_EMAIL, DBConst.TB_LECTURER.COL_RATING, DBConst.TB_LECTURER.COL_FK_USER_GROUP, DBConst.TB_LECTURER.COL_CREATED_AT, DBConst.TB_LECTURER.COL_MODIFIED_AT, DBConst.TB_LECTURER.COL_FACULTY_ID}, // b. column names
+//                        DBConst.TB_LECTURER.COL_LECTURER_ID+"=?", // c. selections
+//                        new String[] { lecturerID }, // d. selections args
+//                        null, // e. group by
+//                        null, // f. having
+//                        null, // g. order by
+//                        null); // h. limit
+//
+//        // 3. if we got results get the first one
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        // 4. build lecturer object
+//        Lecturer lecturer = new Lecturer();
 //        lecturer.setId(lecturerID);
 //        lecturer.setName(cursor.getString(0));
 //        lecturer.setBirthday(new Date(cursor.getLong(1)));
@@ -196,8 +197,8 @@ public class DBHelper extends SQLiteOpenHelper {
 //        Log.i("getLecturer("+lecturerID+")", lecturer.toString());
 //
 //        // 5. return lecturer
-        return lecturer;
-    }
+//        return lecturer;
+//    }
 
     // Get UserGroup
     public UserGroup getUserGroup(String groupName){
@@ -233,73 +234,73 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     // Get Subject
-    public Subject getSubject(String subjectID){
-
-        // 1. get reference to readable DB
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // 2. build query
-        Cursor cursor =
-                db.query(DBConst.TB_SUBJECT.TB_NAME, // a. table
-                        new String[]{DBConst.TB_SUBJECT.COL_SUBJECT_NAME, DBConst.TB_SUBJECT.COL_SO_TC}, // b. column names
-                        DBConst.TB_SUBJECT.COL_SUBJECT_ID+"=?", // c. selections
-                        new String[] { subjectID }, // d. selections args
-                        null, // e. group by
-                        null, // f. having
-                        null, // g. order by
-                        null); // h. limit
-
-        // 3. if we got results get the first one
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        // 4. build area object
-        Subject subject = new Subject();
-        subject.setSubjectName(cursor.getString(0));
-        subject.setSoTC(cursor.getInt(1));
-        subject.setSubjectID(subjectID);
-
-        Log.i("getSubject("+subjectID+")", subject.toString());
-
-        // 5. return subject
-        return subject;
-    }
+//    public Subject getSubject(String subjectID){
+//
+//        // 1. get reference to readable DB
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        // 2. build query
+//        Cursor cursor =
+//                db.query(DBConst.TB_SUBJECT.TB_NAME, // a. table
+//                        new String[]{DBConst.TB_SUBJECT.COL_SUBJECT_NAME, DBConst.TB_SUBJECT.COL_SO_TC}, // b. column names
+//                        DBConst.TB_SUBJECT.COL_SUBJECT_ID+"=?", // c. selections
+//                        new String[] { subjectID }, // d. selections args
+//                        null, // e. group by
+//                        null, // f. having
+//                        null, // g. order by
+//                        null); // h. limit
+//
+//        // 3. if we got results get the first one
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        // 4. build area object
+//        Subject subject = new Subject();
+//        subject.setName(cursor.getString(0));
+//        subject.setSoTC(cursor.getInt(1));
+//        subject.setId(subjectID);
+//
+//        Log.i("getSubject("+subjectID+")", subject.toString());
+//
+//        // 5. return subject
+//        return subject;
+//    }
 
     // Get News
-    public News getNews(String newsID){
-
-        // 1. get reference to readable DB
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // 2. build query
-        Cursor cursor =
-                db.query(DBConst.TB_NEWS.TB_NAME, // a. table
-                        new String[]{DBConst.TB_NEWS.COL_TITLE, DBConst.TB_NEWS.COL_CONTENT, DBConst.TB_NEWS.COL_FEATURE_IMAGE_ID, DBConst.TB_NEWS.COL_AUTHOR, DBConst.TB_NEWS.COL_CREATED_AT, DBConst.TB_NEWS.COL_MODIFIED_AT}, // b. column names
-                        DBConst.TB_NEWS.COL_NEWS_ID+"=?", // c. selections
-                        new String[] { newsID }, // d. selections args
-                        null, // e. group by
-                        null, // f. having
-                        null, // g. order by
-                        null); // h. limit
-
-        // 3. if we got results get the first one
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        // 4. build area object
-        News news = new News();
-        news.setTitle(cursor.getString(0));
-        news.setContent(cursor.getString(1));
-        news.setFeatureImageId(cursor.getInt(2));
+//    public News getNews(String newsID){
+//
+//        // 1. get reference to readable DB
+//        SQLiteDatabase db = this.getReadableDatabase();
+//
+//        // 2. build query
+//        Cursor cursor =
+//                db.query(DBConst.TB_NEWS.TB_NAME, // a. table
+//                        new String[]{DBConst.TB_NEWS.COL_TITLE, DBConst.TB_NEWS.COL_CONTENT, DBConst.TB_NEWS.COL_FEATURE_IMAGE_ID, DBConst.TB_NEWS.COL_AUTHOR, DBConst.TB_NEWS.COL_CREATED_AT, DBConst.TB_NEWS.COL_MODIFIED_AT}, // b. column names
+//                        DBConst.TB_NEWS.COL_NEWS_ID+"=?", // c. selections
+//                        new String[] { newsID }, // d. selections args
+//                        null, // e. group by
+//                        null, // f. having
+//                        null, // g. order by
+//                        null); // h. limit
+//
+//        // 3. if we got results get the first one
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        // 4. build area object
+//        News news = new News();
+//        news.setTitle(cursor.getString(0));
+//        news.setContent(cursor.getString(1));
+//        news.setFeatureImageId(cursor.getInt(2));
 //        news.setAuthor(cursor.getString(3));
-//        news.setCreatedAt(new Date(cursor.getLong(4)));
-//        news.setModifiedAt(new Date(cursor.getLong(5)));
-
-        Log.i("getNews("+newsID+")", news.toString());
-
-        // 5. return news
-        return news;
-    }
+////        news.setCreatedAt(new Date(cursor.getLong(4)));
+////        news.setModifiedAt(new Date(cursor.getLong(5)));
+//
+//        Log.i("getNews("+newsID+")", news.toString());
+//
+//        // 5. return news
+//        return news;
+//    }
 
     // Get Marks
     public Mark getMark(String subjectID, String studentID){
@@ -447,5 +448,55 @@ public class DBHelper extends SQLiteOpenHelper {
         // 5. return schedule
         return schedule;
     }
+    //get Mission
+    public boolean insertDev (int devId, String devName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBConst.TB_DEV.COL_DEV_ID, devId);
+        contentValues.put(DBConst.TB_DEV.COL_DEV_NAME, devName);
+        db.insert(DBConst.TB_DEV.TB_NAME, null, contentValues);
+        return true;
+    }
+    public boolean updateDev (int devId, String devName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBConst.TB_DEV.COL_DEV_ID, devId);
+        contentValues.put(DBConst.TB_DEV.COL_DEV_NAME, devName);
+        db.update(DBConst.TB_DEV.TB_NAME, contentValues, "DEV_ID = ?", new String[] { Integer.toString(devId) } );
+        return true;
+    }
 
+    public boolean insertMission (int missionId, String missionName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBConst.TB_MISSION.COL_MISSION_ID, missionId);
+        contentValues.put(DBConst.TB_MISSION.COL_MISSION_NAME, missionName);
+        db.insert(DBConst.TB_MISSION.TB_NAME, null, contentValues);
+        return true;
+    }
+    public boolean updateMission (Integer id, String name) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBConst.TB_MISSION.COL_MISSION_ID, id);
+        contentValues.put(DBConst.TB_MISSION.COL_MISSION_NAME, name);
+        db.update(DBConst.TB_MISSION.TB_NAME, contentValues, "MISSION_ID = ?", new String[] { Integer.toString(id) } );
+        return true;
+    }
+    public boolean insertTonghop (int missionId, int devId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBConst.TB_TONGHOP.COL_MISSION_ID, missionId);
+        contentValues.put(DBConst.TB_TONGHOP.COL_DEV_ID, devId);
+        db.insert(DBConst.TB_TONGHOP.TB_NAME, null, contentValues);
+        return true;
+    }
+    public void QueeryData(String sql){
+        SQLiteDatabase database = getWritableDatabase();
+        database.execSQL(sql);
+    }
+
+    public Cursor GetData(String sql){
+        SQLiteDatabase database = getReadableDatabase();
+        return database.rawQuery(sql,null);
+    }
 }
