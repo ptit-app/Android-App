@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,18 +42,21 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     ArrayList<SubjectSchedule> arrSubjectSchedules;
     ArrayList<Schedule> arrSchedules;
     SubjectScheduleAdapter subjectScheduleAdapter;
-   // TextView txtDate;
+    TextView txtDate;
     String buoi;
     View view;
     android.widget.CalendarView calendarView;
     String UserID;
     private String pattern = "dd/MM/yyyy";
+    boolean flag=false ;
     String dateInString = new SimpleDateFormat(pattern).format(new Date());
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calendar, container, false);
         setControl();
+
         calendarView.setOnDateChangeListener(new android.widget.CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull android.widget.CalendarView view, int year, int month, int dayOfMonth) {
@@ -65,24 +69,39 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
                 else
                     MONTH = String.valueOf(month+1);
                 String Date = dayOFMONTH +"/"+ MONTH + "/"+ String.valueOf(year);
-                //txtDate.setText(Date);
+                txtDate.setText(Date);
                // Toast.makeText(getActivity(), txtDate.getText().toString()+"abc", Toast.LENGTH_SHORT).show();
                 arrSubjectSchedules.clear();
                 subjectScheduleAdapter.notifyDataSetChanged();
                 getSchedule(Date);
+
             }
         });
         return view;
     }
     private void setControl(){
         calendarView =   (android.widget.CalendarView) view.findViewById(R.id.calender_Day);
-//        txtDate = (TextView) view.findViewById(R.id.showDate);
+       txtDate = (TextView) view.findViewById(R.id.showDate);
         final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         arrSubjectSchedules = new ArrayList<>();
-       // txtDate.setText(dateInString.toString());
+       txtDate.setText(dateInString.toString());
         ListView lvSubjectSchedule = (ListView) view.findViewById(R.id.lvShedule);
         subjectScheduleAdapter = new SubjectScheduleAdapter(getActivity(), R.layout.timetable_view_subject_row, arrSubjectSchedules);
         lvSubjectSchedule.setAdapter(subjectScheduleAdapter);
+        lvSubjectSchedule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                if(flag){
+                    calendarView.setVisibility(View.VISIBLE);
+                    flag=false;
+                }
+                else{
+                calendarView.setVisibility(View.GONE);
+                flag=true;}
+            }
+        });
+
     }
     private void getSchedule(String Date) {
         int i;
@@ -114,6 +133,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
                             arrSubjectSchedules.add(subjectSchedule);
 
                             subjectScheduleAdapter.notifyDataSetChanged();
+
                         }
                     }
 
@@ -137,6 +157,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
 
                     }
                 });
+
             }
         }
     }
