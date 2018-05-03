@@ -40,12 +40,11 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PassRecoverS1 step1 = new PassRecoverS1();
-//                Bundle args = new Bundle();
-//                args.putString("fuck", "cai lol que");
-//                step1.setArguments(args);
                 step1.show(getFragmentManager(),"rec_pass_1");
             }
         });
+        //Dưới đây là start service hiển thị thông báo
+        //startService(new Intent(this, NotiService.class));
     }
 
     private void validateLogin(){
