@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     View view;
     android.widget.CalendarView calendarView;
     String UserID;
+
     private String pattern = "dd/MM/yyyy";
     boolean flag=false ;
     String dateInString = new SimpleDateFormat(pattern).format(new Date());
@@ -126,6 +128,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
 
             }
         });
+
 
     }
     private void getSchedule(String Date) {
