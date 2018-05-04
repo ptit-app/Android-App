@@ -16,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 import ptit.ntnt.ptitapp.Database.DBConst;
+import ptit.ntnt.ptitapp.Database.DBHelper;
 import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.Models.Student;
 import ptit.ntnt.ptitapp.Models.Subject;
@@ -43,6 +44,12 @@ public class NotiService extends Service{
             Bundle args = intent.getBundleExtra("NOTIAGRS");
             courses = (ArrayList<String>) args.getSerializable("COURSE");
             mssv = args.getString("ID");
+            DBHelper dbHelper = new DBHelper(getApplicationContext());
+            dbHelper.addNoti(mssv, courses);
+        }else{
+            DBHelper dbHelper = new DBHelper(getApplicationContext());
+            courses = dbHelper.getAllNoti();
+            mssv = dbHelper.getStudentIDFromNoti();
         }
         for(String course : courses){
             fbData.child(DBConst.TB_ATTENDANCE.TB_NAME).child(mssv).child(course).addChildEventListener(new ChildEventListener() {

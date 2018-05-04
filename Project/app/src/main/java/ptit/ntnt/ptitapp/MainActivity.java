@@ -30,7 +30,7 @@ import ptit.ntnt.ptitapp.AppGuide.AppGuideAdapter;
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
-import ptit.ntnt.ptitapp.ForgotPassword.PassRecoverS1;
+import ptit.ntnt.ptitapp.Database.DBHelper;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
 import ptit.ntnt.ptitapp.Models.Schedule;
@@ -67,15 +67,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        fragmentTransaction.commit();
     }
 
-    private boolean isMyServiceRunning(Class<?> serviceClass) {
-        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
-            if (serviceClass.getName().equals(service.service.getClassName())) {
-                return true;
-            }
-        }
-        return false;
-    }
+//    private boolean isMyServiceRunning(Class<?> serviceClass) {
+//        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+//            if (serviceClass.getName().equals(service.service.getClassName())) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     private void createDrawerMenu() {
         drawe_menu_lv = (ListView) findViewById(R.id.drawer_menu_list);
@@ -102,8 +102,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mainPageAdapter);
 
-        initService();
-
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        String id = dbHelper.getStudentIDFromNoti();
+        if(id.equalsIgnoreCase("")) {
+            initService();
+        }
         ImageView bt_user = (ImageView) findViewById(R.id.user_avatar);
         bt_user.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -119,9 +122,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initService(){
-        if(isMyServiceRunning(NotiService.class)){
-            stopService(new Intent(this, NotiService.class));
-        }
         Intent intent = getIntent();
         if (intent != null) {
             Bundle args = intent.getBundleExtra("BUNDLE");
@@ -172,6 +172,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case 1:
                     TimeTableAdapter timeTableAdapter = new TimeTableAdapter(getSupportFragmentManager());
+                    // Dat Shiro 04/05/2018
+                    if (MyApplication.mapCourse.isEmpty()){
+                        DBHelper db = new DBHelper(getBaseContext());
+                        db.getHashMapScheduleFromSQLite();
+                    }
+                    // End of coding
                     viewPager.setAdapter(timeTableAdapter);
                     main_page_title.setText(getString(R.string.time_table));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,1f));
