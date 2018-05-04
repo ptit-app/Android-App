@@ -18,6 +18,12 @@ public class Schedule implements Comparable<Schedule> {
     private String note;
     private String isOff;
 
+    @Override
+    public int compareTo(@NonNull Schedule o) {
+
+        return getTietBD()-o.getTietBD();
+    }
+
     public Schedule() {
     }
 
