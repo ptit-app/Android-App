@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ptit.ntnt.ptitapp.AppGuide.AppGuideAdapter;
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
@@ -180,6 +181,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_page_title.setText(getString(R.string.app_info));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
                     break;
+                case 7:
+                    AppGuideAdapter appGuideAdapter = new AppGuideAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(appGuideAdapter);
+                    main_page_title.setText(getString(R.string.help));
+                    mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
+                    break;
+
                 default:
 
                     break;
