@@ -14,11 +14,13 @@
         android:layout_weight="9"
         android:layout_height="wrap_content"
         android:hint="Show date"
-        android:textSize="15sp"
+        android:textSize="18sp"
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textColor="#000"
         android:paddingLeft="10dp"
+        android:gravity="center"
+        android:paddingTop="5dp"
         />
         <ImageView
             android:id="@+id/imgCalendar"
