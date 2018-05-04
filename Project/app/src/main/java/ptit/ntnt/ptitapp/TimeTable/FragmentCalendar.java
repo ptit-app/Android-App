@@ -77,6 +77,14 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
                 arrSubjectSchedules.clear();
                 subjectScheduleAdapter.notifyDataSetChanged();
                 getSchedule(Date);
+                if(flag==true){
+                    calendarView.setVisibility(View.VISIBLE);
+                    flag=false;
+                }
+                else {
+                    calendarView.setVisibility(View.GONE);
+                    flag=true;
+                }
 
             }
         });
