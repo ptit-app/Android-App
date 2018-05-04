@@ -4,10 +4,15 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
+        android:paddingVertical="2dp"
         android:id="@+id/AppinfoChild"
-        android:layout_width="match_parent"
+        android:layout_width="370dp"
+        android:layout_marginLeft="30dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:focusable="false"
-        android:text="Item" />
+        android:text="Item"
+        android:paddingRight="30dp"
+        android:background="#e6f2ef"/>
+
 </LinearLayout>

@@ -64,6 +64,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL(DBConst.TB_MISSION.CREATE);
             db.execSQL(DBConst.TB_DEV.CREATE);
             db.execSQL(DBConst.TB_TONGHOP.CREATE);
+            db.execSQL(DBConst.TB_EXAM.CREATE);
         }
         if (oldVersion < 2) {
 //Code to add the extra column

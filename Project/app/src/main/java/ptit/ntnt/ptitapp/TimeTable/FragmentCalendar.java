@@ -86,7 +86,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     private void getSchedule(String Date) {
         int i;
         arrSchedules = Tools.getSchedulesByDate(Date);
-        Collections.sort(arrSchedules);
+//        Collections.sort(arrSchedules);
         Toast.makeText(getActivity(), arrSchedules.toString(), Toast.LENGTH_SHORT).show();
         for (i = 0; i < arrSchedules.size(); i++) {
             if (arrSchedules.isEmpty()) {
