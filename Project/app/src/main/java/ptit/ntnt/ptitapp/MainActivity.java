@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
+import ptit.ntnt.ptitapp.ForgotPassword.PassRecoverS1;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
 import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjects;
@@ -31,6 +32,7 @@ import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjectsApdapter;
 import ptit.ntnt.ptitapp.TeacherRating.TeacherRatingAdapter;
 import ptit.ntnt.ptitapp.TestSchedule.TestScheduleAdapter;
 import ptit.ntnt.ptitapp.TimeTable.TimeTableAdapter;
+import ptit.ntnt.ptitapp.UserProfile.UserProfileAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -90,6 +92,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager = (ViewPager) findViewById(R.id.main_view_pager);
         MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mainPageAdapter);
+
+        ImageView bt_user = (ImageView) findViewById(R.id.user_avatar);
+        bt_user.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                UserProfileAdapter userProfileAdapter = new UserProfileAdapter(getSupportFragmentManager());
+                viewPager = (ViewPager) findViewById(R.id.main_view_pager);
+                viewPager.setAdapter(userProfileAdapter);
+                TextView main_page_title = findViewById(R.id.main_page_title);
+                main_page_title.setText("User");
+                drawerMenu.closeDrawer(Gravity.LEFT,true);
+            }
+        });
 
     }
 //
@@ -177,8 +192,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
