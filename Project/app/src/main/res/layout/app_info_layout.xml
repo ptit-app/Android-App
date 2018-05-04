@@ -11,10 +11,6 @@
         android:background="#fff"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/haha"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
         <TextView
             android:textStyle="bold"
@@ -41,7 +37,7 @@
             android:paddingVertical="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6.0" />
+            android:text="5.0" />
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +55,7 @@
             android:paddingVertical="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="23" />
+            android:text="21" />
     </LinearLayout>
 
     <LinearLayout
@@ -90,10 +86,12 @@
         android:text="Các nhà phát triển" />
 
     <ExpandableListView
+        android:paddingRight="10dp"
         android:id="@+id/AppInfoLV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="#f9f9e4"
-        android:dividerHeight="1dp">
+        android:divider="#e6f2ef"
+        android:childDivider="#e6f2ef"
+        android:dividerHeight="0dp">
     </ExpandableListView>
 </LinearLayout>

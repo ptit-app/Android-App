@@ -17,12 +17,12 @@ import ptit.ntnt.ptitapp.MarkTable.SemesterMark;
 import ptit.ntnt.ptitapp.Models.Exam;
 import ptit.ntnt.ptitapp.R;
 
-public class ExamAdapter extends ArrayAdapter<ExamSchedule>{
+public class ExamAdapter extends ArrayAdapter<Exam>{
     private Context context;
     private int resoures;
-    private ArrayList<ExamSchedule> Objects;
+    private ArrayList<Exam> Objects;
 
-    public ExamAdapter(Context context, int resoures, ArrayList<ExamSchedule> Objects) {
+    public ExamAdapter(Context context, int resoures, ArrayList<Exam> Objects) {
         super(context, resoures,Objects);
         this.context = context;
         this.resoures = resoures;
@@ -42,17 +42,17 @@ public class ExamAdapter extends ArrayAdapter<ExamSchedule>{
         convertView = inflater.inflate(resoures, parent, false);
 
 
-        final ExamSchedule examSchedule = Objects.get(position);
+        final Exam examSchedule = Objects.get(position);
 
         TextView tietBD = (TextView) convertView.findViewById(R.id.tietBD);
         TextView Room = (TextView) convertView.findViewById(R.id.phong);
         TextView ngayThi = (TextView) convertView.findViewById(R.id.ngaythi);
         TextView tenMonHoc = (TextView) convertView.findViewById(R.id.tenMonHoc);
 
-        tietBD.setText(Objects.get(position).TietBD);
-        Room.setText(Objects.get(position).Room);
-        ngayThi.setText(Objects.get(position).Date);
-        tenMonHoc.setText(Objects.get(position).Id);
+        tietBD.setText(Objects.get(position).getTietBD());
+        Room.setText(Objects.get(position).getExamRoom());
+        ngayThi.setText(Objects.get(position).getExamDate());
+        tenMonHoc.setText(Objects.get(position).getCourseID());
         return convertView;
     }
 }
