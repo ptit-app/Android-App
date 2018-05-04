@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +45,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     SubjectScheduleAdapter subjectScheduleAdapter;
     TextView txtDate;
     String buoi;
+    ImageView imgCalendar;
     View view;
     android.widget.CalendarView calendarView;
     String UserID;
@@ -55,6 +57,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
         setControl();
 
         calendarView.setOnDateChangeListener(new android.widget.CalendarView.OnDateChangeListener() {
@@ -81,24 +84,38 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     }
     private void setControl(){
         calendarView =   (android.widget.CalendarView) view.findViewById(R.id.calender_Day);
-       txtDate = (TextView) view.findViewById(R.id.showDate);
+        txtDate = (TextView) view.findViewById(R.id.showDate);
         final FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
         arrSubjectSchedules = new ArrayList<>();
-       txtDate.setText(dateInString.toString());
+        txtDate.setText(dateInString.toString());
         ListView lvSubjectSchedule = (ListView) view.findViewById(R.id.lvShedule);
         subjectScheduleAdapter = new SubjectScheduleAdapter(getActivity(), R.layout.timetable_view_subject_row, arrSubjectSchedules);
         lvSubjectSchedule.setAdapter(subjectScheduleAdapter);
+        imgCalendar =(ImageView) view.findViewById(R.id.imgCalendar);
+        calendarView.setVisibility(View.GONE);
+        flag=true;
+        imgCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(flag==true){
+                    calendarView.setVisibility(View.VISIBLE);
+                    flag=false;
+                }
+                else {
+                    calendarView.setVisibility(View.GONE);
+                    flag=true;
+                }
+            }
+        });
+
+
+
+
         lvSubjectSchedule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(flag){
-                    calendarView.setVisibility(View.VISIBLE);
-                    flag=false;
-                }
-                else{
-                calendarView.setVisibility(View.GONE);
-                flag=true;}
+
             }
         });
 
