@@ -184,6 +184,15 @@ public class Tools {
         return listExam;
     }
 
+    public static HashMap<String,Exam> getCurrentExamOnStudyingCourseMap(){
+        HashMap<String, Exam> mapExam = new HashMap<>();
+        for (String courseID: mapCourse.keySet()){
+            Subject s = MyApplication.mapCourseIDToSubject.get(mapExam.get(courseID));
+            mapExam.put(s.getSubjectID(),mapExam.get(courseID));
+        }
+        return  mapExam;
+    }
+
     public static ArrayList<Schedule> getSchedulesByDate(String stringDate){
         /**
          * Call getMapCourse first when run program before call this method

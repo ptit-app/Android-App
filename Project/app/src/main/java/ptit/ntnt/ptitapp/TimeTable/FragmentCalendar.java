@@ -157,7 +157,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
                             } else buoi = "Chiều";
                             Subject subject = dataSnapshot.getValue(Subject.class);
                             tenMH = subject.getSubjectName();
-                            SubjectSchedule subjectSchedule = new SubjectSchedule(arrSchedules.get(finalI).getCourseID().split("_")[0], tenMH, arrSchedules.get(finalI).getRoom().toString(), buoi, arrSchedules.get(finalI).getCourseID());
+                            SubjectSchedule subjectSchedule = new SubjectSchedule(arrSchedules.get(finalI).getCourseID().split("_")[0], tenMH, arrSchedules.get(finalI).getRoom().toString(), buoi, arrSchedules.get(finalI).getCourseID(), arrSchedules.get(finalI).getStudyDate());
                             arrSubjectSchedules.add(subjectSchedule);
 
                             subjectScheduleAdapter.notifyDataSetChanged();

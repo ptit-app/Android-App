@@ -1,7 +1,7 @@
 package ptit.ntnt.ptitapp.TimeTable;
 
 public class SubjectSchedule {
-    String subjectID,subjectName,room,buoi,courseID;
+    String subjectID,subjectName,room,buoi,courseID, studyDate;
 
     public SubjectSchedule() {
     }
@@ -12,6 +12,23 @@ public class SubjectSchedule {
         this.room = room;
         this.buoi = buoi;
         this.courseID = courseID;
+    }
+
+    public SubjectSchedule(String subjectID, String subjectName, String room, String buoi, String courseID, String studyDate) {
+        this.subjectID = subjectID;
+        this.subjectName = subjectName;
+        this.room = room;
+        this.buoi = buoi;
+        this.courseID = courseID;
+        this.studyDate = studyDate;
+    }
+
+    public String getStudyDate() {
+        return studyDate;
+    }
+
+    public void setStudyDate(String studyDate) {
+        this.studyDate = studyDate;
     }
 
     public String getSubjectID() {

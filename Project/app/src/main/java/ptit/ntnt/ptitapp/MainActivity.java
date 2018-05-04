@@ -139,6 +139,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             switch (i) {
                 case 0:
+                    DBHelper dbHelper = new DBHelper(getBaseContext());
+                    dbHelper.saveScheduleToSQLite();
                     MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
                     viewPager.setAdapter(mainPageAdapter);
                     main_page_title.setText(getString(R.string.app_name));

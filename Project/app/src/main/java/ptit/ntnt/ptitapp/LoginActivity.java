@@ -31,6 +31,12 @@ public class LoginActivity extends AppCompatActivity {
         // Dat Shiro 04/05/2018
         if(MyApplication.currentStudent != null && MyApplication.currentStudent.getStudentID() != null){
             getMapCourse(currentStudent.getStudentID());
+            // Dat Shiro 04/05/2018
+            if (MyApplication.mapCourse.isEmpty()){
+                DBHelper db = new DBHelper(getBaseContext());
+                db.getHashMapScheduleFromSQLite();
+            }
+            // End of coding
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
         }
         // End of coding

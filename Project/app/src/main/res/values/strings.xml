@@ -11,5 +11,5 @@
     <string name="app_info">Thông tin ứng dụng</string>
     <string name="help">Hướng dẫn sử dụng</string>
     <string name="teacher_rating">Đánh giá giáo viên</string>
-    <string name="registered_subjects">Môn học đã đăng </string>
+    <string name="registered_subjects">Môn học đã đăng ký</string>
 </resources>

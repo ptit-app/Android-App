@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,9 +15,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.SimpleTimeZone;
 
+import ptit.ntnt.ptitapp.Database.DBHelper;
+import ptit.ntnt.ptitapp.Models.Schedule;
+import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
+import ptit.ntnt.ptitapp.Tools;
 
 public class SubjectScheduleAdapter extends ArrayAdapter<SubjectSchedule>{
     private Context context;
@@ -59,11 +69,26 @@ public class SubjectScheduleAdapter extends ArrayAdapter<SubjectSchedule>{
         }else{
             holder = (ViewHolder) convertView.getTag();
         }
-        SubjectSchedule subjectSchedule = arrSubjectScheduleList.get(position);
+        final SubjectSchedule subjectSchedule = arrSubjectScheduleList.get(position);
         holder.txtBuoi.setText(subjectSchedule.buoi);
         holder.txtMaMonHoc.setText(subjectSchedule.subjectID);
         holder.txtTenMonHoc.setText(subjectSchedule.subjectName);
         holder.txtPhongHoc.setText(subjectSchedule.room);
+
+//
+//        String studyDate = subjectSchedule.getStudyDate();
+//        String note = " ";
+//        DBHelper dbHelper = new DBHelper(getContext());
+//        Schedule tempSchedule = new Schedule();
+//        tempSchedule.setCourseID(subjectSchedule.getCourseID());
+//        tempSchedule.setStudyDate("06/03/2018");
+//        dbHelper.updateNote(tempSchedule,"Note of Dat Shiro");
+//
+//        note = dbHelper.getNote(tempSchedule.getCourseID(),"06/03/2018");
+//        ArrayList<Schedule> schedulesArr = dbHelper.getAllScheduleFromSQLite();
+//        Log.d("DAT SHIRO WORK", note);
+//
+//        holder.txtNote.setText(note);
 
 
         final View finalConvertView = convertView;
@@ -98,6 +123,8 @@ public class SubjectScheduleAdapter extends ArrayAdapter<SubjectSchedule>{
             public void onClick(View view) {
                 isNoteChange[0]=false;
                 holder.btSaveNote.setVisibility(View.GONE);
+                DBHelper dbHelper = new DBHelper(getContext());
+                Toast.makeText(view.getContext(),subjectSchedule.courseID,Toast.LENGTH_LONG).show();
             }
         });
 

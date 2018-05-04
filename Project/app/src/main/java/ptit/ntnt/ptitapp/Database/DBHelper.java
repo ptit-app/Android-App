@@ -180,6 +180,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void saveScheduleToSQLite(){
+        clearTBSchedule();
         if (mapCourse != null){
             for(HashMap<String,Schedule> courseMap : mapCourse.values()){
                 if(!courseMap.isEmpty()){
@@ -189,6 +190,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 }
             }
         }
+    }
+
+    public void clearTBSchedule(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(DBConst.TB_SCHEDULE.DROP);
+        db.execSQL(DBConst.TB_SCHEDULE.CREATE);
     }
 
     public int updateNote(Schedule schedule, String note){
@@ -211,7 +218,8 @@ public class DBHelper extends SQLiteOpenHelper {
         SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
         try {
             Long longTime = formater.parse(schedule.getStudyDate()).getTime();
-            mData.child(currentStudent.getStudentID()).child(schedule.getCourseID()).child(longTime.toString()).child("note").setValue(note);
+            mData.child(DBConst.TB_ATTENDANCE.TB_NAME).child(currentStudent.getStudentID()).child(schedule.getCourseID()).child(longTime.toString()).child("note").setValue(note);
+            Log.i("updateNote("+schedule.getCourseID() + " - " + schedule.getStudyDate()+ ")", note);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -219,10 +227,32 @@ public class DBHelper extends SQLiteOpenHelper {
         // 4. close
         db.close();
 
-        Log.i("updateARea("+schedule.getCourseID() + " - " + schedule.getStudyDate()+ ")", note);
 
         return i;
 
+    }
+
+    public String getNote(String courseID, String studyDate){
+        Schedule schedule = new Schedule();
+        String note = "";
+        // 1. build the query
+        String query = "SELECT  * FROM " + DBConst.TB_SCHEDULE.TB_NAME + " LIMIT 1";
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build book and add it to list
+        if (cursor.moveToFirst()) {
+            do {
+                note = cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_NOTE));
+            } while (cursor.moveToNext());
+        }
+
+        Log.i("getNote", note);
+        db.close();
+
+        return note;
     }
 
     //get all schedule
