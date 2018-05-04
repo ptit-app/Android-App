@@ -67,13 +67,13 @@
             android:paddingVertical="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mô tả:" />
+            android:text="Mô tả: " />
 
         <TextView
             android:paddingVertical="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="..." />
+            android:text="Ứng dụng PTIT được phát triển từ một nhóm sinh viên năng động nhằm giúp cho sinh viên của PTIT có thể cập nhật các thông báo, tin tức,... mới nhất của học viện.Ứng dụng PTIT cũng cho phép sinh viên xem điểm và nắm bắt tình hình thay đổi lịch học một cách nhanh chóng và hiệu quả nhất." />
     </LinearLayout>
 
     <TextView
