@@ -136,7 +136,7 @@ public class DBConst {
     }
 
     public static class TB_NEWS {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_NEWS (NEWS_ID TEXT PRIMARY KEY, TITLE TEXT NOT NULL, CONTENT TEXT NOT NULL, AUTHOR TEXT NOT NULL, FEATURE_IMAGE_ID INT NOT NULL, CREATED_AT NUMERIC NOT NULL, MODIFIED_AT NUMERIC NOT NULL,);";
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_NEWS (NEWS_ID TEXT PRIMARY KEY, TITLE TEXT NOT NULL, CONTENT TEXT NOT NULL, AUTHOR TEXT NOT NULL, FEATURE_IMAGE_ID INT NOT NULL, CREATED_AT NUMERIC NOT NULL, MODIFIED_AT NUMERIC NOT NULL);";
         public static final String DROP = "DROP TABLE IF EXISTS TB_NEWS ;";
 
         public static final String TB_NAME = "TB_NEWS";
@@ -161,19 +161,31 @@ public class DBConst {
     }
 
     public static class TB_FACULTY{
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_FACULTY (FACULTY_ID TEXT PRIMARY KEY, FACULTY_NAME TEXT NOT NULL";
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_FACULTY (FACULTY_ID TEXT PRIMARY KEY, FACULTY_NAME TEXT NOT NULL)";
         public static final String TB_NAME = "TB_FACULTY";
         public static final String COL_FACULTY_ID = "FACULTY_ID";
         public static final String COL_FACULTY_NAME = "FACULTY_NAME";
     }
-
+    public static class TB_MISSION{
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_MISSION (MISSION_ID INT PRIMARY KEY, MISSION_NAME NVARCHAR(200) )";
+        public static final String TB_NAME = "TB_MISSION";
+        public static final String COL_MISSION_ID = "MISSION_ID";
+        public static final String COL_MISSION_NAME = "MISSION_NAME";
+    }
+    public static class TB_DEV{
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_DEV (DEV_ID INT PRIMARY KEY, DEV_NAME NVARCHAR(200))";
+        public static final String TB_NAME = "TB_DEV";
+        public static final String COL_DEV_ID = "DEV_ID";
+        public static final String COL_DEV_NAME = "DEV_NAME";
+    }
+    public static class TB_TONGHOP{
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_TONGHOP (MISSION_ID INT , DEV_ID INT , PRIMARY KEY(MISSION_ID, DEV_ID))";
+        public static final String TB_NAME = "TB_TONGHOP";
+        public static final String COL_MISSION_ID = "MISSION_ID";
+        public static final String COL_DEV_ID = "DEV_ID";
+    }
     public static class TB_EXAM{
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_EXAM (EXAM_ID INT , EXAM_NAME NVARCHAR(200)))";
         public static final String TB_NAME = "TB_EXAM";
     }
-
-//    public static class TB_SCHEDULE{
-//        public static final String TB_NAME = "TB_EXAM";
-//
-//    }
-
 }

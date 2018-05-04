@@ -182,9 +182,24 @@ public class Tools {
     public static ArrayList<Exam> getCurrentExamOnStudyingCourse(){
         ArrayList<Exam> listExam = new ArrayList<>();
         for(String courseID: mapCourse.keySet()){
-            listExam.add(mapExam.get(courseID));
+            Exam exam = mapExam.get(courseID);
+            if(exam != null){
+                listExam.add(exam);
+            }else{
+                Log.d("TAM TEST CAN'T GET", courseID);
+            }
         }
+        Log.d("TAM TEST", listExam.toString());
         return listExam;
+    }
+
+    public static HashMap<String,Exam> getCurrentExamOnStudyingCourseMap(){
+        HashMap<String, Exam> mapExam = new HashMap<>();
+        for (String courseID: mapCourse.keySet()){
+            Subject s = MyApplication.mapCourseIDToSubject.get(mapExam.get(courseID));
+            mapExam.put(s.getSubjectID(),mapExam.get(courseID));
+        }
+        return  mapExam;
     }
 
     public static ArrayList<Schedule> getSchedulesByDate(String stringDate){
