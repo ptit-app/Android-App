@@ -1,5 +1,7 @@
 package ptit.ntnt.ptitapp.Models;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -7,7 +9,7 @@ import java.util.Date;
  * Created by datshiro on 11/03/2018.
  */
 
-public class Lecturer implements Serializable{
+public class Lecturer implements Serializable, Comparable<Lecturer>{
     private String id;
     private String fullName;
     private String email;
@@ -146,5 +148,10 @@ public class Lecturer implements Serializable{
     public Lecturer setGroupName(String groupName) {
         this.groupName = groupName;
         return this;
+    }
+
+    @Override
+    public int compareTo(@NonNull Lecturer o) {
+        return Integer.parseInt(this.getId()) - Integer.parseInt(o.getId());
     }
 }

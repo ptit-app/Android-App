@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import java.util.Collections;
 
 import ptit.ntnt.ptitapp.Models.Lecturer;
 import ptit.ntnt.ptitapp.R;
@@ -29,16 +32,9 @@ public class FragmentTeacherList extends Fragment {
         lvTeacher = (ListView) view.findViewById(R.id.lv_TeacherRating);
         adapter = new TeacherListAdapter(getActivity(), R.layout.teacherrating_row, listAllLecturer);
 
-//        Lecturer t1 = new Lecturer("Duy", "123", "duy@gmail.com", "Tien si", "Truong Khoa", 2000);
-//        Lecturer t2 = new Lecturer("Duy", "123", "duy@gmail.com", "Tien si", "Truong Khoa", 2000);
-//        Lecturer t3 = new Lecturer("Duy", "123", "duy@gmail.com", "Tien si", "Truong Khoa", 2000);
-//        arrTeacher.add(t1);
-//        arrTeacher.add(t2);
-//        arrTeacher.add(t3);
-
         lvTeacher.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
+        Collections.sort(listAllLecturer);
         lvTeacher.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

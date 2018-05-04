@@ -32,7 +32,8 @@
             android:scaleY=".5"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp"
-            android:stepSize="1.0" />
+            android:stepSize="1.0"
+            />
         <TextView
             android:id="@+id/txt_countRate"
             android:layout_width="wrap_content"
