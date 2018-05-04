@@ -19,7 +19,7 @@ public class Notification {
         mContext = context;
     }
 
-    public void createNotification(String title, String message, Class activityClass)
+    public void createNotification(String title, String shortMess, String message, Class activityClass)
     {
         /**Creates an explicit intent for an Activity in your app**/
         Intent resultIntent = new Intent(mContext, activityClass);
@@ -31,9 +31,11 @@ public class Notification {
                 PendingIntent.FLAG_UPDATE_CURRENT);
 
         mBuilder = new NotificationCompat.Builder(mContext);
-        mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+        mBuilder.setSmallIcon(R.drawable.logo);
         mBuilder.setContentTitle(title)
-                .setContentText(message)
+                .setContentText(shortMess)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                    .bigText(message))
                 .setAutoCancel(true)
                 .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setContentIntent(resultPendingIntent);

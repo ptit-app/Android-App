@@ -55,7 +55,7 @@ public class MyApplication extends Application{
             ex.printStackTrace();
         }
     }
-    private void clearData(){
+    public static void clearData(){
         mapCourse.clear();
         mapCourseIDToSubject.clear();
         mapAllStudent.clear();
@@ -147,7 +147,7 @@ public class MyApplication extends Application{
     }
 
 
-    MyApplication(){
+    public MyApplication(){
     }
 
     public void getMapAllStudent(){

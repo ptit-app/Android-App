@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.Models.Course;
@@ -169,18 +170,29 @@ public class Tools {
          * Get all the subject that current Student is studying as ArrayList
          *
          */
+        Set<Subject> setSubject = new TreeSet<>();
         ArrayList<Subject> listSubject = new ArrayList<>();
         for(String courseID: mapCourse.keySet()){
-            listSubject.add(mapCourseIDToSubject.get(courseID));
+            Subject subject = mapCourseIDToSubject.get(courseID);
+            if (subject != null){
+                setSubject.add(subject);
+            }
         }
+        listSubject.addAll(setSubject);
         return listSubject;
     }
 
     public static ArrayList<Exam> getCurrentExamOnStudyingCourse(){
         ArrayList<Exam> listExam = new ArrayList<>();
         for(String courseID: mapCourse.keySet()){
-            listExam.add(mapExam.get(courseID));
+            Exam exam = mapExam.get(courseID);
+            if(exam != null){
+                listExam.add(exam);
+            }else{
+                Log.d("TAM TEST CAN'T GET", courseID);
+            }
         }
+        Log.d("TAM TEST", listExam.toString());
         return listExam;
     }
 

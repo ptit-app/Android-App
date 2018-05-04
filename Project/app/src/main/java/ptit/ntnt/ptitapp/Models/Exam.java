@@ -3,6 +3,14 @@ package ptit.ntnt.ptitapp.Models;
 public class Exam {
     String courseID;
     String examDate;
+
+    public Exam(String courseID, String examDate, String examRoom, int tietBD) {
+        this.courseID = courseID;
+        this.examDate = examDate;
+        this.examRoom = examRoom;
+        this.tietBD = tietBD;
+    }
+
     String examRoom;
     int tietBD;
 

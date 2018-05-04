@@ -160,6 +160,7 @@
                 android:background="#e5e5e5">
 
                 <TextView
+                    android:id="@+id/tv_exit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/log_out"
@@ -168,6 +169,7 @@
                     android:paddingLeft="10dp"
                     android:textColor="@color/Header_background"
                     android:textStyle="bold"/>
+
             </LinearLayout>
 
         </LinearLayout>

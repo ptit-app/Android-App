@@ -1,14 +1,16 @@
 package ptit.ntnt.ptitapp;
 
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,10 +18,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.design.widget.TabLayout;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ptit.ntnt.ptitapp.AppGuide.AppGuideAdapter;
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
@@ -29,7 +34,7 @@ import ptit.ntnt.ptitapp.Database.DBHelper;
 import ptit.ntnt.ptitapp.Fee.FeeAdapter;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
-import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjects;
+import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjectsApdapter;
 import ptit.ntnt.ptitapp.TeacherRating.TeacherRatingAdapter;
 import ptit.ntnt.ptitapp.TestSchedule.TestScheduleAdapter;
@@ -40,17 +45,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DrawerLayout drawerMenu;
     private ImageView bt_open_drawer_menu;
+    private TextView textViewExit;
 
     private ListView drawe_menu_lv;
     private ArrayList<drawerMenuItem> drawe_menu_list_array;
     private drawerMenuAdapter drawer_menu_adapter;
 
     private ViewPager viewPager;
-
-
-
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawer_menu_adapter = new drawerMenuAdapter(this,R.layout.listview_item_drawer_menu,drawe_menu_list_array);
         drawe_menu_lv.setAdapter(drawer_menu_adapter);
 
-
 //        MainPageAdapter mainpage = new MainPageAdapter();
 //        FragmentManager fragmentManager = getFragmentManager();
 //        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -69,6 +69,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        fragmentTransaction.commit();
     }
 
+//    private boolean isMyServiceRunning(Class<?> serviceClass) {
+//        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+//        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+//            if (serviceClass.getName().equals(service.service.getClassName())) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     private void createDrawerMenu() {
         drawe_menu_lv = (ListView) findViewById(R.id.drawer_menu_list);
@@ -89,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         drawerMenu = (DrawerLayout) findViewById(R.id.main_page);
         bt_open_drawer_menu = (ImageView) findViewById(R.id.bt_open_drawer_menu);
+        textViewExit = (TextView) findViewById(R.id.tv_exit);
         bt_open_drawer_menu.setOnClickListener(this);
         drawe_menu_lv = (ListView) findViewById(R.id.drawer_menu_list);
 
@@ -96,6 +106,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mainPageAdapter);
 
+        DBHelper dbHelper = new DBHelper(getApplicationContext());
+        String id = dbHelper.getStudentIDFromNoti();
+        if(id.equalsIgnoreCase("")) {
+            initService();
+        }
         ImageView bt_user = (ImageView) findViewById(R.id.user_avatar);
         bt_user.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -108,15 +123,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 drawerMenu.closeDrawer(Gravity.LEFT,true);
             }
         });
-
+        textViewExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DBHelper dbHepler = new DBHelper(getBaseContext());
+                dbHepler.deleteLoginedUser();
+                MyApplication.currentStudent = null;
+                MyApplication.mapCourse.clear();
+                startActivity(new Intent(getBaseContext(), LoginActivity.class));
+            }
+        });
     }
-//
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-//            Toast.makeText(this,"hello", Toast.LENGTH_LONG).show();
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
+
+    private void initService(){
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle args = intent.getBundleExtra("BUNDLE");
+            ArrayList<Object> object = (ArrayList<Object>) args.getSerializable("ARRAYLIST");
+            ArrayList<String> key = (ArrayList<String>) args.getSerializable("KEY");
+            int dataIndex = key.indexOf(MyApplication.currentStudent.getStudentID());
+            HashMap<String, Schedule> courses = (HashMap<String, Schedule>) object.get(dataIndex);
+            Intent toNoti = new Intent(this, NotiService.class);
+            Bundle argToNoti = new Bundle();
+            ArrayList<String> courseKeys = new ArrayList<>();
+            for(String courseKey: courses.keySet()){
+                courseKeys.add(courseKey);
+            }
+            argToNoti.putSerializable("COURSE", courseKeys);
+            argToNoti.putString("ID", MyApplication.currentStudent.getStudentID());
+            toNoti.putExtra("NOTIAGRS",argToNoti);
+            startService(toNoti);
+        }
+    }
 
     @Override
     public void onClick (View view_object){
