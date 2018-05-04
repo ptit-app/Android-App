@@ -139,7 +139,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
             if (arrSchedules.isEmpty()) {
                 Toast.makeText(getActivity(), "NULL", Toast.LENGTH_SHORT).show();
             } else {
-                MyApplication.mapCourse.get(arrSchedules.get(i).getCourseID());
+              //  MyApplication.mapCourse.get(arrSchedules.get(i).getCourseID());
 
                 mData = FirebaseDatabase.getInstance().getReference("TB_SUBJECT");
 
