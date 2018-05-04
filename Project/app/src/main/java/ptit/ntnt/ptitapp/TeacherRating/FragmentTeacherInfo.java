@@ -12,57 +12,76 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import ptit.ntnt.ptitapp.Models.Lecturer;
+import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
 
 public class FragmentTeacherInfo extends Fragment {
     TextView txtTenGV, txtMaGV, txtHocVi, txtEmail, txtChucVu, txtWebsite;
     RatingBar ratingBarDetail;
     Button btnSubmit;
-    Float star;
     View view;
+    DatabaseReference mData, mData2, mData3;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_teacheroverview,container,false);
         Bundle bundle = getArguments();
-        Lecturer t = (Lecturer) bundle.getSerializable("lectureInfo");
+        final Lecturer t = (Lecturer) bundle.getSerializable("lectureInfo");
         AnhXa();
         SetInfo(t);
-        final float star;
+        mData = FirebaseDatabase.getInstance().getReference("TB_RATE");
+        mData.child(MyApplication.currentStudent.getStudentID().toString()).child(t.getId()).child("star");
+        mData2 = mData;
+//        mData.addChildEventListener(new ChildEventListener() {
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+//                //Toast.makeText(getActivity(), dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
+//                if(dataSnapshot.getKey().toString().equals(String.valueOf(t.getId())))
+//                    Toast.makeText(getActivity(), String.valueOf(dataSnapshot.getValue(Float.class)), Toast.LENGTH_SHORT).show();
+//                //ratingBarDetail.setRating(dataSnapshot.getValue(Float.class));
+//            }
+//
+//            @Override
+//            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//
+//            }
+//
+//            @Override
+//            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
         ratingBarDetail.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float rating, boolean fromUser) {
-          btnSubmit.setOnClickListener(new View.OnClickListener() {
-              @Override
-              public void onClick(View v) {
-                  
-              }
-          });
-//                switch ((int) ratingBar.getRating()) {
-//                    case 1:
-//                        btnSubmit.setOnClickListener(new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View v) {
-//
-//                            }
-//                        });
-//                        break;
-//                    case 2:
-//
-//                        break;
-//                    case 3:
-//
-//                        break;
-//                    case 4:
-//
-//                        break;
-//                    case 5:
-//
-//                        break;
-//                    default:
-//
-//                }
+            public void onRatingChanged(RatingBar ratingBar, final float rating, boolean fromUser) {
+              btnSubmit.setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View v) {
+                      mData.setValue(rating);
+                      Toast.makeText(getActivity(), "Submit thành công", Toast.LENGTH_SHORT).show();
+                      mData3 = FirebaseDatabase.getInstance().getReference("TB_LECTURER");
+                      mData3.child(t.getId());
+                      //mData3.setValue();
+
+                  }
+              });
             }
 
         });

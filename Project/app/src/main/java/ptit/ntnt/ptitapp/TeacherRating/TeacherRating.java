@@ -28,7 +28,7 @@ public class TeacherRating extends Fragment {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         FragmentTeacherList fragmentTeacherList = new FragmentTeacherList();
 
-        fragmentTransaction.add(R.id.Content, fragmentTeacherList);
+        fragmentTransaction.add(R.id.Content, fragmentTeacherList).addToBackStack(null);
         fragmentTransaction.commit();
 
         return view;
