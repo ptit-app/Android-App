@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                     Bundle args = new Bundle();
                     args.putSerializable("KEY", key);
                     args.putSerializable("ARRAYLIST", svAttendArr);
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("BUNDLE",args);
                     startActivity(intent);
 //                    startActivity(new Intent(LoginActivity.this, MainActivity.class));

@@ -4,11 +4,11 @@ package ptit.ntnt.ptitapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -16,15 +16,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.support.design.widget.TabLayout;
 import android.widget.Toast;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,11 +27,9 @@ import java.util.HashMap;
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
-import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
 import ptit.ntnt.ptitapp.Models.Schedule;
-import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjects;
 import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjectsApdapter;
 import ptit.ntnt.ptitapp.TeacherRating.TeacherRatingAdapter;
 import ptit.ntnt.ptitapp.TestSchedule.TestScheduleAdapter;
@@ -111,34 +104,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ArrayList<Object> object = (ArrayList<Object>) args.getSerializable("ARRAYLIST");
         ArrayList<String> key = (ArrayList<String>) args.getSerializable("KEY");
         HashMap<String, Schedule> courses = (HashMap<String, Schedule>) object.get(0);
-        for(String course : courses.keySet()){
-            fbData.child(DBConst.TB_ATTENDANCE.TB_NAME).child("N14DCAT022").child(course).addChildEventListener(new ChildEventListener() {
-                @Override
-                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                    Schedule a = dataSnapshot.getValue(Schedule.class);
-                }
-
-                @Override
-                public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-                }
-
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-
-                }
-            });
+        Intent toNoti = new Intent(this, NotiService.class);
+        Bundle argToNoti = new Bundle();
+        ArrayList<String> courseKeys = new ArrayList<>();
+        for(String courseKey: courses.keySet()){
+            courseKeys.add(courseKey);
         }
+        argToNoti.putSerializable("COURSE", courseKeys);
+        argToNoti.putString("ID","N14DCAT022");
+//        argToNoti.putSerializable("ARRAYLIST", svAttendArr);
+        toNoti.putExtra("NOTIAGRS",argToNoti);
+        startService(toNoti);
+
     }
 //
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
