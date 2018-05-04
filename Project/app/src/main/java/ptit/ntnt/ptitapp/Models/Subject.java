@@ -1,13 +1,20 @@
 package ptit.ntnt.ptitapp.Models;
 
+import android.support.annotation.NonNull;
+
 /**
  * Created by datshiro on 11/03/2018.
  */
 
-public class Subject {
+public class Subject implements Comparable<Subject>{
     private String subjectID;
     private String subjectName;
     private int soTC;
+
+    @Override
+    public int compareTo(@NonNull Subject subject) {
+        return this.getSubjectID().compareTo(subject.getSubjectID());
+    }
 
     public Subject(String subjectID, String subjectName, int soTC) {
         this.subjectID = subjectID;
