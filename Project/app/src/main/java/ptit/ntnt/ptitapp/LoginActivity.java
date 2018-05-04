@@ -17,7 +17,6 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText edEmail, edPass;
     Button btnLogin;
     TextView tvForgotPass;
-    String mssv="N14DCAT022";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvForgotPass = (TextView) findViewById(R.id.tvForgotPass);
 
-        MyApplication.getMapCourse(mssv);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
