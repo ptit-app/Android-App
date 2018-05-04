@@ -76,6 +76,18 @@ public class DBConst {
         public static final String COL_NOTE = "NOTE";
     }
 
+    public static class TB_NOTI {
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_NOTI " +
+                "(STUDENT_ID TEXT," +
+                "COURSE_ID TEXT)";
+        public static final String DROP = "DROP TABLE IF EXISTS TB_NOTI ;";
+
+        public static final String TB_NAME = "TB_NOTI";
+        public static final String COL_COURSE_ID = "COURSE_ID";
+        public static final String COL_STUDENT_ID = "STUDENT_ID";
+    }
+
+
     public static class TB_COURSE {
         public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_COURSE (COURSE_ID TEXT PRIMARY KEY, SUBJECT_ID TEXT NOT NULL, CLASS_ID TEXT NOT NULL, STUDY_GROUP TEXT NOT NULL, TTH TEXT NULL, DAY_OF_WEEK TEXT NULL, TIET_BD TEXT NOT NULL, SO_TIET TEXT NOT NULL, START_DATE NUMERIC NOT NULL, END_DATE NUMERIC, LECTURER_ID TEXT NOT NULL, NOTE TEXT NULL, SEMESTER TEXT NOT NULL,"+
                 "FOREIGN KEY (CLASS_ID) REFERENCES " + TB_PTIT_CLASS.TB_NAME + "(CLASS_ID)," +

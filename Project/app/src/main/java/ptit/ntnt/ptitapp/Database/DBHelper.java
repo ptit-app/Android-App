@@ -54,12 +54,14 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DBConst.TB_SCHEDULE.CREATE);
         db.execSQL(DBConst.TB_STUDENT.CREATE);
+        db.execSQL(DBConst.TB_NOTI.CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DBConst.TB_SCHEDULE.DROP);
         db.execSQL(DBConst.TB_STUDENT.DROP);
+        db.execSQL(DBConst.TB_NOTI.DROP);
         this.onCreate(db);
     }
 
@@ -73,6 +75,81 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, tableName);
         return numRows;
+    }
+
+    //add Noti
+    public void addNoti(String studentID, ArrayList<String> listCourseID){
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. create ContentValues to add key "column"/value
+        for(String courseID : listCourseID){
+            ContentValues values = new ContentValues();
+            values.put(DBConst.TB_NOTI.COL_STUDENT_ID, studentID);
+            values.put(DBConst.TB_NOTI.COL_COURSE_ID, courseID);
+            // 3. insert
+            db.insert(DBConst.TB_NOTI.TB_NAME, // table
+                    null, //nullColumnHack
+                    values); // key/value -> keys = column names/ values = column values
+
+        }
+        // 4. close
+        db.close();
+
+        Log.i("Number rows of table:", getTableCount(DBConst.TB_NOTI.TB_NAME) + "");
+    }
+
+    //get Noti
+    public ArrayList<String> getAllNoti() {
+        ArrayList<String> courses = new ArrayList<>();
+
+        // 1. build the query
+        String query = "SELECT  * FROM " + DBConst.TB_NOTI.TB_NAME;
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build book and add it to list
+        String courseID = null;
+        if (cursor.moveToFirst()) {
+            do {
+                courseID = new String();
+                courseID = cursor.getString(cursor.getColumnIndex(DBConst.TB_NOTI.COL_COURSE_ID));
+                // Add book to books
+                courses.add(courseID);
+            } while (cursor.moveToNext());
+        }
+
+        Log.i("get Courses (String)", courses.toString());
+
+        // return books
+        return courses;
+    }
+
+    //get Noti
+    public String getStudentIDFromNoti() {
+        String studentID = new String();
+
+        // 1. build the query
+        String query = "SELECT  * FROM " + DBConst.TB_NOTI.TB_NAME + " LIMIT 1";
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build book and add it to list
+        if (cursor.moveToFirst()) {
+            do {
+                studentID = cursor.getString(cursor.getColumnIndex(DBConst.TB_NOTI.COL_STUDENT_ID));
+                // Add book to books
+            } while (cursor.moveToNext());
+        }
+
+        Log.i("get Courses (String)", studentID);
+
+        // return books
+        return studentID;
     }
 
     //add Schedule
@@ -238,7 +315,6 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(DBConst.TB_STUDENT.COL_BIRTHDAY, student.getBirthday());
         values.put(DBConst.TB_STUDENT.COL_EMAIL, student.getEmail());
         values.put(DBConst.TB_STUDENT.COL_NOTE, student.getNote());
-        values.put(DBConst.TB_STUDENT.COL_FACULTY_ID, student.getFacultyID());
         values.put(DBConst.TB_STUDENT.COL_FK_CLASS_ID, student.getClassID());
         values.put(DBConst.TB_STUDENT.COL_FK_USER_GROUP, student.getUserGroup());
         values.put(DBConst.TB_STUDENT.COL_PHONE, student.getPhone());
@@ -281,7 +357,6 @@ public class DBHelper extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 student.setStudentID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_STUDENT_ID)));
-                student.setFacultyID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FACULTY_ID)));
                 student.setPhone(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_PHONE)));
                 student.setBirthday(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_BIRTHDAY)));
                 student.setClassID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FK_CLASS_ID)));
