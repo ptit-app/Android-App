@@ -12,6 +12,12 @@ import android.widget.Toast;
 
 import ptit.ntnt.ptitapp.ForgotPassword.PassRecoverS1;
 
+import ptit.ntnt.ptitapp.Database.DBConst;
+import ptit.ntnt.ptitapp.Database.DBHelper;
+
+import static ptit.ntnt.ptitapp.MyApplication.currentStudent;
+import static ptit.ntnt.ptitapp.MyApplication.getMapCourse;
+
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText edEmail, edPass;
@@ -22,7 +28,12 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        // Dat Shiro 04/05/2018
+        if(MyApplication.currentStudent != null && MyApplication.currentStudent.getStudentID() != null){
+            getMapCourse(currentStudent.getStudentID());
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
+        // End of coding
         edEmail = (TextInputEditText) findViewById(R.id.edEmail);
         edPass = (TextInputEditText) findViewById(R.id.edPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
@@ -62,7 +73,12 @@ public class LoginActivity extends AppCompatActivity {
                 if(email.equals("admin")&&pass.equals("admin")){
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }else if(MyApplication.mapAllStudent.get(studentLoginID) != null){
+                    // Dat Shiro 04/05/2018
+                    DBHelper dbHelper = new DBHelper(getBaseContext());
+                    dbHelper.updateCurrentUserInSQLite(MyApplication.mapAllStudent.get(studentLoginID));
+                    // End of coding
                     MyApplication.setCurrentStudent(MyApplication.mapAllStudent.get(studentLoginID));
+                    getMapCourse(currentStudent.getStudentID());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }else{
                     Toast.makeText(LoginActivity.this, "Sai Email hoac mat khau!", Toast.LENGTH_SHORT).show();

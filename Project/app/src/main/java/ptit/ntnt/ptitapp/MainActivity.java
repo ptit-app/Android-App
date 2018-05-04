@@ -25,7 +25,7 @@ import ptit.ntnt.ptitapp.AppGuide.AppGuideAdapter;
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
-import ptit.ntnt.ptitapp.ForgotPassword.PassRecoverS1;
+import ptit.ntnt.ptitapp.Database.DBHelper;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
 import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjects;
@@ -146,6 +146,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case 1:
                     TimeTableAdapter timeTableAdapter = new TimeTableAdapter(getSupportFragmentManager());
+                    // Dat Shiro 04/05/2018
+                    if (MyApplication.mapCourse.isEmpty()){
+                        DBHelper db = new DBHelper(getBaseContext());
+                        db.getHashMapScheduleFromSQLite();
+                    }
+                    // End of coding
                     viewPager.setAdapter(timeTableAdapter);
                     main_page_title.setText(getString(R.string.time_table));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,1f));

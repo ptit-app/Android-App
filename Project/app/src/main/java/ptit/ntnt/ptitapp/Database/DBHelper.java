@@ -4,17 +4,24 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Lecturer;
@@ -24,6 +31,10 @@ import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.Models.Student;
 import ptit.ntnt.ptitapp.Models.Subject;
 import ptit.ntnt.ptitapp.Models.UserGroup;
+import ptit.ntnt.ptitapp.MyApplication;
+
+import static ptit.ntnt.ptitapp.MyApplication.currentStudent;
+import static ptit.ntnt.ptitapp.MyApplication.mapCourse;
 
 /**
  * Created by datshiro on 19/03/2018.
@@ -41,122 +52,251 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        updateMyDatabase(db, 0, DBConst.DATABASE_VERSION);
-
-
+        db.execSQL(DBConst.TB_SCHEDULE.CREATE);
+        db.execSQL(DBConst.TB_STUDENT.CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        updateMyDatabase(db, oldVersion, DBConst.DATABASE_VERSION);
-
-    }
-    private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion <= 1) {
-            db.execSQL(DBConst.TB_SUBJECT.CREATE);
-            db.execSQL(DBConst.TB_PTIT_CLASS.CREATE);
-            db.execSQL(DBConst.TB_COURSE.CREATE);
-            db.execSQL(DBConst.TB_USER_GROUP.CREATE);
-            db.execSQL(DBConst.TB_STUDENT.CREATE);
-            db.execSQL(DBConst.TB_LECTURER.CREATE);
-            db.execSQL(DBConst.TB_MARK.CREATE);
-            db.execSQL(DBConst.TB_NEWS.CREATE);
-            db.execSQL(DBConst.TB_ATTENDANCE.CREATE);
-
-        }
-        if (oldVersion < 2) {
-//Code to add the extra column
-        }
+        db.execSQL(DBConst.TB_SCHEDULE.DROP);
+        db.execSQL(DBConst.TB_STUDENT.DROP);
+        this.onCreate(db);
     }
 
     @Override
     public void onOpen(SQLiteDatabase db) {
+        onCreate(db);
         super.onOpen(db);
-        if (!db.isReadOnly()) {
-            // Enable foreign key constraints
-            db.execSQL("PRAGMA foreign_keys='ON';");
-        }
     }
 
-    public void importFromFile(SQLiteDatabase db, Context context, String csvFileName, String tableName){
-        String mCSVfile = csvFileName;
-        AssetManager manager = context.getAssets();
-        InputStream inStream = null;
-        try {
-            inStream = manager.open(mCSVfile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        BufferedReader buffer = new BufferedReader(new InputStreamReader(inStream));
-        String line = "";
-
-        db.beginTransaction();
-        try {
-            String[] dbCol = buffer.readLine().split("|");
-            while ((line = buffer.readLine()) != null) {
-                String[] colums = line.split("|");
-                if (colums.length != dbCol.length) {
-                    Log.d("CSVParser", "Skipping Bad CSV Row");
-                    continue;
-                }
-                ContentValues cv = new ContentValues(dbCol.length);
-                for (int i = 0; i < dbCol.length; i++){
-                    cv.put(dbCol[i], colums[i].trim());
-                }
-                db.insert(tableName, null, cv);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        db.setTransactionSuccessful();
-        db.endTransaction();
-    }
-
-    public long insertClass(SQLiteDatabase db, String classID, String className){
-        ContentValues classValues = new ContentValues();
-        classValues.put("CLASS_ID", classID);
-        classValues.put("CLASS_NAME", className);
-        return  db.insert("CLASS",null,classValues);
-
-    }
-
-    //get student with id
-    public Student getStudent(String studentID){
-
-        // 1. get reference to readable DB
+    public int getTableCount(String tableName){
         SQLiteDatabase db = this.getReadableDatabase();
+        int numRows = (int) DatabaseUtils.queryNumEntries(db, tableName);
+        return numRows;
+    }
 
-        // 2. build query
-        Cursor cursor =
-                db.query(DBConst.TB_STUDENT.TB_NAME, // a. table
-                        new String[] {DBConst.TB_STUDENT.COL_FULL_NAME,DBConst.TB_STUDENT.COL_BIRTHDAY,DBConst.TB_STUDENT.COL_EMAIL, DBConst.TB_STUDENT.COL_FK_CLASS_ID, DBConst.TB_STUDENT.COL_FK_USER_GROUP, DBConst.TB_STUDENT.COL_CREATED_AT, DBConst.TB_STUDENT.COL_MODIFIED_AT, DBConst.TB_STUDENT.COL_PHONE, DBConst.TB_STUDENT.COL_FACULTY_ID}, // b. column names
-                        DBConst.TB_STUDENT.COL_STUDENT_ID+"=?", // c. selections
-                        new String[] { studentID }, // d. selections args
-                        null, // e. group by
-                        null, // f. having
-                        null, // g. order by
-                        null); // h. limit
+    //add Schedule
+    public void addSchedule(Schedule schedule){
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        // 3. if we got results get the first one
-        if (cursor != null)
-            cursor.moveToFirst();
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put(DBConst.TB_SCHEDULE.COL_COURSE_ID, schedule.getCourseID());
+        values.put(DBConst.TB_SCHEDULE.COL_IS_THEORY, schedule.getIsTheory());
+        values.put(DBConst.TB_SCHEDULE.COL_ISOFF, schedule.getIsOff());
+        values.put(DBConst.TB_SCHEDULE.COL_NOTE, schedule.getNote());
+        values.put(DBConst.TB_SCHEDULE.COL_ROOM, schedule.getRoom());
+        values.put(DBConst.TB_SCHEDULE.COL_STUDY_DATE, schedule.getStudyDate());
+        values.put(DBConst.TB_SCHEDULE.COL_TIET_BD, schedule.getTietBD());
+        values.put(DBConst.TB_SCHEDULE.COL_STUDY_DATE, schedule.getStudyDate());
 
-        // 4. build student object
+        // 3. insert
+        db.insert(DBConst.TB_SCHEDULE.TB_NAME, // table
+                null, //nullColumnHack
+                values); // key/value -> keys = column names/ values = column values
+
+        // 4. close
+        db.close();
+
+        Log.i("Number rows of table:", getTableCount(DBConst.TB_SCHEDULE.TB_NAME) + "");
+    }
+
+    public void saveScheduleToSQLite(){
+        if (mapCourse != null){
+            for(HashMap<String,Schedule> courseMap : mapCourse.values()){
+                if(!courseMap.isEmpty()){
+                    for(Schedule schedule : courseMap.values()){
+                        addSchedule(schedule);
+                    }
+                }
+            }
+        }
+    }
+
+    public int updateNote(Schedule schedule, String note){
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put(DBConst.TB_SCHEDULE.COL_NOTE,note);
+//        values.put(DBConst.TB_SCHEDULE.COL_STUDY_DATE, schedule.getStudyDate());
+//        values.put(DBConst.TB_SCHEDULE.COL_COURSE_ID, schedule.getCourseID());
+
+        // 3. updating row
+        int i = db.update(DBConst.TB_SCHEDULE.TB_NAME, //table
+                values, // column/value
+                DBConst.TB_SCHEDULE.COL_STUDY_DATE+" = ? and " + DBConst.TB_SCHEDULE.COL_COURSE_ID+" = ?", // selections
+                new String[] { schedule.getStudyDate(), schedule.getCourseID() }); //selection args
+
+        DatabaseReference mData = FirebaseDatabase.getInstance().getReference();
+        SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Long longTime = formater.parse(schedule.getStudyDate()).getTime();
+            mData.child(currentStudent.getStudentID()).child(schedule.getCourseID()).child(longTime.toString()).child("note").setValue(note);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        // 4. close
+        db.close();
+
+        Log.i("updateARea("+schedule.getCourseID() + " - " + schedule.getStudyDate()+ ")", note);
+
+        return i;
+
+    }
+
+    //get all schedule
+    public ArrayList<Schedule> getAllScheduleFromSQLite() {
+        ArrayList<Schedule> schedules = new ArrayList<Schedule>();
+
+        // 1. build the query
+        String query = "SELECT  * FROM " + DBConst.TB_SCHEDULE.TB_NAME;
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build book and add it to list
+        Schedule schedule = null;
+        if (cursor.moveToFirst()) {
+            do {
+                schedule = new Schedule();
+                schedule.setTietBD(cursor.getInt(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_TIET_BD)));
+                schedule.setIsOff(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_ISOFF)));
+                schedule.setStudyDate(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_STUDY_DATE)));
+                schedule.setRoom(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_ROOM)));
+                schedule.setNote(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_NOTE)));
+                schedule.setCourseID(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_COURSE_ID)));
+                schedule.setIsTheory(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_IS_THEORY)));
+
+                // Add book to books
+                schedules.add(schedule);
+            } while (cursor.moveToNext());
+        }
+
+        Log.i("getAllSchedule", schedules.toString());
+
+        // return books
+        return schedules;
+    }
+
+    //get hashMap schedule
+    public void getHashMapScheduleFromSQLite() {
+//        HashMap<String,HashMap<String,Schedule>>  mapSchedules = new HashMap<>();
+
+        // 1. build the query
+        String query = "SELECT  * FROM " + DBConst.TB_SCHEDULE.TB_NAME;
+
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build book and add it to list
+        Schedule schedule = null;
+        if (cursor.moveToFirst()) {
+            do {
+                schedule = new Schedule();
+                schedule.setTietBD(cursor.getInt(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_TIET_BD)));
+                schedule.setIsOff(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_ISOFF)));
+                schedule.setStudyDate(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_STUDY_DATE)));
+                schedule.setRoom(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_ROOM)));
+                schedule.setNote(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_NOTE)));
+                schedule.setCourseID(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_COURSE_ID)));
+                schedule.setIsTheory(cursor.getString(cursor.getColumnIndex(DBConst.TB_SCHEDULE.COL_IS_THEORY)));
+
+                // Add book to books
+                HashMap<String,Schedule> mapSchedule = new HashMap<>();
+                SimpleDateFormat formater = new SimpleDateFormat("dd/MM/yyyy");
+                try {
+                    Long longTime = formater.parse(schedule.getStudyDate()).getTime();
+                    mapSchedule.put(longTime.toString(),schedule);
+                    MyApplication.mapCourse.put(schedule.getCourseID(),mapSchedule);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            } while (cursor.moveToNext());
+        }
+
+        Log.i("getAllSchedule SQLite", mapCourse.toString());
+
+        db.close();
+        // return books
+//        return mapCourse;
+    }
+
+    //add Schedule
+    public void addStudent(Student student){
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put(DBConst.TB_STUDENT.COL_STUDENT_ID,student.getStudentID() );
+        values.put(DBConst.TB_STUDENT.COL_BIRTHDAY, student.getBirthday());
+        values.put(DBConst.TB_STUDENT.COL_EMAIL, student.getEmail());
+        values.put(DBConst.TB_STUDENT.COL_NOTE, student.getNote());
+        values.put(DBConst.TB_STUDENT.COL_FACULTY_ID, student.getFacultyID());
+        values.put(DBConst.TB_STUDENT.COL_FK_CLASS_ID, student.getClassID());
+        values.put(DBConst.TB_STUDENT.COL_FK_USER_GROUP, student.getUserGroup());
+        values.put(DBConst.TB_STUDENT.COL_PHONE, student.getPhone());
+        values.put(DBConst.TB_STUDENT.COL_PASSWD, student.getPasswd());
+        values.put(DBConst.TB_STUDENT.COL_FULL_NAME, student.getFullName());
+
+        // 3. insert
+        db.insert(DBConst.TB_STUDENT.TB_NAME, // table
+                null, //nullColumnHack
+                values); // key/value -> keys = column names/ values = column values
+
+        // 4. close
+        db.close();
+
+        Log.i("Number rows of table:", getTableCount(DBConst.TB_STUDENT.TB_NAME) + "");
+    }
+
+    public void updateCurrentUserInSQLite(Student student){
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(DBConst.TB_STUDENT.DROP);
+        db.execSQL(DBConst.TB_STUDENT.CREATE);
+        addStudent(student);
+        Log.d("DAT SHIRO WORK", "UPDATE CURRENT USER");
+        db.close();
+    }
+
+    public Student getLastLoginStudent(){
         Student student = new Student();
-//        student.setId(studentID);
-//        student.setFullName(cursor.getString(0));
-//        student.setBirthday(new Date(cursor.getLong(1)));
-//        student.setMail(cursor.getString(2));
-//        student.setClassCode(cursor.getString(3));
-//        student.setGroupName(cursor.getString(4));
-//        student.setCreatedAt(new Date(cursor.getLong(5)));
-//        student.setModifiedAt(new Date(cursor.getLong(6)));
-        student.setPhone(cursor.getString(7));
-//        student.setFacultyID(cursor.getString(8));
 
-        Log.i("getStudent("+studentID+")", student.toString());
+        // 1. build the query
+        String query = "SELECT  * FROM " + DBConst.TB_STUDENT.TB_NAME + " LIMIT 1";
 
-        // 5. return student
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build book and add it to list
+        if (cursor.moveToFirst()) {
+            do {
+                student.setStudentID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_STUDENT_ID)));
+                student.setFacultyID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FACULTY_ID)));
+                student.setPhone(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_PHONE)));
+                student.setBirthday(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_BIRTHDAY)));
+                student.setClassID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FK_CLASS_ID)));
+                student.setEmail(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_EMAIL)));
+                student.setPasswd(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_PASSWD)));
+                student.setFullName(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FULL_NAME)));
+                student.setUserGroup(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FK_USER_GROUP)));
+                student.setNote(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_NOTE)));
+
+            } while (cursor.moveToNext());
+        }
+
+        Log.i("getStudent()", student.toString());
+        db.close();
+
         return student;
     }
 
@@ -413,39 +553,5 @@ public class DBHelper extends SQLiteOpenHelper {
         return listCourse;
     }
 
-    // Get Schedule
-    public Schedule getSchedule(String courseID, Date studyDate){
-        // 1. get reference to readable DB
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // 2. build query
-        Cursor cursor =
-                db.query(DBConst.TB_SCHEDULE.TB_NAME, // a. table
-                        new String[]{DBConst.TB_SCHEDULE.COL_SCHEDULE_ID, DBConst.TB_SCHEDULE.COL_ROOM, DBConst.TB_SCHEDULE.COL_STUDY_DATE, DBConst.TB_SCHEDULE.COL_TIET_BD, DBConst.TB_SCHEDULE.COL_IS_THEORY, DBConst.TB_SCHEDULE.COL_NOTE}, // b. column names
-                        DBConst.TB_SCHEDULE.COL_COURSE_ID+"=? AND " + DBConst.TB_SCHEDULE.COL_STUDY_DATE + "=?", // c. selections
-                        new String[] { courseID , String.valueOf(studyDate)}, // d. selections args
-                        null, // e. group by
-                        null, // f. having
-                        null, // g. order by
-                        null); // h. limit
-
-        // 3. if we got results get the first one
-        if (cursor != null)
-            cursor.moveToFirst();
-
-        // 4. build area object
-        Schedule schedule = new Schedule();
-        schedule.setScheduleID(cursor.getString(0));
-        schedule.setRoom(cursor.getString(1));
-//        schedule.setStudyDate(new Date(cursor.getLong(2)));
-        schedule.setTietBD(cursor.getInt(3));
-        schedule.setIsTheory(cursor.getString(4));
-        schedule.setNote(cursor.getString(5));
-
-        Log.i("getSchedule("+courseID + " - " + studyDate + ")", schedule.toString());
-
-        // 5. return schedule
-        return schedule;
-    }
 
 }
