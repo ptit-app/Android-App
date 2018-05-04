@@ -348,8 +348,20 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteLoginedUser(){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(DBConst.TB_STUDENT.DROP);
+        db.execSQL(DBConst.TB_STUDENT.CREATE);
+        db.execSQL(DBConst.TB_NOTI.DROP);
+        db.execSQL(DBConst.TB_NOTI.CREATE);
+
+        Log.d("DAT SHIRO WORK", "RESET STUDENT TABLE");
+        db.close();
+    }
+
     public Student getLastLoginStudent(){
-        Student student = new Student();
+        Student student = null;
         // 1. build the query
         String query = "SELECT  * FROM " + DBConst.TB_STUDENT.TB_NAME + " LIMIT 1";
 
@@ -360,6 +372,7 @@ public class DBHelper extends SQLiteOpenHelper {
         // 3. go over each row, build book and add it to list
         if (cursor.moveToFirst()) {
             do {
+                student = new Student();
                 student.setStudentID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_STUDENT_ID)));
                 student.setPhone(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_PHONE)));
                 student.setBirthday(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_BIRTHDAY)));
@@ -369,11 +382,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 student.setFullName(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FULL_NAME)));
                 student.setUserGroup(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FK_USER_GROUP)));
                 student.setNote(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_NOTE)));
-
+                Log.i("getStudent()", student.toString());
             } while (cursor.moveToNext());
         }
 
-        Log.i("getStudent()", student.toString());
+
         db.close();
 
         // 5. return student

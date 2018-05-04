@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private DrawerLayout drawerMenu;
     private ImageView bt_open_drawer_menu;
+    private TextView textViewExit;
 
     private ListView drawe_menu_lv;
     private ArrayList<drawerMenuItem> drawe_menu_list_array;
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initView() {
         drawerMenu = (DrawerLayout) findViewById(R.id.main_page);
         bt_open_drawer_menu = (ImageView) findViewById(R.id.bt_open_drawer_menu);
+        textViewExit = (TextView) findViewById(R.id.tv_exit);
         bt_open_drawer_menu.setOnClickListener(this);
         drawe_menu_lv = (ListView) findViewById(R.id.drawer_menu_list);
 
@@ -117,6 +119,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 TextView main_page_title = findViewById(R.id.main_page_title);
                 main_page_title.setText("User");
                 drawerMenu.closeDrawer(Gravity.LEFT,true);
+            }
+        });
+        textViewExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DBHelper dbHepler = new DBHelper(getBaseContext());
+                dbHepler.deleteLoginedUser();
+                MyApplication.currentStudent = null;
+                MyApplication.mapCourse.clear();
+                startActivity(new Intent(getBaseContext(), LoginActivity.class));
             }
         });
     }

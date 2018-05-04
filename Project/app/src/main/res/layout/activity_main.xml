@@ -209,6 +209,7 @@
                         android:src="@drawable/logout_icon"
                         android:padding="4dp"/>
                     <TextView
+                        android:id="@+id/tv_exit"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="7"
