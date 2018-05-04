@@ -17,6 +17,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import ptit.ntnt.ptitapp.Database.DBConst;
+import ptit.ntnt.ptitapp.Database.DBHelper;
+
+import static ptit.ntnt.ptitapp.MyApplication.currentStudent;
+import static ptit.ntnt.ptitapp.MyApplication.getMapCourse;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -66,6 +70,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }else if(MyApplication.mapAllStudent.get(studentLoginID) != null){
                     MyApplication.setCurrentStudent(MyApplication.mapAllStudent.get(studentLoginID));
+                    getMapCourse(currentStudent.getStudentID());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }else{
                     Toast.makeText(LoginActivity.this, "Sai Email hoac mat khau!", Toast.LENGTH_SHORT).show();

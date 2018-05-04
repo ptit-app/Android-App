@@ -30,18 +30,23 @@ public class DBConst {
     }
 
     public static class TB_SCHEDULE {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_SCHEDULE (SCHEDULE_ID TEXT PRIMARY KEY, COURSE_ID TEXT NOT NULL, TIET_BD TEXT NOT NULL, ROOM TEXT NOT NULL, IS_THEORY TEXT NOT NULL, STUDY_DATE NUMERIC NOT NULL, NOTE TEXT NOT NULL" +
-                "FOREIGN KEY (COURSE_ID) REFERENCES " + TB_COURSE.TB_NAME+" (COURSE_ID);";
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_SCHEDULE " +
+                "(COURSE_ID TEXT NOT NULL, " +
+                "TIET_BD INTEGER NOT NULL, " +
+                "ROOM TEXT NOT NULL, " +
+                "IS_THEORY TEXT NOT NULL, " +
+                "STUDY_DATE TEXT NOT NULL, NOTE TEXT NOT NULL, " +
+                "ISOFF TEXT NOT NULL)";
         public static final String DROP = "DROP TABLE IF EXISTS TB_SCHEDULE ;";
 
         public static final String TB_NAME = "TB_SCHEDULE";
-        public static final String COL_SCHEDULE_ID = "SCHEDULE_ID";
         public static final String COL_COURSE_ID = "COURSE_ID";
         public static final String COL_TIET_BD = "TIET_BD";
         public static final String COL_ROOM = "ROOM";
         public static final String COL_IS_THEORY = "IS_THEORY";
         public static final String COL_STUDY_DATE = "STUDY_DATE";
         public static final String COL_NOTE = "NOTE";
+        public static final String COL_ISOFF= "ISOFF";
     }
 
     public static class TB_STUDENT {

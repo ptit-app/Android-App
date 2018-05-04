@@ -42,7 +42,6 @@ public class MyApplication extends Application{
         super.onCreate();
         try{
             clearData();
-            getMapCourse(currentStudent.getStudentID());
             getMapCourseIDToSubject();
             getMapAllStudent();
             getMapAllLecturer();
