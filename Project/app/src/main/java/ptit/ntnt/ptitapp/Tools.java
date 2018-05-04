@@ -171,7 +171,10 @@ public class Tools {
          */
         ArrayList<Subject> listSubject = new ArrayList<>();
         for(String courseID: mapCourse.keySet()){
-            listSubject.add(mapCourseIDToSubject.get(courseID));
+            Subject subject = mapCourseIDToSubject.get(courseID);
+            if (subject != null){
+                listSubject.add(subject);
+            }
         }
         return listSubject;
     }
