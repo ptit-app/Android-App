@@ -72,6 +72,7 @@ public class AppInfo extends android.support.v4.app.Fragment {
         database.insertMission(23,"Xem thông tin giáo viên, đánh giá giáo viên");
         database.insertMission(24,"Xem các môn đã đăng ký");
         database.insertMission(25,"Notification");
+        database.insertMission(26,"Quản lý SourceTree");
 
         database.insertTonghop(1,124);
         database.insertTonghop(2,124);
@@ -99,7 +100,7 @@ public class AppInfo extends android.support.v4.app.Fragment {
         database.insertTonghop(24,14);
         database.insertTonghop(25,22);
         database.insertTonghop(3,46);
-        haha = (TextView) view.findViewById(R.id.haha);
+        database.insertTonghop(26,22);
         expandListView = (ExpandableListView) view.findViewById(R.id.AppInfoLV);
         listAppInfoHeader = new ArrayList<String>();
         AddControl();

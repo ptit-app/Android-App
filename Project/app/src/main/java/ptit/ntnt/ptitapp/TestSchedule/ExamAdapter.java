@@ -13,8 +13,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.crypto.interfaces.PBEKey;
+
 import ptit.ntnt.ptitapp.MarkTable.SemesterMark;
 import ptit.ntnt.ptitapp.Models.Exam;
+import ptit.ntnt.ptitapp.Models.Subject;
+import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
 
 public class ExamAdapter extends ArrayAdapter<Exam>{
@@ -49,10 +53,12 @@ public class ExamAdapter extends ArrayAdapter<Exam>{
         TextView ngayThi = (TextView) convertView.findViewById(R.id.ngaythi);
         TextView tenMonHoc = (TextView) convertView.findViewById(R.id.tenMonHoc);
 
-        tietBD.setText(Objects.get(position).getTietBD());
+        Subject subject = MyApplication.mapCourseIDToSubject.get(Objects.get(position).getCourseID());
+
+        tietBD.setText(Integer.toString(Objects.get(position).getTietBD()));
         Room.setText(Objects.get(position).getExamRoom());
         ngayThi.setText(Objects.get(position).getExamDate());
-        tenMonHoc.setText(Objects.get(position).getCourseID());
+        tenMonHoc.setText(subject.getSubjectName());
         return convertView;
     }
 }

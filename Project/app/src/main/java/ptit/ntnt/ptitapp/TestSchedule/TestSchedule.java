@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import java.util.ArrayList;
 
 import ptit.ntnt.ptitapp.Firebase.FirebaseHelper;
 import ptit.ntnt.ptitapp.Models.Exam;
+import ptit.ntnt.ptitapp.Models.Subject;
+import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
 import ptit.ntnt.ptitapp.Tools;
 
@@ -37,20 +40,23 @@ public class TestSchedule extends Fragment {
         DatabaseReference mData = database.getReference();
         lvExam = (ListView) view.findViewById(R.id.examLV);
         arrayExam = new ArrayList<Exam>();
-        adapter = new ExamAdapter(getActivity(), R.layout.dong_lich_thi, arrayExam);
+        adapter = new ExamAdapter(getActivity(),R.layout.dong_lich_thi, arrayExam);
         ArrayList<Exam> array = Tools.getCurrentExamOnStudyingCourse();
         arrayExam.clear();
-        String s="";
+        String month="";
+        TextView semester = (TextView) view.findViewById(R.id.hk);
         for(int i=0; i<array.size();i++) {
             if(array.get(i) == null){
                 Toast.makeText(getActivity(), "Méo thấy gì", Toast.LENGTH_SHORT).show();
             }else {
-//                arrayExam.add(new Exam(array.get(i).getCourseID().toString(),array.get(i).getExamDate(),array.get(i).getExamRoom(),array.get(i).getTietBD()));
-                s += mData.child(array.get(i).getCourseID()).getClass()x + "\n"+"\n";
+                Exam exam = new Exam(array.get(i).getCourseID(),array.get(i).getExamDate(),array.get(i).getExamRoom(),array.get(i).getTietBD());
+                arrayExam.add(exam);
             }
         }
-        TextView haha = (TextView) view.findViewById(R.id.haha);
-        haha.setText(s);
+        month = array.get(0).getExamDate().substring(3,5);
+        if (Integer.parseInt(month)<=6 && Integer.parseInt(month)>=3){
+            semester.setText("2");
+        }else semester.setText("1");
         lvExam.setAdapter(adapter);
         return view;
     }
