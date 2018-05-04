@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+    <TextView
+        android:paddingTop="5dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:hint="Buổi"
+        android:textSize="30sp"
+        android:layout_weight="3"
+        android:id="@+id/txtBuoi"/>
+
+
+        <LinearLayout
+        android:layout_width="0dp"
+            android:layout_weight="7"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp">
+            <View
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_width="5dp"
+                android:layout_height="match_parent"
+                android:background="#e76c96" />
+
+            <LinearLayout
+                android:layout_marginLeft="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Mã môn học"
+                android:id="@+id/txtMaMonHoc"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Tên môn học"
+                android:id="@+id/txtTenMonHoc"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Phòng học"
+                android:id="@+id/txtPhong"/>
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="210dp"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:background="#d4d4d4" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,12 +1,14 @@
 package ptit.ntnt.ptitapp.Models;
 
+import android.support.annotation.NonNull;
+
 import java.util.Date;
 
 /**
  * Created by datshiro on 11/03/2018.
  */
 
-public class Schedule {
+public class Schedule implements Comparable<Schedule> {
     private String scheduleID;
     private String courseID;
     private int tietBD;
@@ -14,8 +16,29 @@ public class Schedule {
     private String isTheory;   // Lý Thuyêt hay thực hành
     private String studyDate;
     private String note;
+    private String isOff;
+
+    @Override
+    public int compareTo(@NonNull Schedule o) {
+
+        return getTietBD()-o.getTietBD();
+    }
 
     public Schedule() {
+    }
+
+    @Override
+    public String toString() {
+        return "Schedule{" +
+                "scheduleID='" + scheduleID + '\'' +
+                ", courseID='" + courseID + '\'' +
+                ", tietBD=" + tietBD +
+                ", room='" + room + '\'' +
+                ", isTheory='" + isTheory + '\'' +
+                ", studyDate='" + studyDate + '\'' +
+                ", note='" + note + '\'' +
+                ", isOff='" + isOff + '\'' +
+                '}';
     }
 
     public String getScheduleID() {
@@ -63,15 +86,6 @@ public class Schedule {
         return this;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public Schedule setNote(String note) {
-        this.note = note;
-        return this;
-    }
-
     public String getStudyDate() {
         return studyDate;
     }
@@ -81,16 +95,21 @@ public class Schedule {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "Schedule{" +
-                "scheduleID='" + scheduleID + '\'' +
-                ", courseID='" + courseID + '\'' +
-                ", tietBD=" + tietBD +
-                ", room='" + room + '\'' +
-                ", isTheory='" + isTheory + '\'' +
-                ", studyDate='" + studyDate + '\'' +
-                ", note='" + note + '\'' +
-                '}';
+    public String getNote() {
+        return note;
+    }
+
+    public Schedule setNote(String note) {
+        this.note = note;
+        return this;
+    }
+
+    public String getIsOff() {
+        return isOff;
+    }
+
+    public Schedule setIsOff(String isOff) {
+        this.isOff = isOff;
+        return this;
     }
 }

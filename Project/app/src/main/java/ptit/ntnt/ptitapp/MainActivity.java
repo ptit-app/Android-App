@@ -1,6 +1,7 @@
 package ptit.ntnt.ptitapp;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
@@ -20,9 +21,11 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+import ptit.ntnt.ptitapp.AppGuide.AppGuideAdapter;
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
+import ptit.ntnt.ptitapp.ForgotPassword.PassRecoverS1;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
 import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjects;
@@ -30,6 +33,7 @@ import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjectsApdapter;
 import ptit.ntnt.ptitapp.TeacherRating.TeacherRatingAdapter;
 import ptit.ntnt.ptitapp.TestSchedule.TestScheduleAdapter;
 import ptit.ntnt.ptitapp.TimeTable.TimeTableAdapter;
+import ptit.ntnt.ptitapp.UserProfile.UserProfileAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -90,6 +94,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mainPageAdapter);
 
+        ImageView bt_user = (ImageView) findViewById(R.id.user_avatar);
+        bt_user.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                UserProfileAdapter userProfileAdapter = new UserProfileAdapter(getSupportFragmentManager());
+                viewPager = (ViewPager) findViewById(R.id.main_view_pager);
+                viewPager.setAdapter(userProfileAdapter);
+                TextView main_page_title = findViewById(R.id.main_page_title);
+                main_page_title.setText("User");
+                drawerMenu.closeDrawer(Gravity.LEFT,true);
+            }
+        });
+
     }
 //
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -98,25 +115,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        }
 //        return super.onKeyDown(keyCode, event);
 //    }
-    boolean doubleBackToExitPressedOnce = false;
-    @Override
-    public void onBackPressed() {
-        if (doubleBackToExitPressedOnce) {
-            super.onBackPressed();
-            return;
-        }
-
-        this.doubleBackToExitPressedOnce = true;
-        Toast.makeText(this, "Vui lòng nhấn 2 lần để thoát.", Toast.LENGTH_SHORT).show();
-
-        new Handler().postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                doubleBackToExitPressedOnce=false;
-            }
-        }, 2000);
-    }
 
     @Override
     public void onClick (View view_object){
@@ -126,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
-
 
     private class ItemClick implements android.widget.AdapterView.OnItemClickListener {
         @Override
@@ -184,6 +181,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_page_title.setText(getString(R.string.app_info));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
                     break;
+                case 7:
+                    AppGuideAdapter appGuideAdapter = new AppGuideAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(appGuideAdapter);
+                    main_page_title.setText(getString(R.string.help));
+                    mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
+                    break;
+
                 default:
 
                     break;
@@ -191,5 +195,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             drawerMenu.closeDrawer(Gravity.LEFT,true);
         }
+    }
+
+    boolean doubleBackToExitPressedOnce = false;
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Vui lòng nhấn 2 lần để thoát.", Toast.LENGTH_SHORT).show();
+
+        new Handler().postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce=false;
+            }
+        }, 2000);
     }
 }

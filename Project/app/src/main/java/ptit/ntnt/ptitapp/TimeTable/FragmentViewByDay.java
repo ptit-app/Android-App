@@ -21,6 +21,13 @@ public class FragmentViewByDay extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.timetable_view_by_day_layout,container,false);
+//      View view = inflater.inflate(R.layout.timetable_view_by_day_layout,container,false);
+//      FragmentCalendar fragmentCalender = new FragmentCalendar();
+//      getChildFragmentManager().beginTransaction().add(R.id.frameContent,fragmentCalender).commit();// add FragmentCalender vào trong FragmentViewByday
+
+
+
         return view;
+
     }
 }
