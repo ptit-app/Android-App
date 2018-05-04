@@ -15,6 +15,7 @@ public class News {
     private String id;
     private String title;
     private String content;
+    private String author;
     private int featureImageId;
     private String createdAt;
     private String modifiedAt;
@@ -40,6 +41,15 @@ public class News {
         this.modifiedAt = formater.format(new Date());
     }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public News setAuthor(String author) {
+        this.author = author;
+        return this;
+    }
+
     public String getId() {
         return id;
     }
@@ -51,6 +61,7 @@ public class News {
     public String getContent() {
         return content;
     }
+
 
     public int getFeatureImageId() {
         return featureImageId;
@@ -92,6 +103,7 @@ public class News {
         UpdateModifyTime();
         return this;
     }
+
 
     public News setFeatureImageId(int featureImageId) {
         this.featureImageId = featureImageId;

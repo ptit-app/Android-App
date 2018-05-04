@@ -17,7 +17,6 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText edEmail, edPass;
     Button btnLogin;
     TextView tvForgotPass;
-    String mssv="N14DCAT022";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +28,6 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvForgotPass = (TextView) findViewById(R.id.tvForgotPass);
 
-        MyApplication.getMapCourse(mssv);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,16 +38,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PassRecoverS1 step1 = new PassRecoverS1();
-//                Bundle args = new Bundle();
-//                args.putString("fuck", "cai lol que");
-//                step1.setArguments(args);
                 step1.show(getFragmentManager(),"rec_pass_1");
             }
         });
+        //Dưới đây là start service hiển thị thông báo
+        //startService(new Intent(this, NotiService.class));
     }
 
     private void validateLogin(){
-        Log.d("DAT SHIRO WORK" , MyApplication.listAllLecturer.toString());
         String email = edEmail.getText().toString();
         String pass = edPass.getText().toString();
         String studentLoginID = email.split("@")[0];

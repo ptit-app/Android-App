@@ -166,4 +166,14 @@ public class DBConst {
         public static final String COL_FACULTY_ID = "FACULTY_ID";
         public static final String COL_FACULTY_NAME = "FACULTY_NAME";
     }
+
+    public static class TB_EXAM{
+        public static final String TB_NAME = "TB_EXAM";
+    }
+
+//    public static class TB_SCHEDULE{
+//        public static final String TB_NAME = "TB_EXAM";
+//
+//    }
+
 }
