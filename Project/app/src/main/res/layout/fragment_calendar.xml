@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#ccc">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:padding="10dp"
+        android:background="#fff">
+        <TextView
+            android:id="@+id/showDate"
+            android:layout_width="0dp"
+            android:layout_weight="7"
+            android:layout_height="wrap_content"
+            android:hint="Show date"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textColor="#000"
+            android:paddingLeft="10dp"
+            android:gravity="center"
+            android:paddingTop="5dp"
+        />
+        <ImageView
+            android:id="@+id/imgCalendar"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:src="@drawable/calendar"
+            android:paddingTop="5dp"></ImageView>
+
+
+    </LinearLayout>
+    <CalendarView
+        android:id="@+id/calender_Day"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"></CalendarView>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#ccc">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/lvShedule"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingBottom="5dp"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="5dp"
+            ></ListView>
+
+    </LinearLayout>
+
+</LinearLayout>

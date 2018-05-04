@@ -2,7 +2,6 @@
     <string name="app_name">PTIT App</string>
     <string name="user_info">Đăng nhập</string>
     <string name="log_out">Đăng xuất</string>
-    <string name="exit">Thoát</string>
     <string name="setting">Cài đặt</string>
     <string name="home_page">Trang chủ</string>
     <string name="time_table">Thời khóa biểu</string>
@@ -11,7 +10,6 @@
     <string name="app_info">Thông tin ứng dụng</string>
     <string name="help">Hướng dẫn sử dụng</string>
     <string name="teacher_rating">Đánh giá giáo viên</string>
-    <string name="registered_subjects">Môn học đã đăng </string>
     <string-array name="chonTuan">
         <item></item>
         <item>Tuần 23, 22/01/2018 - 28/01/2018</item>
@@ -24,4 +22,5 @@
     </string-array>
     <string name="mon">Hello its Monday</string>
     <string name="spinner_title">Chọn tuần</string>
+    <string name="registered_subjects">Môn học đã đăng ký</string>
 </resources>

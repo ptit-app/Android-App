@@ -2,13 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-        <TextView
+    android:orientation="vertical"
+    android:background="#ccc">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:textSize="30dp"
-            android:text="Xem theo ngày"
-            android:gravity="center"
-            android:background="#fff"/>
+            android:id="@+id/frameContent">
 
+                <fragment
+                    android:id="@+id/fragment"
+                    android:name="ptit.ntnt.ptitapp.TimeTable.FragmentCalendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <!--<fragment-->
+                    <!--android:id="@+id/SchuduleDetail"-->
+                    <!--android:name="ptit.ntnt.ptitapp.TimeTable.FragmentDayDetail"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content" />-->
+        </LinearLayout>
 </LinearLayout>

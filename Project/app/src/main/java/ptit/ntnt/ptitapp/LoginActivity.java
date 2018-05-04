@@ -1,32 +1,80 @@
 package ptit.ntnt.ptitapp;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+import ptit.ntnt.ptitapp.Database.DBConst;
 import ptit.ntnt.ptitapp.ForgotPassword.PassRecoverS1;
+
+import ptit.ntnt.ptitapp.Database.DBConst;
+import ptit.ntnt.ptitapp.Database.DBHelper;
+
+import static ptit.ntnt.ptitapp.MyApplication.currentStudent;
+import static ptit.ntnt.ptitapp.MyApplication.getMapCourse;
 
 public class LoginActivity extends AppCompatActivity {
 
     TextInputEditText edEmail, edPass;
     Button btnLogin;
     TextView tvForgotPass;
+    DatabaseReference fbData;
+    ArrayList<String> key;
+    ArrayList<Object> svAttendArr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        // Dat Shiro 04/05/2018
+        if(MyApplication.currentStudent != null && MyApplication.currentStudent.getStudentID() != null){
+            getMapCourse(currentStudent.getStudentID());
+            // Dat Shiro 04/05/2018
+            if (MyApplication.mapCourse.isEmpty()){
+                DBHelper db = new DBHelper(getBaseContext());
+                db.getHashMapScheduleFromSQLite();
+            }
+            // End of coding
+            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        }
+        // End of coding
         edEmail = (TextInputEditText) findViewById(R.id.edEmail);
         edPass = (TextInputEditText) findViewById(R.id.edPass);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvForgotPass = (TextView) findViewById(R.id.tvForgotPass);
+        fbData = FirebaseDatabase.getInstance().getReference();
+        svAttendArr = new ArrayList<>();
+        key = new ArrayList<>();
+
+        fbData.child(DBConst.TB_ATTENDANCE.TB_NAME).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot data : dataSnapshot.getChildren()) {
+                    Object svAttend = data.getValue();
+                    key.add(data.getKey());
+                    svAttendArr.add(svAttend);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,16 +86,12 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 PassRecoverS1 step1 = new PassRecoverS1();
-//                Bundle args = new Bundle();
-//                args.putString("fuck", "cai lol que");
-//                step1.setArguments(args);
                 step1.show(getFragmentManager(),"rec_pass_1");
             }
         });
     }
 
     private void validateLogin(){
-        Log.d("DAT SHIRO WORK" , MyApplication.listAllLecturer.toString());
         String email = edEmail.getText().toString();
         String pass = edPass.getText().toString();
         String studentLoginID = email.split("@")[0];
@@ -64,8 +108,18 @@ public class LoginActivity extends AppCompatActivity {
                 if(email.equals("admin")&&pass.equals("admin")){
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }else if(MyApplication.mapAllStudent.get(studentLoginID) != null){
+                    // Dat Shiro 04/05/2018
+                    DBHelper dbHelper = new DBHelper(getBaseContext());
+                    dbHelper.updateCurrentUserInSQLite(MyApplication.mapAllStudent.get(studentLoginID));
+                    // End of coding
                     MyApplication.setCurrentStudent(MyApplication.mapAllStudent.get(studentLoginID));
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    Bundle args = new Bundle();
+                    args.putSerializable("KEY", key);
+                    args.putSerializable("ARRAYLIST", svAttendArr);
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.putExtra("BUNDLE",args);
+                    getMapCourse(currentStudent.getStudentID());
+                    startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this, "Sai Email hoac mat khau!", Toast.LENGTH_SHORT).show();
                 }

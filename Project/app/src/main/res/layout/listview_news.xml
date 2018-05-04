@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/default_news_items_listview_height"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:paddingRight="15dp"
+    android:background="#fff">
 
     <ImageView
         android:id="@+id/imgViewFeatureImage"
-        android:layout_width="80dp"
+        android:layout_width="1dp"
         android:layout_height="80dp"
         android:layout_margin="10dp"
         android:src="@drawable/bell_icon"/>

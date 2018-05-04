@@ -1,8 +1,8 @@
 package ptit.ntnt.ptitapp.TeacherRating;
 
-import android.support.v4.app.FragmentStatePagerAdapter;
+        import android.support.v4.app.FragmentStatePagerAdapter;
 
-import ptit.ntnt.ptitapp.TestSchedule.TestSchedule;
+        import ptit.ntnt.ptitapp.TestSchedule.TestSchedule;
 
 public class TeacherRatingAdapter extends FragmentStatePagerAdapter {
     public TeacherRatingAdapter(android.support.v4.app.FragmentManager fm) {
