@@ -1,6 +1,8 @@
 package ptit.ntnt.ptitapp;
 
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -49,12 +51,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ViewPager viewPager;
 
-    DatabaseReference fbData;
-    ArrayList<String> courseIdArr;
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,8 +59,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         createDrawerMenu();
         drawer_menu_adapter = new drawerMenuAdapter(this,R.layout.listview_item_drawer_menu,drawe_menu_list_array);
         drawe_menu_lv.setAdapter(drawer_menu_adapter);
-        //Dưới đây là start service hiển thị thông báo
-        //startService(new Intent(this, NotiService.class));
 
 //        MainPageAdapter mainpage = new MainPageAdapter();
 //        FragmentManager fragmentManager = getFragmentManager();
@@ -73,6 +67,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        fragmentTransaction.commit();
     }
 
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void createDrawerMenu() {
         drawe_menu_lv = (ListView) findViewById(R.id.drawer_menu_list);
@@ -98,26 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager = (ViewPager) findViewById(R.id.main_view_pager);
         MainPageAdapter mainPageAdapter = new MainPageAdapter(getSupportFragmentManager());
         viewPager.setAdapter(mainPageAdapter);
-        fbData = FirebaseDatabase.getInstance().getReference();
-//        if(MyApplication.currentStudent.getStudentID()=="N14DCAT022"){
-//
-//        }
-        Intent intent = getIntent();
-        Bundle args = intent.getBundleExtra("BUNDLE");
-        ArrayList<Object> object = (ArrayList<Object>) args.getSerializable("ARRAYLIST");
-        ArrayList<String> key = (ArrayList<String>) args.getSerializable("KEY");
-        HashMap<String, Schedule> courses = (HashMap<String, Schedule>) object.get(0);
-        Intent toNoti = new Intent(this, NotiService.class);
-        Bundle argToNoti = new Bundle();
-        ArrayList<String> courseKeys = new ArrayList<>();
-        for(String courseKey: courses.keySet()){
-            courseKeys.add(courseKey);
-        }
-        argToNoti.putSerializable("COURSE", courseKeys);
-        argToNoti.putString("ID","N14DCAT022");
-//        argToNoti.putSerializable("ARRAYLIST", svAttendArr);
-        toNoti.putExtra("NOTIAGRS",argToNoti);
-        startService(toNoti);
+
+        initService();
 
         ImageView bt_user = (ImageView) findViewById(R.id.user_avatar);
         bt_user.setOnClickListener(new View.OnClickListener(){
@@ -131,15 +116,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 drawerMenu.closeDrawer(Gravity.LEFT,true);
             }
         });
-
     }
-//
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-//            Toast.makeText(this,"hello", Toast.LENGTH_LONG).show();
-//        }
-//        return super.onKeyDown(keyCode, event);
-//    }
+
+    private void initService(){
+        if(isMyServiceRunning(NotiService.class)){
+            stopService(new Intent(this, NotiService.class));
+        }
+        Intent intent = getIntent();
+        if (intent != null) {
+            Bundle args = intent.getBundleExtra("BUNDLE");
+            ArrayList<Object> object = (ArrayList<Object>) args.getSerializable("ARRAYLIST");
+            ArrayList<String> key = (ArrayList<String>) args.getSerializable("KEY");
+            int dataIndex = key.indexOf(MyApplication.currentStudent.getStudentID());
+            HashMap<String, Schedule> courses = (HashMap<String, Schedule>) object.get(dataIndex);
+            Intent toNoti = new Intent(this, NotiService.class);
+            Bundle argToNoti = new Bundle();
+            ArrayList<String> courseKeys = new ArrayList<>();
+            for(String courseKey: courses.keySet()){
+                courseKeys.add(courseKey);
+            }
+            argToNoti.putSerializable("COURSE", courseKeys);
+            argToNoti.putString("ID", MyApplication.currentStudent.getStudentID());
+            toNoti.putExtra("NOTIAGRS",argToNoti);
+            startService(toNoti);
+        }
+    }
 
     @Override
     public void onClick (View view_object){

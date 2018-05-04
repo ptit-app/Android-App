@@ -89,22 +89,15 @@ public class LoginActivity extends AppCompatActivity {
                 edPass.requestFocus();
             }else{
                 if(email.equals("admin")&&pass.equals("admin")){
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }else if(MyApplication.mapAllStudent.get(studentLoginID) != null){
+                    MyApplication.setCurrentStudent(MyApplication.mapAllStudent.get(studentLoginID));
                     Bundle args = new Bundle();
                     args.putSerializable("KEY", key);
                     args.putSerializable("ARRAYLIST", svAttendArr);
                     Intent intent = new Intent(this, MainActivity.class);
                     intent.putExtra("BUNDLE",args);
                     startActivity(intent);
-//                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                }else if(MyApplication.mapAllStudent.get(studentLoginID) != null){
-                    MyApplication.setCurrentStudent(MyApplication.mapAllStudent.get(studentLoginID));
-//                    Bundle args = new Bundle();
-//                    args.putSerializable("KEY", key);
-//                    args.putSerializable("ARRAYLIST", svAttendArr);
-//                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//                    intent.putExtra("BUNDLE",args);
-//                    startActivity(intent);
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }else{
                     Toast.makeText(LoginActivity.this, "Sai Email hoac mat khau!", Toast.LENGTH_SHORT).show();
                 }

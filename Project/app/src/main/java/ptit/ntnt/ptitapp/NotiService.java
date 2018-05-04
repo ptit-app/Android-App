@@ -23,6 +23,8 @@ import ptit.ntnt.ptitapp.Models.Subject;
 public class NotiService extends Service{
 
     DatabaseReference fbData;
+    static String mssv = null;
+    static ArrayList<String> courses = new ArrayList<>();
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -37,9 +39,11 @@ public class NotiService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Bundle args = intent.getBundleExtra("NOTIAGRS");
-        ArrayList<String> courses = (ArrayList<String>) args.getSerializable("COURSE");
-        final String mssv = args.getString("ID");
+        if(mssv==null && courses.size()<1 && intent!=null){
+            Bundle args = intent.getBundleExtra("NOTIAGRS");
+            courses = (ArrayList<String>) args.getSerializable("COURSE");
+            mssv = args.getString("ID");
+        }
         for(String course : courses){
             fbData.child(DBConst.TB_ATTENDANCE.TB_NAME).child(mssv).child(course).addChildEventListener(new ChildEventListener() {
                 @Override
