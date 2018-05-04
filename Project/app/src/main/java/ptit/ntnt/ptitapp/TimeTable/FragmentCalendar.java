@@ -7,6 +7,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,12 +29,13 @@ import java.util.Date;
 
 import ptit.ntnt.ptitapp.CalendarView;
 import ptit.ntnt.ptitapp.Models.Schedule;
+import ptit.ntnt.ptitapp.Models.Subject;
 import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.R;
 import ptit.ntnt.ptitapp.Tools;
 
 public class FragmentCalendar  extends android.support.v4.app.Fragment {
-    FragmentDayDetail fragmentDayDetail;
+//
     Date currentTime = Calendar.getInstance().getTime();
     String dayOFMONTH,MONTH,YEAR;
     static String tenMH;
@@ -42,16 +45,21 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
     SubjectScheduleAdapter subjectScheduleAdapter;
     TextView txtDate;
     String buoi;
+    ImageView imgCalendar;
     View view;
     android.widget.CalendarView calendarView;
     String UserID;
     private String pattern = "dd/MM/yyyy";
+    boolean flag=false ;
     String dateInString = new SimpleDateFormat(pattern).format(new Date());
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calendar, container, false);
+
         setControl();
+
         calendarView.setOnDateChangeListener(new android.widget.CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull android.widget.CalendarView view, int year, int month, int dayOfMonth) {
@@ -65,10 +73,19 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
                     MONTH = String.valueOf(month+1);
                 String Date = dayOFMONTH +"/"+ MONTH + "/"+ String.valueOf(year);
                 txtDate.setText(Date);
-                Toast.makeText(getActivity(), txtDate.getText().toString()+"abc", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getActivity(), txtDate.getText().toString()+"abc", Toast.LENGTH_SHORT).show();
                 arrSubjectSchedules.clear();
                 subjectScheduleAdapter.notifyDataSetChanged();
                 getSchedule(Date);
+                if(flag==true){
+                    calendarView.setVisibility(View.VISIBLE);
+                    flag=false;
+                }
+                else {
+                    calendarView.setVisibility(View.GONE);
+                    flag=true;
+                }
+
             }
         });
         return view;
@@ -82,12 +99,40 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
         ListView lvSubjectSchedule = (ListView) view.findViewById(R.id.lvShedule);
         subjectScheduleAdapter = new SubjectScheduleAdapter(getActivity(), R.layout.timetable_view_subject_row, arrSubjectSchedules);
         lvSubjectSchedule.setAdapter(subjectScheduleAdapter);
+        imgCalendar =(ImageView) view.findViewById(R.id.imgCalendar);
+        calendarView.setVisibility(View.GONE);
+        flag=true;
+        imgCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(flag==true){
+                    calendarView.setVisibility(View.VISIBLE);
+                    flag=false;
+                }
+                else {
+                    calendarView.setVisibility(View.GONE);
+                    flag=true;
+                }
+            }
+        });
+
+
+
+
+        lvSubjectSchedule.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+
+            }
+        });
+
     }
     private void getSchedule(String Date) {
         int i;
         arrSchedules = Tools.getSchedulesByDate(Date);
         Collections.sort(arrSchedules);
-        Toast.makeText(getActivity(), arrSchedules.toString(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), arrSchedules.toString(), Toast.LENGTH_SHORT).show();
         for (i = 0; i < arrSchedules.size(); i++) {
             if (arrSchedules.isEmpty()) {
                 Toast.makeText(getActivity(), "NULL", Toast.LENGTH_SHORT).show();
@@ -104,15 +149,16 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
                         if (arrSchedules.get(finalI).getCourseID().split("_")[0].toString().equals(dataSnapshot.getKey().toString())) {
 
                             if (arrSchedules.get(finalI).getTietBD() == 1) {
-                                Toast.makeText(getActivity(), "Tiet Bat dau:" + arrSchedules.get(finalI).getTietBD(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getActivity(), "Tiet Bat dau:" + arrSchedules.get(finalI).getTietBD(), Toast.LENGTH_SHORT).show();
                                 buoi = "Sáng";
                             } else buoi = "Chiều";
-                            CustomSubject customSubject = dataSnapshot.getValue(CustomSubject.class);
-                            tenMH = customSubject.getSubjectName();
+                            Subject subject = dataSnapshot.getValue(Subject.class);
+                            tenMH = subject.getSubjectName();
                             SubjectSchedule subjectSchedule = new SubjectSchedule(arrSchedules.get(finalI).getCourseID().split("_")[0], tenMH, arrSchedules.get(finalI).getRoom().toString(), buoi, arrSchedules.get(finalI).getCourseID());
                             arrSubjectSchedules.add(subjectSchedule);
 
                             subjectScheduleAdapter.notifyDataSetChanged();
+
                         }
                     }
 
@@ -136,6 +182,7 @@ public class FragmentCalendar  extends android.support.v4.app.Fragment {
 
                     }
                 });
+
             }
         }
     }

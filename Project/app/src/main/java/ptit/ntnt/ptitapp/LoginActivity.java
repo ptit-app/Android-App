@@ -26,7 +26,6 @@ public class LoginActivity extends AppCompatActivity {
     TextInputEditText edEmail, edPass;
     Button btnLogin;
     TextView tvForgotPass;
-    String mssv="N14DCAT022";
     DatabaseReference fbData;
     ArrayList<String> key;
     ArrayList<Object> svAttendArr;
@@ -60,7 +59,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        MyApplication.getMapCourse(mssv);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void validateLogin(){
-        Log.d("DAT SHIRO WORK" , MyApplication.listAllLecturer.toString());
         String email = edEmail.getText().toString();
         String pass = edPass.getText().toString();
         String studentLoginID = email.split("@")[0];

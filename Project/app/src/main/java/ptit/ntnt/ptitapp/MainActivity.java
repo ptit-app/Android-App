@@ -24,9 +24,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import ptit.ntnt.ptitapp.AppGuide.AppGuideAdapter;
 import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
+import ptit.ntnt.ptitapp.ForgotPassword.PassRecoverS1;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
 import ptit.ntnt.ptitapp.Models.Schedule;
@@ -34,6 +36,7 @@ import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjectsApdapter;
 import ptit.ntnt.ptitapp.TeacherRating.TeacherRatingAdapter;
 import ptit.ntnt.ptitapp.TestSchedule.TestScheduleAdapter;
 import ptit.ntnt.ptitapp.TimeTable.TimeTableAdapter;
+import ptit.ntnt.ptitapp.UserProfile.UserProfileAdapter;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -116,6 +119,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toNoti.putExtra("NOTIAGRS",argToNoti);
         startService(toNoti);
 
+        ImageView bt_user = (ImageView) findViewById(R.id.user_avatar);
+        bt_user.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                UserProfileAdapter userProfileAdapter = new UserProfileAdapter(getSupportFragmentManager());
+                viewPager = (ViewPager) findViewById(R.id.main_view_pager);
+                viewPager.setAdapter(userProfileAdapter);
+                TextView main_page_title = findViewById(R.id.main_page_title);
+                main_page_title.setText("User");
+                drawerMenu.closeDrawer(Gravity.LEFT,true);
+            }
+        });
+
     }
 //
 //    public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -190,6 +206,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     main_page_title.setText(getString(R.string.app_info));
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
                     break;
+                case 7:
+                    AppGuideAdapter appGuideAdapter = new AppGuideAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(appGuideAdapter);
+                    main_page_title.setText(getString(R.string.help));
+                    mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
+                    break;
+
                 default:
 
                     break;
@@ -202,8 +225,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     boolean doubleBackToExitPressedOnce = false;
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
             return;
