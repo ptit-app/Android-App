@@ -59,14 +59,19 @@ public class FragmentViewByWeek extends Fragment{
          //Setting ViewPager for each Tabs
         ViewPager viewPager = (ViewPager) view.findViewById(R.id.viewpager);
         final Fragment monFragment = new MonFragment();
+        final Fragment tueFragment = new TueFragment();
+        final Fragment wedFragment = new WedFragment();
+        final Fragment thuFragment = new ThuFragment();
+        final Fragment friFragment = new FriFragment();
+        final Fragment satFragment = new SatFragment();
         //setupViewPager(viewPager);
         Adapter adapter = new Adapter(getChildFragmentManager());
         adapter.addFragment(monFragment, "Thứ 2");
-        adapter.addFragment(new TueFragment(), "Thứ 3");
-        adapter.addFragment(new WedFragment(), "Thứ 4");
-        adapter.addFragment(new ThuFragment(), "Thứ 5");
-        adapter.addFragment(new FriFragment(), "Thứ 6");
-        adapter.addFragment(new SatFragment(), "Thứ 7");
+        adapter.addFragment(tueFragment, "Thứ 3");
+        adapter.addFragment(wedFragment, "Thứ 4");
+        adapter.addFragment(thuFragment, "Thứ 5");
+        adapter.addFragment(friFragment, "Thứ 6");
+        adapter.addFragment(satFragment, "Thứ 7");
         adapter.addFragment(new SunFragment(), "Chủ nhật");
         viewPager.setAdapter(adapter);
         // Set Tabs inside Toolbar
@@ -88,7 +93,11 @@ public class FragmentViewByWeek extends Fragment{
                 getWeekString.addDay(item);
                 Log.d("HIHI", bundle.toString());
                 monFragment.setArguments(bundle);
-
+                tueFragment.setArguments(bundle);
+                wedFragment.setArguments(bundle);
+                thuFragment.setArguments(bundle);
+                friFragment.setArguments(bundle);
+                satFragment.setArguments(bundle);
             }
 
             @Override

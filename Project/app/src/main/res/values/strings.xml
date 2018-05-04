@@ -19,6 +19,14 @@
         <item>Tuần 27, 19/02/2018 - 25/02/2018</item>
         <item>Tuần 28, 26/02/2018 - 04/03/2018</item>
         <item>Tuần 29, 05/03/2018 - 11/03/2018</item>
+        <item>Tuần 30, 12/03/2018 - 18/03/2018</item>
+        <item>Tuần 31, 19/03/2018 - 25/03/2018</item>
+        <item>Tuần 32, 26/03/2018 - 01/04/2018</item>
+        <item>Tuần 33, 02/04/2018 - 08/04/2018</item>
+        <item>Tuần 34, 09/04/2018 - 15/04/2018</item>
+        <item>Tuần 35, 16/04/2018 - 22/04/2018</item>
+        <item>Tuần 36, 23/04/2018 - 29/04/2018</item>
+        <item>Tuần 37, 30/04/2018 - 06/05/2018</item>
     </string-array>
     <string name="mon">Hello its Monday</string>
     <string name="spinner_title">Chọn tuần</string>

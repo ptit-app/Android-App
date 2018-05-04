@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.service.autofill.Dataset;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,6 +33,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import ptit.ntnt.ptitapp.Models.Schedule;
+import ptit.ntnt.ptitapp.Models.Subject;
 import ptit.ntnt.ptitapp.MyApplication;
 import ptit.ntnt.ptitapp.TimeTable.CustomSubject;
 import ptit.ntnt.ptitapp.TimeTable.FragmentViewByWeek;
@@ -75,21 +77,17 @@ public class MonFragment extends Fragment{
         txtDate = (TextView) view.findViewById(R.id.txtShowDate);
         subjectSchedules = new ArrayList<>();
         //txtDate.setText("03/05/2018");
-        Bundle bundle = getArguments();
+        Bundle bundle = this.getArguments();
         if(bundle != null)
         {
             String t = (String)bundle.getString("NGAY_KEY");
-            txtDate.setText(t);
+            String s1 = t.split(" ")[2];
+            String s2 = s1.split("-")[0];
+            txtDate.setText(s2);
+            getSchedule(s2);
         }
-
-        final  String ngay = getWeekString.getNgayKey();
-        //Log.d("TestNgay MN FRAG", ngay);
-        //String a = bundle
-        //String day = null;
-        //day = getArguments().getString("NGAY_KEY").toString();
-        //Log.d("Test Ngày", day);
         //subjectScheduleAdapter.notifyDataSetChanged();
-        getSchedule("22/01/2018");
+//        getSchedule("22/01/2018");
         //data = new ArrayList<>();;
         subjectScheduleAdapter = new SubjectScheduleAdapter(getActivity(), R.layout.timetable_view_subject_row, subjectSchedules);
         listView.setAdapter(subjectScheduleAdapter);
@@ -113,7 +111,6 @@ public class MonFragment extends Fragment{
         int i;
         schedules = Tools.getSchedulesByDate(Date);
         Collections.sort(schedules);
-        Toast.makeText(getActivity(), schedules.toString(), Toast.LENGTH_SHORT).show();
         for (i = 0; i < schedules.size(); i++) {
             if (schedules.isEmpty()) {
                 Toast.makeText(getActivity(), "NULL", Toast.LENGTH_SHORT).show();
@@ -130,14 +127,16 @@ public class MonFragment extends Fragment{
                         if (schedules.get(finalI).getCourseID().split("_")[0].toString().equals(dataSnapshot.getKey().toString())) {
 
                             if (schedules.get(finalI).getTietBD() == 1) {
-                                //Toast.makeText(getActivity(), "Tiet Bat dau:" + schedules.get(finalI).getTietBD(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getActivity(), "Tiet Bat dau:" + arrSchedules.get(finalI).getTietBD(), Toast.LENGTH_SHORT).show();
                                 buoi = "Sáng";
                             } else buoi = "Chiều";
-                            CustomSubject customSubject = dataSnapshot.getValue(CustomSubject.class);
-                            tenMH = customSubject.getSubjectName();
-                            SubjectSchedule subjectSchedule = new SubjectSchedule(schedules.get(finalI).getCourseID().split("_")[0], tenMH, schedules.get(finalI).getRoom().toString(), buoi, schedules.get(finalI).getCourseID());
+                            Subject subject = dataSnapshot.getValue(Subject.class);
+                            tenMH = subject.getSubjectName();
+                            SubjectSchedule subjectSchedule = new SubjectSchedule(schedules.get(finalI).getCourseID().split("_")[0], tenMH, schedules.get(finalI).getRoom().toString(), buoi, schedules.get(finalI).getCourseID(), schedules.get(finalI).getStudyDate());
                             subjectSchedules.add(subjectSchedule);
+
                             subjectScheduleAdapter.notifyDataSetChanged();
+
                         }
                     }
 
@@ -161,6 +160,7 @@ public class MonFragment extends Fragment{
 
                     }
                 });
+
             }
         }
     }
