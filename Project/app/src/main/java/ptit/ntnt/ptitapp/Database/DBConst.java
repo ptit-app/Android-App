@@ -185,7 +185,7 @@ public class DBConst {
         public static final String COL_DEV_ID = "DEV_ID";
     }
     public static class TB_EXAM{
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_EXAM (EXAM_ID INT , EXAM_NAME NVARCHAR(200)))";
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_EXAM (EXAM_ID INT , EXAM_NAME NVARCHAR(200))";
         public static final String TB_NAME = "TB_EXAM";
     }
 }
