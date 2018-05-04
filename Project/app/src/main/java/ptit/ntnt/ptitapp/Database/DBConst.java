@@ -50,9 +50,17 @@ public class DBConst {
     }
 
     public static class TB_STUDENT {
-        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_STUDENT (STUDENT_ID TEXT PRIMARY KEY,FULL_NAME TEXT NOT NULL, EMAIL TEXT NOT NULL, PHONE TEXT NULL, CLASS_ID TEXT NOT NULL, BIRTHDAY NUMERIC NOT NULL, FACULTY_ID TEXT NOT NULL,  CREATED_AT NUMERIC NOT NULL, MODIFIED_AT NUMERIC NOT NULL, LIST_COURSE TEXT NOT NULL, USER_GROUP TEXT NOT NULL,"+
-                "FOREIGN KEY (CLASS_ID) REFERENCES " + TB_PTIT_CLASS.TB_NAME + "(CLASS_ID)," +
-                "FOREIGN KEY (USER_GROUP) REFERENCES " + TB_USER_GROUP.TB_NAME + "(NAME));";
+        public static final String CREATE = "CREATE TABLE IF NOT EXISTS TB_STUDENT " +
+                "(STUDENT_ID TEXT," +
+                "FULL_NAME TEXT NOT NULL, " +
+                "EMAIL TEXT, " +
+                "PHONE TEXT, " +
+                "CLASS_ID TEXT, " +
+                "BIRTHDAY TEXT, " +
+                "FACULTY_ID TEXT,  " +
+                "USER_GROUP TEXT NOT NULL, " +
+                "NOTE TEXT," +
+                "PASSWD TEXT)";
         public static final String DROP = "DROP TABLE IF EXISTS TB_STUDENT ;";
 
         public static final String TB_NAME = "TB_STUDENT";
@@ -61,11 +69,11 @@ public class DBConst {
         public static final String COL_FK_CLASS_ID = "CLASS_ID";
         public static final String COL_EMAIL = "EMAIL";
         public static final String COL_BIRTHDAY = "BIRTHDAY";
-        public static final String COL_CREATED_AT = "CREATED_AT";
-        public static final String COL_MODIFIED_AT = "MODIFIED_AT";
         public static final String COL_FK_USER_GROUP = "USER_GROUP";
         public static final String COL_FACULTY_ID = "FACULTY_ID";
         public static final String COL_PHONE = "PHONE";
+        public static final String COL_PASSWD = "PASSWD";
+        public static final String COL_NOTE = "NOTE";
     }
 
     public static class TB_COURSE {

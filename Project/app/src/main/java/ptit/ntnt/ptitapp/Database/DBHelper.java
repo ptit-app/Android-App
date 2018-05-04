@@ -53,12 +53,13 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(DBConst.TB_SCHEDULE.CREATE);
-
+        db.execSQL(DBConst.TB_STUDENT.CREATE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(DBConst.TB_SCHEDULE.DROP);
+        db.execSQL(DBConst.TB_STUDENT.DROP);
         this.onCreate(db);
     }
 
@@ -219,49 +220,83 @@ public class DBHelper extends SQLiteOpenHelper {
             } while (cursor.moveToNext());
         }
 
-        Log.i("getAllSchedule", mapCourse.toString());
+        Log.i("getAllSchedule SQLite", mapCourse.toString());
 
+        db.close();
         // return books
 //        return mapCourse;
     }
 
-    //get student with id
-    public Student getStudent(String studentID){
+    //add Schedule
+    public void addStudent(Student student){
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        // 1. get reference to readable DB
-        SQLiteDatabase db = this.getReadableDatabase();
+        // 2. create ContentValues to add key "column"/value
+        ContentValues values = new ContentValues();
+        values.put(DBConst.TB_STUDENT.COL_STUDENT_ID,student.getStudentID() );
+        values.put(DBConst.TB_STUDENT.COL_BIRTHDAY, student.getBirthday());
+        values.put(DBConst.TB_STUDENT.COL_EMAIL, student.getEmail());
+        values.put(DBConst.TB_STUDENT.COL_NOTE, student.getNote());
+        values.put(DBConst.TB_STUDENT.COL_FACULTY_ID, student.getFacultyID());
+        values.put(DBConst.TB_STUDENT.COL_FK_CLASS_ID, student.getClassID());
+        values.put(DBConst.TB_STUDENT.COL_FK_USER_GROUP, student.getUserGroup());
+        values.put(DBConst.TB_STUDENT.COL_PHONE, student.getPhone());
+        values.put(DBConst.TB_STUDENT.COL_PASSWD, student.getPasswd());
+        values.put(DBConst.TB_STUDENT.COL_FULL_NAME, student.getFullName());
 
-        // 2. build query
-        Cursor cursor =
-                db.query(DBConst.TB_STUDENT.TB_NAME, // a. table
-                        new String[] {DBConst.TB_STUDENT.COL_FULL_NAME,DBConst.TB_STUDENT.COL_BIRTHDAY,DBConst.TB_STUDENT.COL_EMAIL, DBConst.TB_STUDENT.COL_FK_CLASS_ID, DBConst.TB_STUDENT.COL_FK_USER_GROUP, DBConst.TB_STUDENT.COL_CREATED_AT, DBConst.TB_STUDENT.COL_MODIFIED_AT, DBConst.TB_STUDENT.COL_PHONE, DBConst.TB_STUDENT.COL_FACULTY_ID}, // b. column names
-                        DBConst.TB_STUDENT.COL_STUDENT_ID+"=?", // c. selections
-                        new String[] { studentID }, // d. selections args
-                        null, // e. group by
-                        null, // f. having
-                        null, // g. order by
-                        null); // h. limit
+        // 3. insert
+        db.insert(DBConst.TB_STUDENT.TB_NAME, // table
+                null, //nullColumnHack
+                values); // key/value -> keys = column names/ values = column values
 
-        // 3. if we got results get the first one
-        if (cursor != null)
-            cursor.moveToFirst();
+        // 4. close
+        db.close();
 
-        // 4. build student object
+        Log.i("Number rows of table:", getTableCount(DBConst.TB_STUDENT.TB_NAME) + "");
+    }
+
+    public void updateCurrentUserInSQLite(Student student){
+        // 1. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL(DBConst.TB_STUDENT.DROP);
+        db.execSQL(DBConst.TB_STUDENT.CREATE);
+        addStudent(student);
+        Log.d("DAT SHIRO WORK", "UPDATE CURRENT USER");
+        db.close();
+    }
+
+    public Student getLastLoginStudent(){
         Student student = new Student();
-//        student.setId(studentID);
-//        student.setFullName(cursor.getString(0));
-//        student.setBirthday(new Date(cursor.getLong(1)));
-//        student.setMail(cursor.getString(2));
-//        student.setClassCode(cursor.getString(3));
-//        student.setGroupName(cursor.getString(4));
-//        student.setCreatedAt(new Date(cursor.getLong(5)));
-//        student.setModifiedAt(new Date(cursor.getLong(6)));
-        student.setPhone(cursor.getString(7));
-        student.setFacultyID(cursor.getString(8));
 
-        Log.i("getStudent("+studentID+")", student.toString());
+        // 1. build the query
+        String query = "SELECT  * FROM " + DBConst.TB_STUDENT.TB_NAME + " LIMIT 1";
 
-        // 5. return student
+        // 2. get reference to writable DB
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+
+        // 3. go over each row, build book and add it to list
+        if (cursor.moveToFirst()) {
+            do {
+                student.setStudentID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_STUDENT_ID)));
+                student.setFacultyID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FACULTY_ID)));
+                student.setPhone(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_PHONE)));
+                student.setBirthday(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_BIRTHDAY)));
+                student.setClassID(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FK_CLASS_ID)));
+                student.setEmail(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_EMAIL)));
+                student.setPasswd(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_PASSWD)));
+                student.setFullName(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FULL_NAME)));
+                student.setUserGroup(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_FK_USER_GROUP)));
+                student.setNote(cursor.getString(cursor.getColumnIndex(DBConst.TB_STUDENT.COL_NOTE)));
+
+            } while (cursor.moveToNext());
+        }
+
+        Log.i("getStudent()", student.toString());
+        db.close();
+
         return student;
     }
 

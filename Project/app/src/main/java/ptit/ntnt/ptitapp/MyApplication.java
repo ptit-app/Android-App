@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 import ptit.ntnt.ptitapp.Database.DBConst;
+import ptit.ntnt.ptitapp.Database.DBHelper;
 import ptit.ntnt.ptitapp.Models.Course;
 import ptit.ntnt.ptitapp.Models.Exam;
 import ptit.ntnt.ptitapp.Models.Lecturer;
@@ -46,6 +47,9 @@ public class MyApplication extends Application{
             getMapAllStudent();
             getMapAllLecturer();
             getMapExam();
+
+            DBHelper dbHelper = new DBHelper(getBaseContext());
+            currentStudent = dbHelper.getLastLoginStudent();
         }catch (Exception ex){
             Toast.makeText(MyApplication.this, "Failed to load data from firebase", Toast.LENGTH_SHORT).show();
             ex.printStackTrace();
@@ -144,8 +148,6 @@ public class MyApplication extends Application{
 
 
     MyApplication(){
-        currentStudent = new Student();
-        currentStudent.setStudentID("N14DCAT124");
     }
 
     public void getMapAllStudent(){
