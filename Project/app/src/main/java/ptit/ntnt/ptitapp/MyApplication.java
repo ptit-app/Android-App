@@ -147,7 +147,7 @@ public class MyApplication extends Application{
     }
 
 
-    MyApplication(){
+    public MyApplication(){
     }
 
     public void getMapAllStudent(){
