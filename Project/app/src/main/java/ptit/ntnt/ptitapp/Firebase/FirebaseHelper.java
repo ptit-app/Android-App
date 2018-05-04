@@ -3,18 +3,11 @@ package ptit.ntnt.ptitapp.Firebase;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 import ptit.ntnt.ptitapp.CustomAdapter.NewsAdapter;
 import ptit.ntnt.ptitapp.Database.DBConst;
@@ -25,9 +18,7 @@ import ptit.ntnt.ptitapp.Models.PTITClass;
 import ptit.ntnt.ptitapp.Models.Schedule;
 import ptit.ntnt.ptitapp.Models.Subject;
 import ptit.ntnt.ptitapp.Models.Student;
-import ptit.ntnt.ptitapp.Models.User;
 import ptit.ntnt.ptitapp.Models.UserGroup;
-import ptit.ntnt.ptitapp.R;
 
 /**
  * Created by datshiro on 26/03/2018.
