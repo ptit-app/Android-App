@@ -26,6 +26,7 @@ import ptit.ntnt.ptitapp.AppInfo.AppInfoAdapter;
 import ptit.ntnt.ptitapp.CustomAdapter.drawerMenuAdapter;
 import ptit.ntnt.ptitapp.CustomClass.drawerMenuItem;
 import ptit.ntnt.ptitapp.Database.DBHelper;
+import ptit.ntnt.ptitapp.Fee.FeeAdapter;
 import ptit.ntnt.ptitapp.MainPage.MainPageAdapter;
 import ptit.ntnt.ptitapp.MarkTable.MarkTableAdapter;
 import ptit.ntnt.ptitapp.RegisteredSubjects.RegisteredSubjects;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.teacher_rating),R.drawable.star));
         drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.app_info),R.drawable.info_icon));
         drawe_menu_list_array.add(new drawerMenuItem(getString(R.string.help),R.drawable.user_manual_icon));
+        drawe_menu_list_array.add(new drawerMenuItem("Xem học phí",R.drawable.parking));
 
         drawe_menu_lv.setOnItemClickListener(new ItemClick());
     }
@@ -193,6 +195,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     AppGuideAdapter appGuideAdapter = new AppGuideAdapter(getSupportFragmentManager());
                     viewPager.setAdapter(appGuideAdapter);
                     main_page_title.setText(getString(R.string.help));
+                    mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
+                    break;
+                case 8:
+                    FeeAdapter feeAdapter = new FeeAdapter(getSupportFragmentManager());
+                    viewPager.setAdapter(feeAdapter);
+                    main_page_title.setText("Xem học phí");
                     mainToolBar.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,0,0f));
                     break;
 
