@@ -8,6 +8,7 @@ import java.util.Date;
  * Created by datshiro on 11/03/2018.
  */
 
+
 public class Schedule implements Comparable<Schedule> {
     private String scheduleID;
     private String courseID;

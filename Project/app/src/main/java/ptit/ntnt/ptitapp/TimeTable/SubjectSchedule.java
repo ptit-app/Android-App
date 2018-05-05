@@ -70,4 +70,5 @@ public class SubjectSchedule {
     public void setCourseID(String courseID) {
         this.courseID = courseID;
     }
+
 }
