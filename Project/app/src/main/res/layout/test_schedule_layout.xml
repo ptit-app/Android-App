@@ -6,12 +6,13 @@
     android:scrollbars="vertical"
     android:layout_gravity="top"
     android:orientation="vertical"
-    android:padding="15dp">
-
+    android:padding="15dp"
+    android:background="#fff">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="#fff">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -22,6 +23,7 @@
                 android:id="@+id/haha"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/holo_blue_light"
                 android:text="Lịch thi học kỳ "
                 android:textSize="30dp" />
 
@@ -30,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="2"
+                android:textColor="@android:color/holo_blue_light"
                 android:textSize="30dp" />
         </LinearLayout>
 
